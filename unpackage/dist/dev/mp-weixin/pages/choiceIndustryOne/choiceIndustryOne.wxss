@@ -1,4 +1,8 @@
 
+.active {
+	background: #E77D53;
+	color: #FFFFFF!important;
+}
 .choiceIndustryOne_header {
 	margin-top: 150px;
 	margin-bottom: 60px;

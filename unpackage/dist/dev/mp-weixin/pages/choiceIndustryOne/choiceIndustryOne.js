@@ -150,10 +150,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   data: function data() {
     return {
       data: [
-      '服饰', '箱包', '鞋帽', '母婴', '美妆'] };
+      '服饰', '箱包', '鞋帽', '母婴', '美妆'],
 
+      activeIndex: 100 };
 
-  } };exports.default = _default;
+  },
+  methods: {
+    changeOne: function changeOne(e) {
+      console.log(e);
+      var index = e.currentTarget.dataset.index;
+      this.activeIndex = index;
+
+    } } };exports.default = _default;
 
 /***/ }),
 
@@ -190,9 +198,18 @@ var render = function() {
       { staticClass: "choiceIndustryOne_list" },
       _vm._l(_vm.data, function(item, index) {
         return _c("div", { key: index }, [
-          _c("view", { staticClass: "choiceIndustryOne_list_item" }, [
-            _c("text", [_vm._v(_vm._s(item))])
-          ])
+          _c(
+            "view",
+            {
+              class:
+                _vm.activeIndex == index
+                  ? "choiceIndustryOne_list_item active"
+                  : "choiceIndustryOne_list_item",
+              attrs: { "data-index": index, eventid: "39d923c8-0-" + index },
+              on: { click: _vm.changeOne }
+            },
+            [_c("text", [_vm._v(_vm._s(item))])]
+          )
         ])
       })
     ),

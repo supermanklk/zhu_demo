@@ -9,8 +9,8 @@
 		<!-- 选择 -->
 		<view class="choiceIndustryOne_list">
 			<div v-for="(item, index) in data" :key="index">
-				<view class="choiceIndustryOne_list_item">
-					<text>{{item}}</text>
+				<view :class="activeIndex == index ?  'choiceIndustryOne_list_item active' : 'choiceIndustryOne_list_item'"  :data-index="index" @click="changeOne">
+					<text >{{item}}</text>
 				</view>
 			</div>
 		</view>
@@ -36,14 +36,26 @@
 			return {
 				data : [
 					'服饰','箱包','鞋帽','母婴','美妆'
-				]
+				],
+				activeIndex : 100
 			};
+		},
+		methods: {
+			changeOne(e) {
+				console.log(e);
+				let index = e.currentTarget.dataset.index;
+				this.activeIndex = index;
+				
+			}
 		}
 	}
 </script>
 
 <style>
-	
+.active {
+	background: #E77D53;
+	color: #FFFFFF!important;
+}	
 .choiceIndustryOne_header {
 	margin-top: 150px;
 	margin-bottom: 60px;

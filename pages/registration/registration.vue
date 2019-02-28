@@ -14,11 +14,11 @@
 				</picker>
 			</view>
 			<view class="registration_block_2">
-				手机号 <input type="text"   :value="phone" /> <text style="color: #4A90E2;">修改</text>
+				手机号 <input type="text"   :value="phone" /> <text @click="changePhone" style="color: #4A90E2;">修改</text>
 			</view>
-			<!-- <view class="registration_block_2">
-				验证码 <input type="text"   :value="phone" />
-			</view> -->
+			<view class="registration_block_3">
+				验证码 <input type="text"   :value="verificationCode" /> <text @click="" style="color: #FF0000;">验证码错误</text>
+			</view>
 		</view>
 		
 		<!-- 实名认证 -->
@@ -62,6 +62,7 @@
 		data() {
 			return {
 				phone : 17637794541,
+				verificationCode : 666666,
 				array: ['1', '10', '100'],
 				index: 0,
 			};
@@ -92,6 +93,9 @@
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
+			},
+			changePhone() {
+				console.log('修改号码');
 			}
 		}
 	}
@@ -120,10 +124,17 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-.registration_block {
+/* .registration_block {
 	margin: 0 auto;
 	width: 674upx;
 	height: 84px;
+	border: 1px solid #E5E5E5;
+	border-radius: 5px;
+} */
+.registration_block {
+	margin: 0 auto;
+	width: 674upx;
+	height: 132px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
 }
@@ -137,7 +148,17 @@
 	align-items: center;
 }
 .registration_block_2 {
-	margin-left: 59upx;
+	margin-left: 50upx;
+	height: 42px;
+	line-height: 42px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.registration_block_3 {
+	text-align: center;
+	border-top: 1px solid #E5E5E5;
+	padding-left: 50upx;
 	height: 42px;
 	line-height: 42px;
 	display: flex;

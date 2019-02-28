@@ -21,10 +21,17 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+/* .registration_block {
+	margin: 0 auto;
+	width: 674upx;
+	height: 84px;
+	border: 1px solid #E5E5E5;
+	border-radius: 5px;
+} */
 .registration_block {
 	margin: 0 auto;
 	width: 674rpx;
-	height: 84px;
+	height: 132px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
 }
@@ -48,7 +55,27 @@
 	        align-items: center;
 }
 .registration_block_2 {
-	margin-left: 59rpx;
+	margin-left: 50rpx;
+	height: 42px;
+	line-height: 42px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.registration_block_3 {
+	text-align: center;
+	border-top: 1px solid #E5E5E5;
+	padding-left: 50rpx;
 	height: 42px;
 	line-height: 42px;
 	display: -webkit-box;

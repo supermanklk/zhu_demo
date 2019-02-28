@@ -1,4 +1,8 @@
 
+.active {
+	background: #E77D53;
+	color: #FFFFFF!important;
+}
 .choiceIndustry {
 	text-align: center;
 	font-size: 15px;
@@ -54,6 +58,7 @@
 	-webkit-justify-content: space-around;
 	    -ms-flex-pack: distribute;
 	        justify-content: space-around;
+	height: 80px;
 }
 .choiceIndustry_pre_nex_left {
 	display: -webkit-box;

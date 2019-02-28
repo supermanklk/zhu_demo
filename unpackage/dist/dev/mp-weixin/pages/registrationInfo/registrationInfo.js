@@ -408,7 +408,7 @@ var render = function() {
           staticClass: "registrationInfo_alert_img_x_item",
           attrs: {
             src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error.png",
             mode: "",
             eventid: "68d18bec-0"
           },
@@ -449,7 +449,7 @@ var render = function() {
           staticClass: "registrationInfo_alert_img_x_item",
           attrs: {
             src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error.png",
             mode: "",
             eventid: "68d18bec-1"
           },

@@ -8,22 +8,22 @@
 		
 		<!-- 套餐选择 -->
 		<view class="chooseApackage">
-			<view class="package">
+			<view :class="packageActiveIndex == 1 ? 'package package_active' : 'package' " data-index="1" @click="chooseApackage">
 				<image class="package_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png" mode=""></image>
 				<text>套餐一</text>
 			</view>
-			<view class="package">
+			<view :class="packageActiveIndex == 2 ? 'package package_active' : 'package' " data-index="2" @click="chooseApackage">
 				<image class="package_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png" mode=""></image>
 				<text>套餐二</text>
 			</view>
-			<view class="package">
+			<view :class="packageActiveIndex == 3 ? 'package package_active' : 'package' " data-index="3" @click="chooseApackage">
 				<image class="package_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png" mode=""></image>
 				<text class="package_txt">套餐三</text>
 			</view>
 		</view>
 		<!-- 套餐说明 -->
 		<view class="package_description">
-			<text>套餐一说明:</text>
+			<text>套餐{{packageActiveTxt}}说明:</text>
 		</view>
 		
 		<!-- 套餐详情说明 -->
@@ -59,8 +59,41 @@
 					'2、套餐一说明的第二条;',
 					'3、套餐一说明的第三条;',
 					'4、套餐一说明的第四条;'
-				]
+				],
+				packageActiveIndex : 1,
+				packageActiveTxt : '一'
 			};
+		},
+		methods: {
+			chooseApackage(e) {
+				let index = e.currentTarget.dataset.index;
+				this.packageActiveIndex = index;
+				if(index == 1) {
+					this.package = [
+						'1、套餐一说明的第一条;',
+						'2、套餐一说明的第二条;',
+						'3、套餐一说明的第三条;',
+						'4、套餐一说明的第四条;'
+					];
+					this.packageActiveTxt = '一';
+				} else if(index == 2) {
+					this.package = [
+						'1、套餐二说明的第一条;',
+						'2、套餐二说明的第二条;',
+						'3、套餐二说明的第三条;',
+						'4、套餐二说明的第四条;'
+					];
+					this.packageActiveTxt = '二';
+				} else if (index == 3) {
+					this.package = [
+						'1、套餐三说明的第一条;',
+						'2、套餐三说明的第二条;',
+						'3、套餐三说明的第三条;',
+						'4、套餐三说明的第四条;'
+					];
+					this.packageActiveTxt = '三';
+				}
+			}
 		}
 	}
 </script>
@@ -105,13 +138,15 @@
 }
 .package {
 	border-radius: 5px;
-	background: white;
 	width: 140upx;
 	height: 74px;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+}
+.package_active {
+	 background: white!important; 
 }
 .package_img {
 	margin:  0 auto;

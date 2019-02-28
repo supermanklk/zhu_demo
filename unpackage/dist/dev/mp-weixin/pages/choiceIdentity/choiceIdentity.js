@@ -143,10 +143,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 {
   data: function data() {
-    return {};
+    return {
+      activeIndex: 1 };
 
-
-  } };exports.default = _default;
+  },
+  methods: {
+    choiceIdentity: function choiceIdentity(e) {
+      if (e.currentTarget.dataset.index == "1") {
+        this.activeIndex = 1;
+      } else {
+        this.activeIndex = 2;
+      }
+    } } };exports.default = _default;
 
 /***/ }),
 
@@ -176,38 +184,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("view", { staticClass: "choiceIdentity" }, [
+    _vm._m(0),
+    _c(
+      "view",
+      {
+        class:
+          _vm.activeIndex == 1
+            ? "choiceIdentity_block_1 active"
+            : "choiceIdentity_block_1",
+        attrs: { "data-index": "1", eventid: "218f3528-0" },
+        on: { click: _vm.choiceIdentity }
+      },
+      [_vm._m(1), _vm._m(2)]
+    ),
+    _c(
+      "view",
+      {
+        class:
+          _vm.activeIndex == 2
+            ? "choiceIdentity_block_2 active"
+            : "choiceIdentity_block_2",
+        attrs: { "data-index": "2", eventid: "218f3528-1" },
+        on: { click: _vm.choiceIdentity }
+      },
+      [_c("text", [_vm._v("我有邀请码")])]
+    ),
+    _vm._m(3)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIdentity" }, [
-      _c("view", { staticClass: "choiceIdentity_header" }, [
-        _c("text", [_vm._v("选择你的身份")])
-      ]),
-      _c("view", { staticClass: "choiceIdentity_block_1" }, [
-        _c("view", {}, [_c("text", [_vm._v("我是普通个人卖家")])]),
-        _c("view", {}, [
-          _c("text", [_vm._v("(淘宝 京东 拼多多 微商等个人卖家)")])
-        ])
-      ]),
-      _c("view", { staticClass: "choiceIdentity_block_2" }, [
-        _c("text", [_vm._v("我有邀请码")])
-      ]),
-      _c("view", { staticClass: "choiceIdentity_bottom" }, [
-        _c("image", {
-          staticClass: "choiceIdentity_bottom_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "choiceIdentity_bottom_txt" }, [
-          _vm._v("下一步")
-        ])
+    return _c("view", { staticClass: "choiceIdentity_header" }, [
+      _c("text", [_vm._v("选择你的身份")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", {}, [_c("text", [_vm._v("我是普通个人卖家")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", {}, [
+      _c("text", [_vm._v("(淘宝 京东 拼多多 微商等个人卖家)")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "choiceIdentity_bottom" }, [
+      _c("image", {
+        staticClass: "choiceIdentity_bottom_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "choiceIdentity_bottom_txt" }, [
+        _vm._v("下一步")
       ])
     ])
   }

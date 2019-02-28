@@ -177,6 +177,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       phone: 17637794541,
+      verificationCode: 666666,
       array: ['1', '10', '100'],
       index: 0 };
 
@@ -207,6 +208,9 @@ __webpack_require__.r(__webpack_exports__);
     bindPickerChange: function bindPickerChange(e) {
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value;
+    },
+    changePhone: function changePhone() {
+      console.log('修改号码');
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -290,7 +294,28 @@ var render = function() {
       _c("view", { staticClass: "registration_block_2" }, [
         _vm._v("手机号"),
         _c("input", { attrs: { type: "text", value: _vm.phone } }),
-        _c("text", { staticStyle: { color: "#4A90E2" } }, [_vm._v("修改")])
+        _c(
+          "text",
+          {
+            staticStyle: { color: "#4A90E2" },
+            attrs: { eventid: "6ef7e3a8-1" },
+            on: { click: _vm.changePhone }
+          },
+          [_vm._v("修改")]
+        )
+      ]),
+      _c("view", { staticClass: "registration_block_3" }, [
+        _vm._v("验证码"),
+        _c("input", { attrs: { type: "text", value: _vm.verificationCode } }),
+        _c(
+          "text",
+          {
+            staticStyle: { color: "#FF0000" },
+            attrs: { eventid: "6ef7e3a8-2" },
+            on: { click: function($event) {} }
+          },
+          [_vm._v("验证码错误")]
+        )
       ])
     ]),
     _vm._m(1),
@@ -302,7 +327,7 @@ var render = function() {
             src:
               "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/add.png",
             mode: "",
-            eventid: "6ef7e3a8-1"
+            eventid: "6ef7e3a8-3"
           },
           on: { click: _vm.clickFront }
         }),
@@ -323,7 +348,7 @@ var render = function() {
             src:
               "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/add.png",
             mode: "",
-            eventid: "6ef7e3a8-2"
+            eventid: "6ef7e3a8-4"
           },
           on: { click: _vm.clickBack }
         }),

@@ -7,7 +7,7 @@
 			<!-- <image src="" mode=""></image> -->
 		</view>
 		<view :class="alertImg == true ? 'registrationInfo_alert_img_x' : 'no_registrationInfo_alert_img_x'">
-			<image class="registrationInfo_alert_img_x_item" @click="closeImgAlert" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
+			<image class="registrationInfo_alert_img_x_item" @click="closeImgAlert" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error.png" mode=""></image>
 		</view>
 		<view :class="alertImg == true ? 'mengceng' : ''">
 		</view>
@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		<view :class="alertProtocol == true ? 'registrationInfo_alert_img_x' : 'no_registrationInfo_alert_img_x'">
-			<image class="registrationInfo_alert_img_x_item" @click="closeProtocol" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
+			<image class="registrationInfo_alert_img_x_item" @click="closeProtocol" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error.png" mode=""></image>
 		</view>
 		<view :class="alertProtocol == true ? 'mengceng' : ''">
 		</view>
@@ -340,6 +340,7 @@
 	position: fixed;
 	top: 15px;
 	left: 13px;
+	border-radius: 5px;
 }
 .registrationInfo_alert_img_x_item {
 	width: 60upx;
@@ -364,6 +365,7 @@
 	top: 125px;
 	left: 45px;
 	box-sizing:border-box;
+	border-radius: 5px;
 }
 .no_registrationInfo_alert_protocol {
 	display: none;

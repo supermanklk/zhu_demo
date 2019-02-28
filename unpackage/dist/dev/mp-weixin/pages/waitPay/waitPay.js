@@ -173,10 +173,42 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       '1、套餐一说明的第一条;',
       '2、套餐一说明的第二条;',
       '3、套餐一说明的第三条;',
-      '4、套餐一说明的第四条;'] };
+      '4、套餐一说明的第四条;'],
 
+      packageActiveIndex: 1,
+      packageActiveTxt: '一' };
 
-  } };exports.default = _default;
+  },
+  methods: {
+    chooseApackage: function chooseApackage(e) {
+      var index = e.currentTarget.dataset.index;
+      this.packageActiveIndex = index;
+      if (index == 1) {
+        this.package = [
+        '1、套餐一说明的第一条;',
+        '2、套餐一说明的第二条;',
+        '3、套餐一说明的第三条;',
+        '4、套餐一说明的第四条;'];
+
+        this.packageActiveTxt = '一';
+      } else if (index == 2) {
+        this.package = [
+        '1、套餐二说明的第一条;',
+        '2、套餐二说明的第二条;',
+        '3、套餐二说明的第三条;',
+        '4、套餐二说明的第四条;'];
+
+        this.packageActiveTxt = '二';
+      } else if (index == 3) {
+        this.package = [
+        '1、套餐三说明的第一条;',
+        '2、套餐三说明的第二条;',
+        '3、套餐三说明的第三条;',
+        '4、套餐三说明的第四条;'];
+
+        this.packageActiveTxt = '三';
+      }
+    } } };exports.default = _default;
 
 /***/ }),
 
@@ -208,8 +240,71 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("view", [
     _vm._m(0),
-    _vm._m(1),
-    _vm._m(2),
+    _c("view", { staticClass: "chooseApackage" }, [
+      _c(
+        "view",
+        {
+          class:
+            _vm.packageActiveIndex == 1 ? "package package_active" : "package",
+          attrs: { "data-index": "1", eventid: "798e2018-0" },
+          on: { click: _vm.chooseApackage }
+        },
+        [
+          _c("image", {
+            staticClass: "package_img",
+            attrs: {
+              src:
+                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png",
+              mode: ""
+            }
+          }),
+          _c("text", [_vm._v("套餐一")])
+        ]
+      ),
+      _c(
+        "view",
+        {
+          class:
+            _vm.packageActiveIndex == 2 ? "package package_active" : "package",
+          attrs: { "data-index": "2", eventid: "798e2018-1" },
+          on: { click: _vm.chooseApackage }
+        },
+        [
+          _c("image", {
+            staticClass: "package_img",
+            attrs: {
+              src:
+                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png",
+              mode: ""
+            }
+          }),
+          _c("text", [_vm._v("套餐二")])
+        ]
+      ),
+      _c(
+        "view",
+        {
+          class:
+            _vm.packageActiveIndex == 3 ? "package package_active" : "package",
+          attrs: { "data-index": "3", eventid: "798e2018-2" },
+          on: { click: _vm.chooseApackage }
+        },
+        [
+          _c("image", {
+            staticClass: "package_img",
+            attrs: {
+              src:
+                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png",
+              mode: ""
+            }
+          }),
+          _c("text", { staticClass: "package_txt" }, [_vm._v("套餐三")])
+        ]
+      )
+    ]),
+    _c("view", { staticClass: "package_description" }, [
+      _c("text", [_vm._v("套餐" + _vm._s(_vm.packageActiveTxt) + "说明:")])
+    ]),
     _c(
       "view",
       { staticClass: "package_package_description_detail" },
@@ -223,7 +318,7 @@ var render = function() {
         ])
       })
     ),
-    _vm._m(3),
+    _vm._m(1),
     _c(
       "view",
       { staticClass: "pay_btn" },
@@ -283,54 +378,6 @@ var staticRenderFns = [
       _c("text", { staticClass: "waitPay_text_2" }, [
         _vm._v("选择合适的套餐、支付成功后开始审核材料")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "chooseApackage" }, [
-      _c("view", { staticClass: "package" }, [
-        _c("image", {
-          staticClass: "package_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png",
-            mode: ""
-          }
-        }),
-        _c("text", [_vm._v("套餐一")])
-      ]),
-      _c("view", { staticClass: "package" }, [
-        _c("image", {
-          staticClass: "package_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png",
-            mode: ""
-          }
-        }),
-        _c("text", [_vm._v("套餐二")])
-      ]),
-      _c("view", { staticClass: "package" }, [
-        _c("image", {
-          staticClass: "package_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/taocan.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "package_txt" }, [_vm._v("套餐三")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "package_description" }, [
-      _c("text", [_vm._v("套餐一说明:")])
     ])
   },
   function() {

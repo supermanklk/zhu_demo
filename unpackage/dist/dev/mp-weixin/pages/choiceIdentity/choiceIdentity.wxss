@@ -13,8 +13,10 @@
 	padding-top: 10px;
 	width: 603rpx;
 	height: 65px;
-	background: #E77D53;
-	color: white;
+	background: white;
+	
+	color: #E77D53;
+	border: 1px solid #E77D53;
 	font-size: 15px;
 	border-radius: 5px;
 }
@@ -31,6 +33,10 @@
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 	padding-top: 18px;
+}
+.active {
+	background: #E77D53!important; 
+	color: white!important;
 }
 .choiceIdentity_bottom {
 	margin-top: 150px;

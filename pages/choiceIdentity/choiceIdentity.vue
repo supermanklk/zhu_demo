@@ -5,7 +5,7 @@
 			<text>选择你的身份</text>
 		</view>
 		
-		<view class="choiceIdentity_block_1">
+		<view :class="activeIndex == 1 ? 'choiceIdentity_block_1 active' : 'choiceIdentity_block_1' " data-index="1" @click="choiceIdentity">
 			<view class="">
 				<text>我是普通个人卖家</text>
 			</view>
@@ -14,11 +14,11 @@
 			</view>
 		</view>
 		
-		<view class="choiceIdentity_block_2">
+		<view :class="activeIndex == 2 ? 'choiceIdentity_block_2 active' : 'choiceIdentity_block_2'" data-index="2"  @click="choiceIdentity">
 			<text>我有邀请码</text>
 		</view>
 		
-		<view class="choiceIdentity_bottom">
+		<view class="choiceIdentity_bottom" >
 			<image class="choiceIdentity_bottom_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 			<text class="choiceIdentity_bottom_txt">下一步</text>
 		</view>
@@ -29,8 +29,17 @@
 	export default {
 		data() {
 			return {
-				
+				activeIndex  : 1
 			};
+		},
+		methods: {
+			choiceIdentity(e) {
+				if(e.currentTarget.dataset.index == "1") {
+					this.activeIndex = 1;
+				} else {
+					this.activeIndex = 2;
+				}
+			}
 		}
 	}
 </script>
@@ -51,8 +60,10 @@
 	padding-top: 10px;
 	width: 603upx;
 	height: 65px;
-	background: #E77D53;
-	color: white;
+	background: white;
+	
+	color: #E77D53;
+	border: 1px solid #E77D53;
 	font-size: 15px;
 	border-radius: 5px;
 }
@@ -69,6 +80,11 @@
 	border-radius: 5px;
 	box-sizing: border-box;
 	padding-top: 18px;
+}
+
+.active {
+	background: #E77D53!important; 
+	color: white!important;
 }
 
 .choiceIdentity_bottom {
