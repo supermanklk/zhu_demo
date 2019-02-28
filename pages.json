@@ -1,0 +1,160 @@
+{
+    "pages" : [
+        // 针对单个页面
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path" : "pages/index/index",
+            "style" : {}
+        },
+        // "navigationBarTitleText" : "uni-app"
+        {
+            "path" : "pages/info/info",
+            "style" : {}
+        },
+        {
+            "path" : "pages/main_index/main_index",
+            "style" : {}
+        },
+        {
+            "path" : "pages/name_repeat/name_repeat",
+            "style" : {
+                "navigationBarTitleText" : "名称查重"
+            }
+        },
+        {
+            "path" : "pages/nameRepeatError/nameRepeatError",
+            "style" : {
+                "navigationBarTitleText" : "名称查重"
+            }
+        },
+        {
+            "path" : "pages/choiceIdentity/choiceIdentity",
+            "style" : {
+                "navigationBarTitleText" : "选择身份"
+            }
+        },
+        {
+            "path" : "pages/choiceIndustry/choiceIndustry",
+            "style" : {
+                "navigationBarTitleText" : "选择行业"
+            }
+        },
+        {
+            "path" : "pages/choiceIndustryOne/choiceIndustryOne",
+            "style" : {
+                "navigationBarTitleText" : "选择行业"
+            }
+        },
+        {
+            "path" : "pages/nameRepeatSuccess/nameRepeatSuccess",
+            "style" : {
+                "navigationBarTitleText" : "名称查重"
+            }
+        },
+        {
+            "path" : "pages/registration/registration",
+            "style" : {
+                "navigationBarTitleText" : "注册登记"
+            }
+        },
+        {
+            "path" : "pages/registrationInfo/registrationInfo",
+            "style" : {
+                "navigationBarTitleText" : "注册登记"
+            }
+        },
+        {
+            "path" : "pages/waitPay/waitPay",
+            "style" : {
+                "navigationBarTitleText" : "等待支付"
+            }
+        },
+        {
+            "path" : "pages/review/review",
+            "style" : {
+				"navigationBarTitleText" : "审核中"
+			}
+        }
+    ],
+    "globalStyle" : {
+        // 全局样式
+        "navigationBarTextStyle" : "white",
+        "navigationBarTitleText" : "筑商",
+        "navigationBarBackgroundColor" : "#E77D53",
+        "backgroundColor" : "#F8F8F8"
+    },
+    "condition" : {
+        // 指定页面默认加载到那个位置 开发时候,自动跳转到那个位置
+        "current" : 0,
+        "list" : [
+            {
+                "name" : "info",
+                "path" : "pages/info/info",
+                "query" : "newsid=5178500"
+            },
+            {
+                "name" : "主页面",
+                "path" : "pages/main_index/main_index"
+            },
+            {
+                "name" : "名称查重",
+                "path" : "pages/name_repeat/name_repeat"
+            },
+            {
+                "name" : "查重失败",
+                "path" : "pages/nameRepeatError/nameRepeatError"
+            },
+            {
+                "name" : "选择身份",
+                "path" : "pages/choiceIdentity/choiceIdentity"
+            },
+            {
+                "name" : "选择行业",
+                "path" : "pages/choiceIndustry/choiceIndustry"
+            },
+            {
+                "name" : "选择行业-选择一个作为主营业务",
+                "path" : "pages/choiceIndustryOne/choiceIndustryOne"
+            },
+            {
+                "name" : "名称查重通过页面",
+                "path" : "pages/nameRepeatSuccess/nameRepeatSuccess"
+            },
+            {
+                "name" : "注册登记主页",
+                "path" : "pages/registration/registration"
+            },
+            {
+                "name" : "注册登记 -- 查看注册所有信息",
+                "path" : "pages/registrationInfo/registrationInfo"
+            },
+            {
+                "name" : "等待支付第一个页面",
+                "path" : "pages/waitPay/waitPay"
+            },
+			{
+			    "name" : "审核中",
+			    "path" : "pages/review/review"
+			}
+			
+        ]
+    }
+}
+// 	"tabBar": { //模式配置，仅开发期间生效
+// 		"backgroundColor" : "#F76260",
+// 		"list": [
+// 				{
+// 				"text": "首页", 
+// 				"pagePath": "pages/index/index", 
+// 				"iconPath": "static/icon/account2.png", 
+// 				"selectedIconPath": "static/icon/account.png" 
+// 				},
+// 				{
+// 				"text": "详情", 
+// 				"pagePath": "pages/info/info", 
+// 				"iconPath": "static/icon/account2.png", 
+// 				"selectedIconPath": "static/icon/account.png" 
+// 			}
+// 		]
+// 	}
+

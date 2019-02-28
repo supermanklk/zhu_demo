@@ -1,0 +1,139 @@
+
+.btn_hover {
+	color: black!important;
+}
+.main_content {
+	text-align: center;
+}
+.main_header {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	background: #E77D53;
+	height: 60px;
+}
+.main_avator_name {
+	position: absolute;
+	top: 20px;
+	left: 20rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-sizing:border-box;
+	        box-sizing:border-box;
+	padding-left: 30rpx;
+	background: white;
+	width: 710rpx;
+	height: 72px;
+	border:1px solid #E77D53;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	border-radius: 10px;
+}
+.main_avator {
+	width: 84rpx;
+	height: 42px;
+	border-radius: 50%;
+}
+.main_name {
+	margin-left: 30rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.main_title {
+	margin-top: 60px;
+	font-size: 17px;
+	font-style: normal;
+}
+/* 进度状态部分 */
+.main_progress {
+	font-style: normal;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	margin: 0 auto;
+	width: 539rpx;
+	height: 400px;
+	/* background: gray; */
+	margin-top: 40px;
+}
+.left_progress {
+	position: relative;
+	padding-left: 50rpx;
+	padding-top: 10px;
+	width: 100rpx;
+	color: #333333;
+	font-size: 14px;
+}
+.right_progress {
+	text-align: left;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	width: 440rpx;
+	height: 43px;
+}
+.step_detail {
+	padding-left: 32rpx;
+	color: #999999;
+	font-size: 12px;
+}
+.progress_status {
+	color: #1AAD19;
+	font-size: 12px;
+	margin-left: 18rpx;
+}
+.right_progress_item {
+	margin-bottom: 21px;
+}
+/* 常见问题 */
+.commonProblem {
+	color: #BD10E0;
+	font-size: 10px;
+}
+/* 进度杠子 */
+.spindle1 {
+	background: #1AAD19;
+	height: 68px;
+	width: 4rpx;
+}
+.spindle2 {
+	height: 68px;
+	width: 4rpx;
+	background: #DDDDDD;
+}
+.spindle3 {
+	height: 68px;
+	width: 4rpx;
+	background: #DDDDDD;
+}
+.spindle4 {
+	height: 68px;
+	width: 4rpx;
+	background: #DDDDDD;
+}
+.green_ok {
+	width: 30rpx;
+	height: 15px;
+}
+.current_progress {
+	width: 60rpx;
+	height: 30px;
+}
+.gray_spot {
+	width: 30rpx;
+	height: 15px;
+}
+

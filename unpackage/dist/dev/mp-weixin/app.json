@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/info/info",
+    "pages/main_index/main_index",
+    "pages/name_repeat/name_repeat",
+    "pages/nameRepeatError/nameRepeatError",
+    "pages/choiceIdentity/choiceIdentity",
+    "pages/choiceIndustry/choiceIndustry",
+    "pages/choiceIndustryOne/choiceIndustryOne",
+    "pages/nameRepeatSuccess/nameRepeatSuccess",
+    "pages/registration/registration",
+    "pages/registrationInfo/registrationInfo",
+    "pages/waitPay/waitPay",
+    "pages/review/review"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "筑商",
+    "navigationBarBackgroundColor": "#E77D53",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

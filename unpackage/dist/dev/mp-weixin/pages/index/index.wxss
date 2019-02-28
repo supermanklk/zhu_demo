@@ -1,0 +1,42 @@
+
+.uni-media-list-body{height: auto;}
+.uni-media-list-text-top{line-height: 1.6em;}
+.menus {
+	float: left;
+	margin-left: 10rpx;
+}
+.activeStyle {
+	color: red;
+}
+.content {
+	font-style: normal;
+	text-align: center;
+}
+.step {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	text-align: center;
+}
+.stepTitle {
+	font-size: 17px;
+}
+.promotionArea {
+	margin:  0 auto;
+	width: 670rpx;
+	height: 429px;
+	background: #D8D8D8;
+}
+/* 立即申请 */
+.applyImmediately {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+.btn_hover {
+	color: black!important;
+}
+/* 常见问题 */
+.commonProblem {
+	color: #BD10E0;
+	font-size: 10px;
+}
+

@@ -1,0 +1,143 @@
+
+.mengceng {
+	background-color:rgba(151,151,151,0.8);
+	width: 750rpx;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 998;
+}
+.registrationInfo {
+	margin: 0 auto;
+	margin-top: 15px;
+	text-align: center;
+	margin-bottom: 15px;
+	background: #9797979;
+}
+.registrationInfo_header {
+}
+.registrationInfo_info {
+	margin: 0 auto;
+	width: 674rpx;
+	/* height: 410px; */
+	border: 1px solid #E5E5E5;
+	margin-top: 10px;
+}
+.registrationInfo_info_item {
+	/* padding-top: 10px; */
+	/* padding-bottom: 10px; */
+	padding-left: 15px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	border-bottom: 1px solid #E5E5E5;
+	min-height: 41px;
+}
+.registrationInfo_info_item_left {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 170rpx;
+	font-size: 15px;
+	color: #000000;
+	font-weight: 600;
+	-webkit-box-align: center!important;
+	-webkit-align-items: center!important;
+	    -ms-flex-align: center!important;
+	        align-items: center!important;
+}
+.registrationInfo_info_item_right {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center!important;
+	-webkit-align-items: center!important;
+	    -ms-flex-align: center!important;
+	        align-items: center!important;
+	text-align: left;
+	color: #000000;
+	font-size: 14px;
+	width: 500rpx;
+}
+.registrationInfo_protocol {
+	margin-top: 50px;
+	width: 666rpx;
+	height: 100px;
+}
+.registrationInfo_protocol_top {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	color: #E77D53;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+.registrationInfo_protocol_top_radio {
+}
+.registrationInfo_protocol_top_radio {
+}
+.registrationInfo_protocol_bottom {
+	margin-top: 20px;
+}
+.no_registrationInfo_alert_img {
+	display: none;
+}
+.no_registrationInfo_alert_img_x {
+	display: none;
+}
+.registrationInfo_alert_img {
+	/* margin: 0 auto; */
+	height: 500px;
+	width: 700rpx;
+	background: yellow;
+	z-index: 999;
+	position: fixed;
+	top: 15px;
+	left: 13px;
+}
+.registrationInfo_alert_img_x_item {
+	width: 60rpx;
+	height: 30px;
+	position: fixed;
+	top: 540px;
+	left: 330rpx;
+	z-index: 999;
+}
+	
+/* 展示协议 */
+.registrationInfo_alert_protocol {
+	padding-top: 18px;
+	padding-left: 19px;
+	padding-right: 20px;
+	text-align: left;
+	height: 340px;
+	width: 570rpx;
+	background: white;
+	z-index: 999;
+	position: fixed;
+	top: 125px;
+	left: 45px;
+	-webkit-box-sizing:border-box;
+	        box-sizing:border-box;
+}
+.no_registrationInfo_alert_protocol {
+	display: none;
+}
+
+

@@ -1,0 +1,2 @@
+<import src="./nameRepeatSuccess.vue.wxml" />
+    <template is="42e95848" data="{{ ...$root['0'], $root }}"/>

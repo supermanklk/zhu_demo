@@ -1,0 +1,96 @@
+
+.choiceIndustry {
+	text-align: center;
+	font-size: 15px;
+	color: #000000;
+	font-style: normal;
+	font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+}
+.choiceIndustry_header_1 {
+	margin-top: 25px;
+}
+.choiceIndustry_header_2 {
+	margin-top: 5px;
+}
+.choiceIndustry_header_3 {
+	margin-top: 15px;
+}
+.popularData {
+	width: 660rpx;
+	margin: 0 auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+}
+.popularData_item {
+	font-size: 14px;
+	color: #E77D53;
+	border: 1px solid #E77D53;
+	width: 150rpx;
+	height: 25px;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+.choiceIndustry_pre_nex {
+	margin-top: 50px;
+	margin-bottom: 55px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	-webkit-justify-content: space-around;
+	    -ms-flex-pack: distribute;
+	        justify-content: space-around;
+}
+.choiceIndustry_pre_nex_left {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+}
+.choiceIndustry_pre_nex_right {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	
+	/* 灰色 */
+	color: #dbdbdb;
+}
+.choiceIndustry_pre_nex_left_img {
+	margin: 0 auto;
+	width: 40rpx;
+	height: 20px;
+	margin-bottom: 10px;
+}
+.choiceIndustry_pre_nex_right_img {
+	margin: 0 auto;
+	width: 40rpx;
+	height: 20px;
+	margin-bottom: 10px;
+}
+
+
