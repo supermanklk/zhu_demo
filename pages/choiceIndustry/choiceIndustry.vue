@@ -38,7 +38,7 @@
 		
 		<!-- 重新选择身份 下一步 -->
 		<view class="choiceIndustry_pre_nex">
-			<view class="choiceIndustry_pre_nex_left">
+			<view class="choiceIndustry_pre_nex_left" @click="returnPre">
 				<image class="choiceIndustry_pre_nex_left_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_left_txt">重新选择身份</text>
 			</view>
@@ -162,6 +162,11 @@
 					});
 				}
 				
+			},
+			returnPre() {
+				uni.navigateBack({
+					delta: 1
+				});
 			}
 		}
 	}

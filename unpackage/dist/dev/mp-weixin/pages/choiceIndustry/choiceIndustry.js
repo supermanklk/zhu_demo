@@ -277,6 +277,11 @@ var _default = {
 
       }
 
+    },
+    returnPre: function returnPre() {
+      uni.navigateBack({
+        delta: 1 });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -371,7 +376,30 @@ var render = function() {
         )
       })
     ),
-    _vm._m(2)
+    _c("view", { staticClass: "choiceIndustry_pre_nex" }, [
+      _c(
+        "view",
+        {
+          staticClass: "choiceIndustry_pre_nex_left",
+          attrs: { eventid: "e78ffd28-2" },
+          on: { click: _vm.returnPre }
+        },
+        [
+          _c("image", {
+            staticClass: "choiceIndustry_pre_nex_left_img",
+            attrs: {
+              src:
+                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
+              mode: ""
+            }
+          }),
+          _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
+            _vm._v("重新选择身份")
+          ])
+        ]
+      ),
+      _vm._m(2)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -403,32 +431,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIndustry_pre_nex" }, [
-      _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
-        _c("image", {
-          staticClass: "choiceIndustry_pre_nex_left_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
-          _vm._v("重新选择身份")
-        ])
-      ]),
-      _c("view", { staticClass: "choiceIndustry_pre_nex_right" }, [
-        _c("image", {
-          staticClass: "choiceIndustry_pre_nex_right_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon_gray.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
-          _vm._v("下一步")
-        ])
+    return _c("view", { staticClass: "choiceIndustry_pre_nex_right" }, [
+      _c("image", {
+        staticClass: "choiceIndustry_pre_nex_right_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon_gray.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
+        _vm._v("下一步")
       ])
     ])
   }

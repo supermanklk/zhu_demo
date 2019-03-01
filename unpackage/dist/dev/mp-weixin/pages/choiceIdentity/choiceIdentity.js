@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -154,7 +154,22 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       } else {
         this.activeIndex = 2;
       }
+    },
+    clickNext: function clickNext() {
+      if (this.activeIndex == 1) {
+        // 往普通卖家跳转
+        uni.navigateTo({
+          url: '../choiceIndustry/choiceIndustry' });
+
+      } else {
+        // 往有邀请码的卖家跳转
+        uni.navigateTo({
+          url: '../choiceInvitationCode/choiceInvitationCode' });
+
+      }
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -210,7 +225,27 @@ var render = function() {
       },
       [_c("text", [_vm._v("我有邀请码")])]
     ),
-    _vm._m(3)
+    _c(
+      "view",
+      {
+        staticClass: "choiceIdentity_bottom",
+        attrs: { eventid: "218f3528-2" },
+        on: { click: _vm.clickNext }
+      },
+      [
+        _c("image", {
+          staticClass: "choiceIdentity_bottom_img",
+          attrs: {
+            src:
+              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+            mode: ""
+          }
+        }),
+        _c("text", { staticClass: "choiceIdentity_bottom_txt" }, [
+          _vm._v("下一步")
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -234,24 +269,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("view", {}, [
       _c("text", [_vm._v("(淘宝 京东 拼多多 微商等个人卖家)")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIdentity_bottom" }, [
-      _c("image", {
-        staticClass: "choiceIdentity_bottom_img",
-        attrs: {
-          src:
-            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
-          mode: ""
-        }
-      }),
-      _c("text", { staticClass: "choiceIdentity_bottom_txt" }, [
-        _vm._v("下一步")
-      ])
     ])
   }
 ]

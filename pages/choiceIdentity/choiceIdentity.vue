@@ -18,7 +18,7 @@
 			<text>我有邀请码</text>
 		</view>
 		
-		<view class="choiceIdentity_bottom" >
+		<view class="choiceIdentity_bottom" @click="clickNext">
 			<image class="choiceIdentity_bottom_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 			<text class="choiceIdentity_bottom_txt">下一步</text>
 		</view>
@@ -39,6 +39,20 @@
 				} else {
 					this.activeIndex = 2;
 				}
+			},
+			clickNext() {
+				if(this.activeIndex == 1) {
+					// 往普通卖家跳转
+					uni.navigateTo({
+						url: '../choiceIndustry/choiceIndustry'
+					});
+				} else {
+					// 往有邀请码的卖家跳转
+					uni.navigateTo({
+						url: '../choiceInvitationCode/choiceInvitationCode'
+					});
+				}
+				
 			}
 		}
 	}
