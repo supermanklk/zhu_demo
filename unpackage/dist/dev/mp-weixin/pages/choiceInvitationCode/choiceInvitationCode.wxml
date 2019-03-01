@@ -1,0 +1,2 @@
+<import src="./choiceInvitationCode.vue.wxml" />
+    <template is="8dd02228" data="{{ ...$root['0'], $root }}"/>

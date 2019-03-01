@@ -1,4 +1,7 @@
 
+.verificationCodeStyle {
+	/* color: ; */
+}
 .id_block_add {
 	position: absolute;
 	top: 110px;
@@ -21,19 +24,20 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-/* .registration_block {
+.registration_block {
 	margin: 0 auto;
-	width: 674upx;
+	width: 674rpx;
 	height: 84px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
-} */
-.registration_block {
+}
+.registration_block_add {
 	margin: 0 auto;
 	width: 674rpx;
 	height: 132px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
+	/* transition: height 500ms; */
 }
 .registration_block_1 {
 	padding-left: 25rpx;
@@ -91,6 +95,9 @@
 	-webkit-align-items: center;
 	    -ms-flex-align: center;
 	        align-items: center;
+}
+.no_registration_block_3 {
+	display: none;
 }
 .registration_title {
 	margin: 0 auto;

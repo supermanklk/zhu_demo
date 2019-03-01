@@ -55,4 +55,8 @@
 		height: 20px;
 		margin-bottom: 10px;
 	 }
+	 .icon_img {
+		 width: 80upx;
+		 height: 40px;
+	 }
 </style>

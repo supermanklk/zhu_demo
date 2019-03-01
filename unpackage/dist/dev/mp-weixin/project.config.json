@@ -53,38 +53,43 @@
           "pathName": "pages/choiceIdentity/choiceIdentity"
         },
         {
-          "name": "选择行业",
+          "name": "选择身份-输入邀请码",
           "id": 5,
+          "pathName": "pages/choiceInvitationCode/choiceInvitationCode"
+        },
+        {
+          "name": "选择行业",
+          "id": 6,
           "pathName": "pages/choiceIndustry/choiceIndustry"
         },
         {
           "name": "选择行业-选择一个作为主营业务",
-          "id": 6,
+          "id": 7,
           "pathName": "pages/choiceIndustryOne/choiceIndustryOne"
         },
         {
           "name": "名称查重通过页面",
-          "id": 7,
+          "id": 8,
           "pathName": "pages/nameRepeatSuccess/nameRepeatSuccess"
         },
         {
           "name": "注册登记主页",
-          "id": 8,
+          "id": 9,
           "pathName": "pages/registration/registration"
         },
         {
           "name": "注册登记 -- 查看注册所有信息",
-          "id": 9,
+          "id": 10,
           "pathName": "pages/registrationInfo/registrationInfo"
         },
         {
           "name": "等待支付第一个页面",
-          "id": 10,
+          "id": 11,
           "pathName": "pages/waitPay/waitPay"
         },
         {
           "name": "审核中",
-          "id": 11,
+          "id": 12,
           "pathName": "pages/review/review"
         }
       ]

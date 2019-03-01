@@ -72,7 +72,13 @@
         {
             "path" : "pages/review/review",
             "style" : {
-				"navigationBarTitleText" : "审核中"
+                "navigationBarTitleText" : "审核中"
+            }
+        },
+        {
+            "path" : "pages/choiceInvitationCode/choiceInvitationCode",
+            "style" : {
+				"navigationBarTitleText" : "选择身份"
 			}
         }
     ],
@@ -108,6 +114,10 @@
                 "name" : "选择身份",
                 "path" : "pages/choiceIdentity/choiceIdentity"
             },
+			{
+				"name" : "选择身份-输入邀请码",
+				"path" : "pages/choiceInvitationCode/choiceInvitationCode"
+			},
             {
                 "name" : "选择行业",
                 "path" : "pages/choiceIndustry/choiceIndustry"
@@ -132,11 +142,10 @@
                 "name" : "等待支付第一个页面",
                 "path" : "pages/waitPay/waitPay"
             },
-			{
-			    "name" : "审核中",
-			    "path" : "pages/review/review"
-			}
-			
+            {
+                "name" : "审核中",
+                "path" : "pages/review/review"
+            }
         ]
     }
 }

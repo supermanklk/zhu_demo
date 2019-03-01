@@ -179,7 +179,9 @@ __webpack_require__.r(__webpack_exports__);
       phone: 17637794541,
       verificationCode: 666666,
       array: ['1', '10', '100'],
-      index: 0 };
+      index: 0,
+      isDisplayVerificationCode: false, //是否显示验证码这一栏,默认不显示
+      phoneTxt: '修改' };
 
   },
   methods: {
@@ -210,6 +212,9 @@ __webpack_require__.r(__webpack_exports__);
       this.index = e.target.value;
     },
     changePhone: function changePhone() {
+      // 修改手机号,要显示验证码这一栏
+      this.isDisplayVerificationCode = true;
+      this.phoneTxt = '获取验证码';
       console.log('修改号码');
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -244,80 +249,104 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "registration" }, [
     _vm._m(0),
-    _c("view", { staticClass: "registration_block" }, [
-      _c(
-        "view",
-        { staticClass: "registration_block_1" },
-        [
-          _c("text", [_vm._v("注册资金")]),
-          _c(
-            "picker",
-            {
-              attrs: {
-                value: _vm.index,
-                range: _vm.array,
-                eventid: "6ef7e3a8-0"
-              },
-              on: { change: _vm.bindPickerChange }
-            },
-            [
-              _c(
-                "view",
-                {
-                  staticStyle: {
-                    "padding-left": "10rpx",
-                    "padding-right": "10rpx"
-                  }
+    _c(
+      "view",
+      {
+        class:
+          _vm.isDisplayVerificationCode == true
+            ? "registration_block_add"
+            : "registration_block"
+      },
+      [
+        _c(
+          "view",
+          { staticClass: "registration_block_1" },
+          [
+            _c("text", [_vm._v("注册资金")]),
+            _c(
+              "picker",
+              {
+                attrs: {
+                  value: _vm.index,
+                  range: _vm.array,
+                  eventid: "6ef7e3a8-0"
                 },
-                [
-                  _c(
-                    "text",
-                    {
-                      staticStyle: {
-                        display: "inline-block",
-                        width: "50rpx",
-                        "border-bottom": "1px solid #E5E5E5",
-                        "margin-left": "5rpx",
-                        "margin-right": "5rpx"
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm.array[_vm.index]))]
-                  ),
-                  _vm._v("万元")
-                ]
-              )
-            ]
+                on: { change: _vm.bindPickerChange }
+              },
+              [
+                _c(
+                  "view",
+                  {
+                    staticStyle: {
+                      "padding-left": "10rpx",
+                      "padding-right": "10rpx"
+                    }
+                  },
+                  [
+                    _c(
+                      "text",
+                      {
+                        staticStyle: {
+                          display: "inline-block",
+                          width: "50rpx",
+                          "border-bottom": "1px solid #E5E5E5",
+                          "margin-left": "5rpx",
+                          "margin-right": "5rpx"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.array[_vm.index]))]
+                    ),
+                    _vm._v("万元")
+                  ]
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _c("view", { staticClass: "registration_block_2" }, [
+          _vm._v("手机号"),
+          _c("input", { attrs: { type: "text", value: _vm.phone } }),
+          _c(
+            "text",
+            {
+              class:
+                _vm.isDisplayVerificationCode == true
+                  ? "verificationCodeStyle"
+                  : "",
+              staticStyle: { color: "#4A90E2" },
+              attrs: { eventid: "6ef7e3a8-1" },
+              on: { click: _vm.changePhone }
+            },
+            [_vm._v(_vm._s(_vm.phoneTxt))]
           )
-        ],
-        1
-      ),
-      _c("view", { staticClass: "registration_block_2" }, [
-        _vm._v("手机号"),
-        _c("input", { attrs: { type: "text", value: _vm.phone } }),
+        ]),
         _c(
-          "text",
+          "view",
           {
-            staticStyle: { color: "#4A90E2" },
-            attrs: { eventid: "6ef7e3a8-1" },
-            on: { click: _vm.changePhone }
+            class:
+              _vm.isDisplayVerificationCode == true
+                ? "registration_block_3"
+                : "no_registration_block_3"
           },
-          [_vm._v("修改")]
+          [
+            _vm._v("验证码"),
+            _c("input", {
+              attrs: { type: "text", value: _vm.verificationCode }
+            }),
+            _c(
+              "text",
+              {
+                staticStyle: { color: "#FF0000" },
+                attrs: { eventid: "6ef7e3a8-2" },
+                on: { click: function($event) {} }
+              },
+              [_vm._v("验证码错误")]
+            )
+          ]
         )
-      ]),
-      _c("view", { staticClass: "registration_block_3" }, [
-        _vm._v("验证码"),
-        _c("input", { attrs: { type: "text", value: _vm.verificationCode } }),
-        _c(
-          "text",
-          {
-            staticStyle: { color: "#FF0000" },
-            attrs: { eventid: "6ef7e3a8-2" },
-            on: { click: function($event) {} }
-          },
-          [_vm._v("验证码错误")]
-        )
-      ])
-    ]),
+      ]
+    ),
     _vm._m(1),
     _c("view", { staticClass: "registration_card" }, [
       _c("view", { staticClass: "id_block" }, [

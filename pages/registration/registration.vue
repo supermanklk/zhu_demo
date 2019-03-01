@@ -5,7 +5,7 @@
 			<text>基本信息</text>
 		</view>
 		<!-- 注册资金 手机号 -->
-		<view class="registration_block">
+		<view :class="isDisplayVerificationCode == true ? 'registration_block_add' : 'registration_block'">
 			<view class="registration_block_1">
 				<text>注册资金</text>  
 				<picker @change="bindPickerChange" :value="index" :range="array">
@@ -14,9 +14,9 @@
 				</picker>
 			</view>
 			<view class="registration_block_2">
-				手机号 <input type="text"   :value="phone" /> <text @click="changePhone" style="color: #4A90E2;">修改</text>
+				手机号 <input type="text"   :value="phone" /> <text @click="changePhone" :class="isDisplayVerificationCode == true ? 'verificationCodeStyle' : ''" style="color: #4A90E2;">{{phoneTxt}}</text> 
 			</view>
-			<view class="registration_block_3">
+			<view :class="isDisplayVerificationCode == true ? 'registration_block_3':'no_registration_block_3'">
 				验证码 <input type="text"   :value="verificationCode" /> <text @click="" style="color: #FF0000;">验证码错误</text>
 			</view>
 		</view>
@@ -65,6 +65,8 @@
 				verificationCode : 666666,
 				array: ['1', '10', '100'],
 				index: 0,
+				isDisplayVerificationCode : false, //是否显示验证码这一栏,默认不显示
+				phoneTxt : '修改',
 			};
 		},
 		methods: {
@@ -95,6 +97,9 @@
 				this.index = e.target.value
 			},
 			changePhone() {
+				// 修改手机号,要显示验证码这一栏
+				this.isDisplayVerificationCode = true;
+				this.phoneTxt = '获取验证码';
 				console.log('修改号码');
 			}
 		}
@@ -102,6 +107,9 @@
 </script>
 
 <style>
+.verificationCodeStyle {
+	/* color: ; */
+}
 .id_block_add {
 	position: absolute;
 	top: 110px;
@@ -124,19 +132,20 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-/* .registration_block {
+.registration_block {
 	margin: 0 auto;
 	width: 674upx;
 	height: 84px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
-} */
-.registration_block {
+}
+.registration_block_add {
 	margin: 0 auto;
 	width: 674upx;
 	height: 132px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
+	/* transition: height 500ms; */
 }
 .registration_block_1 {
 	padding-left: 25upx;
@@ -164,6 +173,9 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
+.no_registration_block_3 {
+	display: none;
 }
 .registration_title {
 	margin: 0 auto;
