@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -143,7 +143,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     return {};
 
 
-  } };exports.default = _default;
+  },
+  methods: {
+    goTorRegistration: function goTorRegistration() {
+      // 查重成功,去注册登记页面
+      // 				uni.navigateTo({
+      // 					url: '../registration/registration'
+      // 				});
+      uni.reLaunch({
+        url: '../main_index/main_index?from=name_repeat' });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -173,45 +184,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "nameRepeatSuccess" }, [
-      _c("view", { staticClass: "nameRepeatSuccess_header" }, [
-        _c("image", {
-          staticClass: "nameRepeatSuccess_header_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/name_repeat_ok.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
-          _vm._v("查重通过,名称可用")
-        ]),
-        _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
-          _vm._v("该名称将保留24小时,请尽快完成注册登记")
-        ])
-      ]),
-      _c("view", { staticClass: "choiceIndustry_pre_nex" }, [
-        _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
-          _c("image", {
-            staticClass: "choiceIndustry_pre_nex_left_img",
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
-              mode: ""
-            }
-          }),
-          _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
-            _vm._v("重新查询")
-          ])
-        ]),
-        _c("view", { staticClass: "choiceIndustry_pre_nex_right" }, [
+  return _c("view", { staticClass: "nameRepeatSuccess" }, [
+    _vm._m(0),
+    _c("view", { staticClass: "choiceIndustry_pre_nex" }, [
+      _vm._m(1),
+      _c(
+        "view",
+        {
+          staticClass: "choiceIndustry_pre_nex_right",
+          attrs: { eventid: "42e95848-0" },
+          on: { click: _vm.goTorRegistration }
+        },
+        [
           _c("image", {
             staticClass: "choiceIndustry_pre_nex_right_img",
             attrs: {
@@ -223,7 +207,48 @@ var staticRenderFns = [
           _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
             _vm._v("注册登记")
           ])
-        ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "nameRepeatSuccess_header" }, [
+      _c("image", {
+        staticClass: "nameRepeatSuccess_header_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/name_repeat_ok.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
+        _vm._v("查重通过,名称可用")
+      ]),
+      _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
+        _vm._v("该名称将保留24小时,请尽快完成注册登记")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
+      _c("image", {
+        staticClass: "choiceIndustry_pre_nex_left_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
+        _vm._v("重新查询")
       ])
     ])
   }

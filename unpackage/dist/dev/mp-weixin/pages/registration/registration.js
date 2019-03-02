@@ -216,6 +216,11 @@ __webpack_require__.r(__webpack_exports__);
       this.isDisplayVerificationCode = true;
       this.phoneTxt = '获取验证码';
       console.log('修改号码');
+    },
+    goRegistrationInfo: function goRegistrationInfo() {
+      uni.navigateTo({
+        url: '../registrationInfo/registrationInfo' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -392,7 +397,30 @@ var render = function() {
         })
       ])
     ]),
-    _vm._m(2)
+    _c("view", { staticClass: "registration_ok" }, [
+      _vm._m(2),
+      _c(
+        "view",
+        {
+          staticClass: "registration_ok_right",
+          attrs: { eventid: "6ef7e3a8-5" },
+          on: { click: _vm.goRegistrationInfo }
+        },
+        [
+          _c("image", {
+            staticClass: "registration_ok_img",
+            attrs: {
+              src:
+                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+              mode: ""
+            }
+          }),
+          _c("text", { staticClass: "registration_ok_txt" }, [
+            _vm._v("信息确定")
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -416,30 +444,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registration_ok" }, [
-      _c("view", { staticClass: "registration_ok_left" }, [
-        _c("image", {
-          staticClass: "registration_ok_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/pre_step.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "registration_ok_txt" }, [
-          _vm._v("重新名称查重")
-        ])
-      ]),
-      _c("view", { staticClass: "registration_ok_right" }, [
-        _c("image", {
-          staticClass: "registration_ok_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "registration_ok_txt" }, [_vm._v("信息确定")])
+    return _c("view", { staticClass: "registration_ok_left" }, [
+      _c("image", {
+        staticClass: "registration_ok_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/pre_step.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "registration_ok_txt" }, [
+        _vm._v("重新名称查重")
       ])
     ])
   }

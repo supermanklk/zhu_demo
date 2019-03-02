@@ -42,7 +42,7 @@
 		
 		<!-- 确认支付按钮 -->
 		<view class="pay_btn">
-			<button @click="zhangbin" type="" size="mini" plain="true" style="margin-top: 20px; width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
+			<button @click="payMoney" type="" size="mini" plain="true" style="margin-top: 20px; width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
 				确认支付
 			</button>
 		</view>
@@ -94,8 +94,11 @@
 					this.packageActiveTxt = '三';
 				}
 			},
-			zhangbin() {
-				console.log(this.$refs);
+			payMoney() {
+				// 目前认为是支付成功
+				uni.reLaunch({
+					url: '../main_index/main_index?from=waitPay'
+				});
 			}
 		}
 	}

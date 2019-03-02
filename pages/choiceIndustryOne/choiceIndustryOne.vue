@@ -21,7 +21,7 @@
 				<image class="choiceIndustry_pre_nex_left_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_left_txt">重新选择身份</text>
 			</view>
-			<view class="choiceIndustry_pre_nex_right">
+			<view class="choiceIndustry_pre_nex_right" @click="clickNext">
 				<image class="choiceIndustry_pre_nex_right_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_right_txt">名称查询</text>
 			</view>
@@ -46,6 +46,11 @@
 				let index = e.currentTarget.dataset.index;
 				this.activeIndex = index;
 				
+			},
+			clickNext() {
+				uni.reLaunch({
+					url: '../main_index/main_index?from=choiceIndustryOne',
+				});
 			}
 		}
 	}

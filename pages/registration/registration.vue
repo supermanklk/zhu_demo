@@ -46,7 +46,7 @@
 				<image class="registration_ok_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/pre_step.png" mode=""></image>
 				<text class="registration_ok_txt">重新名称查重</text>
 			</view>
-			<view class="registration_ok_right">
+			<view class="registration_ok_right" @click="goRegistrationInfo">
 				<image class="registration_ok_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 				<text class="registration_ok_txt">信息确定</text>
 			</view>
@@ -101,6 +101,11 @@
 				this.isDisplayVerificationCode = true;
 				this.phoneTxt = '获取验证码';
 				console.log('修改号码');
+			},
+			goRegistrationInfo() {
+				uni.navigateTo({
+					url: '../registrationInfo/registrationInfo'
+				});
 			}
 		}
 	}

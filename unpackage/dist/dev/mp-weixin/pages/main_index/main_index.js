@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -233,10 +233,79 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 {
   data: function data() {
-    return {};
+    return {
+      // stepName : '名称查重',
+      // stepName : '注册登记',
+      // stepName : '选择套餐',
+      // stepName : '查看进度',
+      // stepName : '更多服务',
+      stepName: '选择行业' };
 
+  },
+  onLoad: function onLoad(e) {
+    console.log('主页打印onload的e', e);
+    switch (e.from) {
+      case 'choiceIndustryOne':
+        this.stepName = '名称查重';
+        break;
+      case 'choiceInvitationCode':
+        this.stepName = '名称查重';
+        break;
+      case 'name_repeat':
+        this.stepName = '注册登记';
+        break;
+      case 'registrationInfo':
+        this.stepName = '选择套餐';
+        break;
+      case 'waitPay':
+        this.stepName = '查看进度';
+        break;
+      case 'review':
+        this.stepName = '查看进度';
+        break;
+      default:
+        break;}
 
-  } };exports.default = _default;
+  },
+  methods: {
+    clickStep: function clickStep() {
+      switch (this.stepName) {
+        case '名称查重':
+          uni.redirectTo({
+            url: '../name_repeat/name_repeat' });
+
+          break;
+        case '注册登记':
+          uni.redirectTo({
+            url: '../registration/registration' });
+
+          break;
+        case '选择套餐':
+          uni.redirectTo({
+            url: '../waitPay/waitPay' });
+
+          break;
+        case '查看进度':
+          uni.redirectTo({
+            url: '../review/review' });
+
+          break;
+        case '更多服务':
+          uni.redirectTo({
+            url: '../choiceIndustry/choiceIndustry' });
+
+          break;
+        case '选择行业':
+          uni.redirectTo({
+            url: '../choiceIdentity/choiceIdentity' });
+
+          break;
+
+        default:
+          break;}
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -287,10 +356,12 @@ var render = function() {
               type: "",
               size: "mini",
               plain: "true",
-              "hover-class": "btn_hover"
-            }
+              "hover-class": "btn_hover",
+              eventid: "6549f84c-0"
+            },
+            on: { click: _vm.clickStep }
           },
-          [_vm._v("名称查重")]
+          [_vm._v(_vm._s(_vm.stepName))]
         )
       ],
       1

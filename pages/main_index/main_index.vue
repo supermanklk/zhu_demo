@@ -101,8 +101,8 @@
 		
 		<!-- 名称查重btn -->
 		<view class="main_find_repeat">
-			<button type="" size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
-				名称查重
+			<button type="" @click="clickStep" size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
+				{{stepName}}
 			</button>
 		</view>
 		
@@ -119,8 +119,77 @@
 	export default {
 		data() {
 			return {
-				
+				// stepName : '名称查重',
+				// stepName : '注册登记',
+				// stepName : '选择套餐',
+				// stepName : '查看进度',
+				// stepName : '更多服务',
+				stepName : '选择行业',
 			};
+		},
+		onLoad(e) {
+			console.log('主页打印onload的e',e);
+			switch (e.from){
+				case 'choiceIndustryOne':
+					this.stepName = '名称查重';
+					break;
+				case 'choiceInvitationCode':
+					this.stepName = '名称查重';
+					break;
+				case 'name_repeat':
+					this.stepName = '注册登记';
+					break;
+				case 'registrationInfo':
+					this.stepName = '选择套餐';
+					break;
+				case 'waitPay':
+					this.stepName = '查看进度';
+					break;
+				case 'review':
+					this.stepName = '查看进度';
+					break;
+				default:
+					break;
+			}
+		},
+		methods: {
+			clickStep() {
+				switch (this.stepName){
+					case '名称查重':
+						uni.redirectTo({
+							url: '../name_repeat/name_repeat'
+						});
+						break;
+					case '注册登记':
+						uni.redirectTo({
+							url: '../registration/registration'
+						});
+						break;
+					case '选择套餐':
+						uni.redirectTo({
+							url: '../waitPay/waitPay'
+						});
+						break;
+					case '查看进度':
+						uni.redirectTo({
+							url: '../review/review'
+						});
+						break;
+					case '更多服务':
+						uni.redirectTo({
+							url: '../choiceIndustry/choiceIndustry'
+						});
+						break;
+					case '选择行业':
+						uni.redirectTo({
+							url: '../choiceIdentity/choiceIdentity'
+						});
+						break;
+						
+					default:
+						break;
+				}
+			}
 		}
 	}
 </script>

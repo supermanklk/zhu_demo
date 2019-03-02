@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -358,7 +358,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     closeProtocol: function closeProtocol() {
       this.alertProtocol = false;
       console.log('点击关闭协议');
+    },
+    goMain_index: function goMain_index() {
+      console.log('../main_index/main_index?from=registrationInfo');
+      uni.reLaunch({
+        url: '../main_index/main_index?from=registrationInfo' });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -504,7 +511,11 @@ var render = function() {
       ),
       _c(
         "view",
-        { staticClass: "registrationInfo_protocol_bottom" },
+        {
+          staticClass: "registrationInfo_protocol_bottom",
+          attrs: { eventid: "68d18bec-4" },
+          on: { click: _vm.goMain_index }
+        },
         [
           _c(
             "button",

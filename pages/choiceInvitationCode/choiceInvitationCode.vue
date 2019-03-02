@@ -1,27 +1,28 @@
 <template>
 	<view class="choiceInvitationCode">
-		<input type="text"  value="1111"  ref="btn"/>
+		<!-- 这个input就是验证码的点睛之笔 -->
+		<input type="number"  style="display: none;" :focus="focus" :value="inputValue"  @input="changeNumber" ref="btn" id="btn"/>
 		<view class="choiceInvitationCode_title">
 			<text>请输入邀请码</text>
 		</view>
 		<view class="choiceInvitationCode_header">
 			<view  @tap="btns" class="choiceInvitationCode_header_item">
-				
+				<text>{{number[0]}}</text>
 			</view>
-			<view class="choiceInvitationCode_header_item">
-				
+			<view @tap="btns" class="choiceInvitationCode_header_item">
+				<text>{{number[1]}}</text>
 			</view>
-			<view class="choiceInvitationCode_header_item">
-				
+			<view @tap="btns" class="choiceInvitationCode_header_item">
+				<text>{{number[2]}}</text>
 			</view>
-			<view class="choiceInvitationCode_header_item">
-				
+			<view @tap="btns" class="choiceInvitationCode_header_item">
+				<text>{{number[3]}}</text>
 			</view>
-			<view class="choiceInvitationCode_header_item">
-				
+			<view @tap="btns" class="choiceInvitationCode_header_item">
+				<text>{{number[4]}}</text>
 			</view>
-			<view class="choiceInvitationCode_header_item">
-				
+			<view @tap="btns" class="choiceInvitationCode_header_item">
+				<text>{{number[5]}}</text>
 			</view>
 		</view>
 		
@@ -42,16 +43,19 @@
 	export default {
 		data() {
 			return {
-				
+				focus : false ,// 控制数字键盘的显隐
+				number : [],
+				inputValue : ""
 			};
 		},
 		onLoad() {
 		},
 		methods:{
 			btns(){
-				console.log(this.$refs.btn);
+				this.focus = !this.focus;
+				// console.log(this.$refs.btn);
 				// 获取元素的信息
-// 				 uni.createSelectorQuery().select('.binbin').boundingClientRect(function(e){
+// 				 let view = uni.createSelectorQuery().select('#btn').boundingClientRect(function(e){
 //                 console.log(e)
 //                 uni.pageScrollTo({
 //                     scrollTop: e.top,
@@ -59,6 +63,36 @@
 //                 });
 //             }).exec();
 
+			// let view = uni.createSelectorQuery().select("#btn");
+
+
+			},
+			changeNumber(e) {				
+				if(e.detail.value.length >7 ) {
+					return false
+				} else {
+					if(e.detail.value.length == 6) {
+						this.inputValue = e.detail.value;
+						this.number = e.detail.value.split((''));
+						this.focus = false;
+						// 这里就是输入完验证码,需要开始调用校验邀请码的的函数
+						uni.showToast({
+							title: '通过验证码,正为你跳转下一步',
+							duration: 3000,
+							success : function(){
+								uni.reLaunch({
+									url: '../main_index/main_index?from=choiceInvitationCode'
+								});
+							}
+						});
+					}else {
+						console.log(2);
+						this.inputValue = e.detail.value;
+						this.number = e.detail.value.split((''));
+					}
+					
+				}
+				
 			}
 		}
 	}

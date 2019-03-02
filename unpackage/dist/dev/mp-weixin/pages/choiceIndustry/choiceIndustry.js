@@ -168,6 +168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 // var count = 0;
 var _default = {
   data: function data() {
@@ -281,6 +282,11 @@ var _default = {
     returnPre: function returnPre() {
       uni.navigateBack({
         delta: 1 });
+
+    },
+    clickNext: function clickNext() {
+      uni.navigateTo({
+        url: '../choiceIndustryOne/choiceIndustryOne' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -398,7 +404,27 @@ var render = function() {
           ])
         ]
       ),
-      _vm._m(2)
+      _c(
+        "view",
+        {
+          staticClass: "choiceIndustry_pre_nex_right",
+          attrs: { eventid: "e78ffd28-3" },
+          on: { click: _vm.clickNext }
+        },
+        [
+          _c("image", {
+            staticClass: "choiceIndustry_pre_nex_right_img",
+            attrs: {
+              src:
+                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+              mode: ""
+            }
+          }),
+          _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
+            _vm._v("下一步")
+          ])
+        ]
+      )
     ])
   ])
 }
@@ -425,24 +451,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "choiceIndustry_header_3" }, [
       _c("text", [_vm._v("更多")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIndustry_pre_nex_right" }, [
-      _c("image", {
-        staticClass: "choiceIndustry_pre_nex_right_img",
-        attrs: {
-          src:
-            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon_gray.png",
-          mode: ""
-        }
-      }),
-      _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
-        _vm._v("下一步")
-      ])
     ])
   }
 ]

@@ -47,7 +47,7 @@
 				<image class="choiceIndustry_pre_nex_left_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_left_txt">重新选择行业</text>
 			</view>
-			<view class="choiceIndustry_pre_nex_right">
+			<view class="choiceIndustry_pre_nex_right" @click="startfind">
 				<image class="choiceIndustry_pre_nex_right_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_right_txt">开始查询</text>
 			</view>
@@ -82,6 +82,21 @@
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
 			},
+			startfind() {
+				//开始查重 目前是随机的 没有真实的数据
+				let num = Math.random();
+				if(num > 0.5) {
+					// 查重失败的界面
+					uni.redirectTo({
+						url: '../nameRepeatError/nameRepeatError'
+					});	
+				} else {
+					// 查重成功的界面
+					uni.redirectTo({
+						url: '../nameRepeatSuccess/nameRepeatSuccess'
+					});	
+				}
+			}
 		}
 	}
 </script>

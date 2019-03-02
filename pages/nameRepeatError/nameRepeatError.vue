@@ -41,7 +41,7 @@
 		
 		<!-- 推荐列表 -->
 		<view class="name_repeat_list">
-			<view class="" v-for="(item,index) in list" :key="index">
+			<view class="" v-for="(item,index) in list" :key="index" @click="goToBack">
 				<view class="list_item">
 					{{item.name}}
 				</view>
@@ -78,6 +78,11 @@
 			},
 			closeImgAlert() {
 				this.alertModal = false;
+			},
+			goToBack() {
+				uni.navigateBack({
+					delta: 1
+				});
 			}
 		}
 	}

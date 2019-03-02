@@ -83,7 +83,7 @@
 	        flex-direction: column;
 	
 	/* 灰色 */
-	color: #dbdbdb;
+	/* color: #dbdbdb; */
 }
 .choiceIndustry_pre_nex_left_img {
 	margin: 0 auto;

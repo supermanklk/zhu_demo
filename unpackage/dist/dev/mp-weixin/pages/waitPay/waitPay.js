@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -209,9 +209,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         this.packageActiveTxt = '三';
       }
     },
-    zhangbin: function zhangbin() {
-      console.log(this.$refs);
+    payMoney: function payMoney() {
+      // 目前认为是支付成功
+      uni.reLaunch({
+        url: '../main_index/main_index?from=waitPay' });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -344,7 +348,7 @@ var render = function() {
               "hover-class": "btn_hover",
               eventid: "798e2018-3"
             },
-            on: { click: _vm.zhangbin }
+            on: { click: _vm.payMoney }
           },
           [_vm._v("确认支付")]
         )

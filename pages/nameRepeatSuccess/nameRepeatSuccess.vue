@@ -14,7 +14,7 @@
 				<image class="choiceIndustry_pre_nex_left_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_left_txt">重新查询</text>
 			</view>
-			<view class="choiceIndustry_pre_nex_right">
+			<view class="choiceIndustry_pre_nex_right" @click="goTorRegistration">
 				<image class="choiceIndustry_pre_nex_right_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 				<text class="choiceIndustry_pre_nex_right_txt">注册登记</text>
 			</view>
@@ -28,6 +28,17 @@
 			return {
 				
 			};
+		},
+		methods:{
+			goTorRegistration() {
+				// 查重成功,去注册登记页面
+// 				uni.navigateTo({
+// 					url: '../registration/registration'
+// 				});
+				uni.reLaunch({
+					url: '../main_index/main_index?from=name_repeat'
+				});
+			}
 		}
 	}
 </script>

@@ -113,7 +113,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+
 
 
 
@@ -156,17 +157,20 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 {
   data: function data() {
-    return {};
-
+    return {
+      focus: false, // 控制数字键盘的显隐
+      number: [],
+      inputValue: "" };
 
   },
   onLoad: function onLoad() {
   },
   methods: {
     btns: function btns() {
-      console.log(this.$refs.btn);
+      this.focus = !this.focus;
+      // console.log(this.$refs.btn);
       // 获取元素的信息
-      // 				 uni.createSelectorQuery().select('.binbin').boundingClientRect(function(e){
+      // 				 let view = uni.createSelectorQuery().select('#btn').boundingClientRect(function(e){
       //                 console.log(e)
       //                 uni.pageScrollTo({
       //                     scrollTop: e.top,
@@ -174,7 +178,38 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       //                 });
       //             }).exec();
 
+      // let view = uni.createSelectorQuery().select("#btn");
+
+
+    },
+    changeNumber: function changeNumber(e) {
+      if (e.detail.value.length > 7) {
+        return false;
+      } else {
+        if (e.detail.value.length == 6) {
+          this.inputValue = e.detail.value;
+          this.number = e.detail.value.split('');
+          this.focus = false;
+          // 这里就是输入完验证码,需要开始调用校验邀请码的的函数
+          uni.showToast({
+            title: '通过验证码,正为你跳转下一步',
+            duration: 3000,
+            success: function success() {
+              uni.reLaunch({
+                url: '../main_index/main_index?from=choiceInvitationCode' });
+
+            } });
+
+        } else {
+          console.log(2);
+          this.inputValue = e.detail.value;
+          this.number = e.detail.value.split('');
+        }
+
+      }
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -205,19 +240,74 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "choiceInvitationCode" }, [
-    _c("input", { ref: "btn", attrs: { type: "text", value: "1111" } }),
+    _c("input", {
+      ref: "btn",
+      staticStyle: { display: "none" },
+      attrs: {
+        type: "number",
+        focus: _vm.focus,
+        value: _vm.inputValue,
+        id: "btn",
+        eventid: "8dd02228-0"
+      },
+      on: { input: _vm.changeNumber }
+    }),
     _vm._m(0),
     _c("view", { staticClass: "choiceInvitationCode_header" }, [
-      _c("view", {
-        staticClass: "choiceInvitationCode_header_item",
-        attrs: { eventid: "8dd02228-0" },
-        on: { tap: _vm.btns }
-      }),
-      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-      _c("view", { staticClass: "choiceInvitationCode_header_item" })
+      _c(
+        "view",
+        {
+          staticClass: "choiceInvitationCode_header_item",
+          attrs: { eventid: "8dd02228-1" },
+          on: { tap: _vm.btns }
+        },
+        [_c("text", [_vm._v(_vm._s(_vm.number[0]))])]
+      ),
+      _c(
+        "view",
+        {
+          staticClass: "choiceInvitationCode_header_item",
+          attrs: { eventid: "8dd02228-2" },
+          on: { tap: _vm.btns }
+        },
+        [_c("text", [_vm._v(_vm._s(_vm.number[1]))])]
+      ),
+      _c(
+        "view",
+        {
+          staticClass: "choiceInvitationCode_header_item",
+          attrs: { eventid: "8dd02228-3" },
+          on: { tap: _vm.btns }
+        },
+        [_c("text", [_vm._v(_vm._s(_vm.number[2]))])]
+      ),
+      _c(
+        "view",
+        {
+          staticClass: "choiceInvitationCode_header_item",
+          attrs: { eventid: "8dd02228-4" },
+          on: { tap: _vm.btns }
+        },
+        [_c("text", [_vm._v(_vm._s(_vm.number[3]))])]
+      ),
+      _c(
+        "view",
+        {
+          staticClass: "choiceInvitationCode_header_item",
+          attrs: { eventid: "8dd02228-5" },
+          on: { tap: _vm.btns }
+        },
+        [_c("text", [_vm._v(_vm._s(_vm.number[4]))])]
+      ),
+      _c(
+        "view",
+        {
+          staticClass: "choiceInvitationCode_header_item",
+          attrs: { eventid: "8dd02228-6" },
+          on: { tap: _vm.btns }
+        },
+        [_c("text", [_vm._v(_vm._s(_vm.number[5]))])]
+      )
     ]),
     _vm._m(1)
   ])

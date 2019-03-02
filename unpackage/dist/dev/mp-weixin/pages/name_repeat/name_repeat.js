@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -196,7 +196,23 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     bindPickerChange: function bindPickerChange(e) {
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value;
+    },
+    startfind: function startfind() {
+      //开始查重 目前是随机的 没有真实的数据
+      var num = Math.random();
+      if (num > 0.5) {
+        // 查重失败的界面
+        uni.redirectTo({
+          url: '../nameRepeatError/nameRepeatError' });
+
+      } else {
+        // 查重成功的界面
+        uni.redirectTo({
+          url: '../nameRepeatSuccess/nameRepeatSuccess' });
+
+      }
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -284,7 +300,37 @@ var render = function() {
       2
     ),
     _vm._m(2),
-    _vm._m(3)
+    _c(
+      "view",
+      {
+        staticClass: "choiceIndustry_pre_nex",
+        staticStyle: { "margin-top": "60px" }
+      },
+      [
+        _vm._m(3),
+        _c(
+          "view",
+          {
+            staticClass: "choiceIndustry_pre_nex_right",
+            attrs: { eventid: "182a34ac-1" },
+            on: { click: _vm.startfind }
+          },
+          [
+            _c("image", {
+              staticClass: "choiceIndustry_pre_nex_right_img",
+              attrs: {
+                src:
+                  "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
+                mode: ""
+              }
+            }),
+            _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
+              _vm._v("开始查询")
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -336,41 +382,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "view",
-      {
-        staticClass: "choiceIndustry_pre_nex",
-        staticStyle: { "margin-top": "60px" }
-      },
-      [
-        _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
-          _c("image", {
-            staticClass: "choiceIndustry_pre_nex_left_img",
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
-              mode: ""
-            }
-          }),
-          _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
-            _vm._v("重新选择行业")
-          ])
-        ]),
-        _c("view", { staticClass: "choiceIndustry_pre_nex_right" }, [
-          _c("image", {
-            staticClass: "choiceIndustry_pre_nex_right_img",
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
-              mode: ""
-            }
-          }),
-          _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
-            _vm._v("开始查询")
-          ])
-        ])
-      ]
-    )
+    return _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
+      _c("image", {
+        staticClass: "choiceIndustry_pre_nex_left_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
+        _vm._v("重新选择行业")
+      ])
+    ])
   }
 ]
 render._withStripped = true

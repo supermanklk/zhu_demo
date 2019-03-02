@@ -28,7 +28,7 @@
 		
 		<!-- 返回主页 -->
 		<view class="review_return_main">
-			<button type="" size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
+			<button type="" @click="goMain_index" size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
 				返回主页
 			</button>
 		</view>
@@ -41,6 +41,14 @@
 			return {
 				
 			};
+		},
+		methods:{
+			goMain_index() {
+				// 返回主页
+				uni.reLaunch({
+					url: '../main_index/main_index?from=review'
+				});
+			}
 		}
 	}
 </script>

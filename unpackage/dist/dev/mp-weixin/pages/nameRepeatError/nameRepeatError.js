@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -193,7 +193,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     },
     closeImgAlert: function closeImgAlert() {
       this.alertModal = false;
+    },
+    goToBack: function goToBack() {
+      uni.navigateBack({
+        delta: 1 });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -284,9 +290,19 @@ var render = function() {
       "view",
       { staticClass: "name_repeat_list" },
       _vm._l(_vm.list, function(item, index) {
-        return _c("view", { key: index }, [
-          _c("view", { staticClass: "list_item" }, [_vm._v(_vm._s(item.name))])
-        ])
+        return _c(
+          "view",
+          {
+            key: index,
+            attrs: { eventid: "6ae1b152-2-" + index },
+            on: { click: _vm.goToBack }
+          },
+          [
+            _c("view", { staticClass: "list_item" }, [
+              _vm._v(_vm._s(item.name))
+            ])
+          ]
+        )
       })
     ),
     _vm._m(2)

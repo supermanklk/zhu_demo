@@ -210,7 +210,7 @@
 				 <radio value="r1"  />
 				 <text class="registrationInfo_protocol_top_txt" @click="lookProtocol">同意上海爱用宝科技股份有限公司的代办协议</text>
 			</view>
-			<view class="registrationInfo_protocol_bottom">
+			<view class="registrationInfo_protocol_bottom" @click="goMain_index">
 				<button  size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;" >确认</button>
 			</view>
 		</view>
@@ -243,6 +243,12 @@
 			closeProtocol() {
 				this.alertProtocol = false;
 				console.log('点击关闭协议');
+			},
+			goMain_index() {
+				console.log('../main_index/main_index?from=registrationInfo');
+				uni.reLaunch({
+					url: '../main_index/main_index?from=registrationInfo'
+				});
 			}
 		}
 	}
