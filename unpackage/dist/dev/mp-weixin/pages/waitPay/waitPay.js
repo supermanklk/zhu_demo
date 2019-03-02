@@ -208,6 +208,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
         this.packageActiveTxt = '三';
       }
+    },
+    zhangbin: function zhangbin() {
+      console.log(this.$refs);
     } } };exports.default = _default;
 
 /***/ }),
@@ -318,7 +321,9 @@ var render = function() {
         ])
       })
     ),
-    _vm._m(1),
+    _c("view", { ref: "zhangbin", staticClass: "leave_time" }, [
+      _c("text", [_vm._v("剩余支付时间 :   29分59秒")])
+    ]),
     _c(
       "view",
       { staticClass: "pay_btn" },
@@ -336,8 +341,10 @@ var render = function() {
               type: "",
               size: "mini",
               plain: "true",
-              "hover-class": "btn_hover"
-            }
+              "hover-class": "btn_hover",
+              eventid: "798e2018-3"
+            },
+            on: { click: _vm.zhangbin }
           },
           [_vm._v("确认支付")]
         )
@@ -378,14 +385,6 @@ var staticRenderFns = [
       _c("text", { staticClass: "waitPay_text_2" }, [
         _vm._v("选择合适的套餐、支付成功后开始审核材料")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "leave_time" }, [
-      _c("text", [_vm._v("剩余支付时间 :   29分59秒")])
     ])
   }
 ]

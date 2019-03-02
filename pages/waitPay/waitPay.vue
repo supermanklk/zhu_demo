@@ -36,13 +36,13 @@
 		</view>
 		
 		<!-- 剩余支付时间 -->
-		<view class="leave_time">
+		<view class="leave_time" ref="zhangbin">
 			<text>剩余支付时间&nbsp;: &nbsp;&nbsp;29分59秒</text>
 		</view>
 		
 		<!-- 确认支付按钮 -->
 		<view class="pay_btn">
-			<button type="" size="mini" plain="true" style="margin-top: 20px; width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
+			<button @click="zhangbin" type="" size="mini" plain="true" style="margin-top: 20px; width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
 				确认支付
 			</button>
 		</view>
@@ -93,6 +93,9 @@
 					];
 					this.packageActiveTxt = '三';
 				}
+			},
+			zhangbin() {
+				console.log(this.$refs);
 			}
 		}
 	}

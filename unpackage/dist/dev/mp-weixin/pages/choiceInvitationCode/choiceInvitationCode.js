@@ -159,7 +159,22 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     return {};
 
 
-  } };exports.default = _default;
+  },
+  onLoad: function onLoad() {
+  },
+  methods: {
+    btns: function btns() {
+      console.log(this.$refs.btn);
+      // 获取元素的信息
+      // 				 uni.createSelectorQuery().select('.binbin').boundingClientRect(function(e){
+      //                 console.log(e)
+      //                 uni.pageScrollTo({
+      //                     scrollTop: e.top,
+      //                     duration: 800
+      //                 });
+      //             }).exec();
+
+    } } };exports.default = _default;
 
 /***/ }),
 
@@ -189,37 +204,48 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("view", { staticClass: "choiceInvitationCode" }, [
+    _c("input", { ref: "btn", attrs: { type: "text", value: "1111" } }),
+    _vm._m(0),
+    _c("view", { staticClass: "choiceInvitationCode_header" }, [
+      _c("view", {
+        staticClass: "choiceInvitationCode_header_item",
+        attrs: { eventid: "8dd02228-0" },
+        on: { tap: _vm.btns }
+      }),
+      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
+      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
+      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
+      _c("view", { staticClass: "choiceInvitationCode_header_item" }),
+      _c("view", { staticClass: "choiceInvitationCode_header_item" })
+    ]),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceInvitationCode" }, [
-      _c("view", { staticClass: "choiceInvitationCode_title" }, [
-        _c("text", [_vm._v("请输入邀请码")])
-      ]),
-      _c("view", { staticClass: "choiceInvitationCode_header" }, [
-        _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-        _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-        _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-        _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-        _c("view", { staticClass: "choiceInvitationCode_header_item" }),
-        _c("view", { staticClass: "choiceInvitationCode_header_item" })
-      ]),
-      _c("view", { staticClass: "choiceInvitationCode_bottom" }, [
-        _c("image", {
-          staticClass: "icon_img choiceInvitationCode_bottom_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error_icon.png",
-            mode: ""
-          }
-        }),
-        _c("text", { staticClass: "choiceInvitationCode_bottom_txt" }, [
-          _vm._v("邀请码无效")
-        ])
+    return _c("view", { staticClass: "choiceInvitationCode_title" }, [
+      _c("text", [_vm._v("请输入邀请码")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "choiceInvitationCode_bottom" }, [
+      _c("image", {
+        staticClass: "icon_img choiceInvitationCode_bottom_img",
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error_icon.png",
+          mode: ""
+        }
+      }),
+      _c("text", { staticClass: "choiceInvitationCode_bottom_txt" }, [
+        _vm._v("邀请码无效")
       ])
     ])
   }

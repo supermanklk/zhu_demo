@@ -1,11 +1,11 @@
-<!-- 选择身份-- 输入邀请码 -->
 <template>
 	<view class="choiceInvitationCode">
+		<input type="text"  value="1111"  ref="btn"/>
 		<view class="choiceInvitationCode_title">
 			<text>请输入邀请码</text>
 		</view>
 		<view class="choiceInvitationCode_header">
-			<view class="choiceInvitationCode_header_item">
+			<view  @tap="btns" class="choiceInvitationCode_header_item">
 				
 			</view>
 			<view class="choiceInvitationCode_header_item">
@@ -44,6 +44,22 @@
 			return {
 				
 			};
+		},
+		onLoad() {
+		},
+		methods:{
+			btns(){
+				console.log(this.$refs.btn);
+				// 获取元素的信息
+// 				 uni.createSelectorQuery().select('.binbin').boundingClientRect(function(e){
+//                 console.log(e)
+//                 uni.pageScrollTo({
+//                     scrollTop: e.top,
+//                     duration: 800
+//                 });
+//             }).exec();
+
+			}
 		}
 	}
 </script>
