@@ -104,7 +104,7 @@ app.$mount();
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
   onLaunch: function onLaunch() {
     console.log('App Launch');
@@ -115,6 +115,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   onHide: function onHide() {
     console.log('App Hide');
   } };exports.default = _default;
+
+global.getVeritifyCode = function () {
+  var codeArray = [
+  4423, 1234, 5656, 6677, 8899, 7685, 3988, 6644, 8989, 9900, 1001, 6777, 5666, 8999, 8977, 3344, 5665, 7765];
+
+  var random = Math.floor(Math.random() * 17) + 0;
+  return codeArray[random];
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

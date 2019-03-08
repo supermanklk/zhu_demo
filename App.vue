@@ -10,6 +10,13 @@
 			console.log('App Hide')
 		}
 	}
+	global.getVeritifyCode = function() {
+		let codeArray = [
+			4423,1234,5656,6677,8899,7685,3988,6644,8989,9900,1001,6777,5666,8999,8977,3344,5665,7765
+		]
+		let random = Math.floor(Math.random()*17)+0;
+		return codeArray[random];
+	}
 </script>
 
 <style>

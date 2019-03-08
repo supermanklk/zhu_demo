@@ -207,7 +207,7 @@
 		<!-- 同意协议 -->
 		<view class="registrationInfo_protocol">
 			<view class="registrationInfo_protocol_top">
-				 <radio value="r1"  />
+					<radio value="A" @click="radioChange" :checked="radio" />
 				 <text class="registrationInfo_protocol_top_txt" @click="lookProtocol">同意上海爱用宝科技股份有限公司的代办协议</text>
 			</view>
 			<view class="registrationInfo_protocol_bottom" @click="goMain_index">
@@ -223,7 +223,8 @@
 		data() {
 			return {
 				alertImg : false, //预览弹窗是否显示,默认不显示
-				alertProtocol : false //查看协议
+				alertProtocol : false, //查看协议
+				radio : false
 			};
 		},
 		methods:{
@@ -236,7 +237,10 @@
 				console.log('点击了关闭');
 			},
 			lookProtocol() {
-				this.alertProtocol = true;
+				// this.alertProtocol = true;
+				uni.navigateTo({
+					url : '../protocol/protocol'
+				});
 				console.log('点击查看协议');
 				
 			},
@@ -245,10 +249,20 @@
 				console.log('点击关闭协议');
 			},
 			goMain_index() {
-				console.log('../main_index/main_index?from=registrationInfo');
-				uni.reLaunch({
-					url: '../main_index/main_index?from=registrationInfo'
-				});
+				if(this.radio == true) {
+					uni.reLaunch({
+						url: '../main_index/main_index?from=registrationInfo'
+					});
+				} else {
+					uni.showToast({
+					title: '请先同意筑商协议...',
+					icon : 'none',
+					});
+				}
+			
+			},
+			radioChange() {
+				this.radio = !this.radio;
 			}
 		}
 	}

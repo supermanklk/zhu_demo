@@ -138,6 +138,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 {
   data: function data() {
     return {};
@@ -152,6 +164,9 @@ __webpack_require__.r(__webpack_exports__);
       // 				});
       uni.reLaunch({
         url: '../main_index/main_index?from=name_repeat' });
+
+    },
+    clickOk: function clickOk() {
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -186,30 +201,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "nameRepeatSuccess" }, [
     _vm._m(0),
-    _c("view", { staticClass: "choiceIndustry_pre_nex" }, [
-      _vm._m(1),
-      _c(
-        "view",
-        {
-          staticClass: "choiceIndustry_pre_nex_right",
-          attrs: { eventid: "42e95848-0" },
-          on: { click: _vm.goTorRegistration }
-        },
-        [
-          _c("image", {
-            staticClass: "choiceIndustry_pre_nex_right_img",
+    _c("view", {
+      staticStyle: { width: "750rpx", height: "2px", background: "#E5E5E5" }
+    }),
+    _vm._m(1),
+    _vm._m(2),
+    _c(
+      "view",
+      { staticClass: "goTorRegistration" },
+      [
+        _c(
+          "button",
+          {
+            staticStyle: {
+              "margin-top": "20px",
+              width: "360rpx",
+              color: "#1AAD19",
+              "border-color": "#1AAD19"
+            },
             attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
-              mode: ""
-            }
-          }),
-          _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
-            _vm._v("注册登记")
-          ])
-        ]
-      )
-    ])
+              type: "",
+              size: "mini",
+              plain: "true",
+              "hover-class": "btn_hover",
+              eventid: "42e95848-0"
+            },
+            on: { click: _vm.goTorRegistration }
+          },
+          [_vm._v("确认")]
+        )
+      ],
+      1
+    ),
+    _vm._m(3)
   ])
 }
 var staticRenderFns = [
@@ -228,9 +252,6 @@ var staticRenderFns = [
       }),
       _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
         _vm._v("查重通过,名称可用")
-      ]),
-      _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
-        _vm._v("该名称将保留24小时,请尽快完成注册登记")
       ])
     ])
   },
@@ -238,19 +259,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
-      _c("image", {
-        staticClass: "choiceIndustry_pre_nex_left_img",
-        attrs: {
-          src:
-            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
-          mode: ""
-        }
-      }),
-      _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
-        _vm._v("重新查询")
-      ])
+    return _c("view", { staticClass: "nameRepeatSuccess_prompt" }, [
+      _c("text", [_vm._v("温馨提示")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "nameRepeatSuccess_block" }, [
+      _c("text", [_vm._v("1.查重结果仅供参考,须以最后审核结果为准")]),
+      _c("text", [_vm._v("2.点击确认后请在24小时内完成注册登记")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", {}, [_c("text", [_vm._v("重新查询")])])
   }
 ]
 render._withStripped = true

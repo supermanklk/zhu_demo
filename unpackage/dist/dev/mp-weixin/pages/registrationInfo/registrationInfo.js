@@ -338,8 +338,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       alertImg: false, //预览弹窗是否显示,默认不显示
-      alertProtocol: false //查看协议
-    };
+      alertProtocol: false, //查看协议
+      radio: false };
+
   },
   methods: {
     lookPreImg: function lookPreImg() {
@@ -351,7 +352,10 @@ __webpack_require__.r(__webpack_exports__);
       console.log('点击了关闭');
     },
     lookProtocol: function lookProtocol() {
-      this.alertProtocol = true;
+      // this.alertProtocol = true;
+      uni.navigateTo({
+        url: '../protocol/protocol' });
+
       console.log('点击查看协议');
 
     },
@@ -360,10 +364,20 @@ __webpack_require__.r(__webpack_exports__);
       console.log('点击关闭协议');
     },
     goMain_index: function goMain_index() {
-      console.log('../main_index/main_index?from=registrationInfo');
-      uni.reLaunch({
-        url: '../main_index/main_index?from=registrationInfo' });
+      if (this.radio == true) {
+        uni.reLaunch({
+          url: '../main_index/main_index?from=registrationInfo' });
 
+      } else {
+        uni.showToast({
+          title: '请先同意筑商协议...',
+          icon: 'none' });
+
+      }
+
+    },
+    radioChange: function radioChange() {
+      this.radio = !this.radio;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -496,12 +510,15 @@ var render = function() {
         "view",
         { staticClass: "registrationInfo_protocol_top" },
         [
-          _c("radio", { attrs: { value: "r1" } }),
+          _c("radio", {
+            attrs: { value: "A", checked: _vm.radio, eventid: "68d18bec-3" },
+            on: { click: _vm.radioChange }
+          }),
           _c(
             "text",
             {
               staticClass: "registrationInfo_protocol_top_txt",
-              attrs: { eventid: "68d18bec-3" },
+              attrs: { eventid: "68d18bec-4" },
               on: { click: _vm.lookProtocol }
             },
             [_vm._v("同意上海爱用宝科技股份有限公司的代办协议")]
@@ -513,7 +530,7 @@ var render = function() {
         "view",
         {
           staticClass: "registrationInfo_protocol_bottom",
-          attrs: { eventid: "68d18bec-4" },
+          attrs: { eventid: "68d18bec-5" },
           on: { click: _vm.goMain_index }
         },
         [

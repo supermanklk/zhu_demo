@@ -151,8 +151,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _left;var _default =
 {
   data: function data() {
@@ -176,10 +174,23 @@ var _left;var _default =
 
 
   },
+
   onLoad: function onLoad() {
     _left = this;
 
+    uni.login({
+      provider: 'weixin',
+      success: function success(loginRes) {
+        console.log('loginRes', loginRes);
+        // 获取用户信息
+        uni.getUserInfo({
+          provider: 'weixin',
+          success: function success(infoRes) {
+            console.log('用户昵称为：' + infoRes.userInfo.nickName);
+            console.log('用户的信息', infoRes);
+          } });
 
+      } });
 
     // 当页面加载成功以后,会进行一次远程数据的请求
     // 			uni.request({
@@ -199,6 +210,9 @@ var _left;var _default =
     // 				// 这里是3秒以后改变age的值
     // 				_left.age = 30;
     // 			},3000)
+  },
+  getUserInfo: function getUserInfo(data) {
+    console.log(data);
   },
   onShow: function onShow() {
     console.log('页面显示1');
@@ -225,7 +239,20 @@ var _left;var _default =
           console.log(res);
         } });
 
-    } } };exports.default = _default;
+    },
+    getPhoneNumber: function getPhoneNumber(e) {
+      console.log('手机号');
+      console.log(e.detail.errMsg);
+      console.log(e.detail.iv);
+      console.log(e.detail.encryptedData);
+    } },
+
+  getPhoneNumber: function getPhoneNumber(e) {
+    console.log('手机号');
+    console.log(e.detail.errMsg);
+    console.log(e.detail.iv);
+    console.log(e.detail.encryptedData);
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),

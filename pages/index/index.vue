@@ -19,13 +19,11 @@
 			</button>
 		</view> -->
 		
-		<!-- #ifdef MP-WEIXIN -->  
+		<!-- #ifdef MP-WEIXIN  -->
 		<view class="applyImmediately">
 			<button  size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;"  hover-class = "btn_hover" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即申请</button>
 		</view>
 		<!-- #endif -->  
-		
-		
 		
 		<!-- 常见问题 -->
 		<view class="">
@@ -61,11 +59,24 @@
 				]
 			}
 		},
+	
 		onLoad() {
 			_left = this;
 			
-			
-			
+			uni.login({
+			  provider: 'weixin',
+			  success: function (loginRes) {
+				console.log('loginRes',loginRes);
+				// 获取用户信息
+				uni.getUserInfo({
+				  provider: 'weixin',
+				  success: function (infoRes) {
+					console.log('用户昵称为：' + infoRes.userInfo.nickName);
+					console.log('用户的信息',infoRes);
+				  }
+				});
+			  }
+			});
 			// 当页面加载成功以后,会进行一次远程数据的请求
 // 			uni.request({
 // 				url: 'https://unidemo.dcloud.net.cn/api/news',
@@ -84,6 +95,9 @@
 // 				// 这里是3秒以后改变age的值
 // 				_left.age = 30;
 // 			},3000)
+		},
+		getUserInfo(data) {
+				console.log(data);
 		},
 		onShow() {
 			console.log('页面显示1');
@@ -110,7 +124,19 @@
 						console.log(res);
 					}
 				})
+			},
+			getPhoneNumber(e) {
+				console.log('手机号')
+				console.log(e.detail.errMsg)
+				console.log(e.detail.iv)
+				console.log(e.detail.encryptedData)
 			}
+		},
+		getPhoneNumber(e) {
+			console.log('手机号')
+			console.log(e.detail.errMsg)
+			console.log(e.detail.iv)
+			console.log(e.detail.encryptedData)
 		}
 	}
 </script>

@@ -13,7 +13,9 @@
     "pages/registrationInfo/registrationInfo",
     "pages/waitPay/waitPay",
     "pages/review/review",
-    "pages/choiceInvitationCode/choiceInvitationCode"
+    "pages/choiceInvitationCode/choiceInvitationCode",
+    "pages/demo/demo",
+    "pages/protocol/protocol"
   ],
   "subPackages": [],
   "window": {

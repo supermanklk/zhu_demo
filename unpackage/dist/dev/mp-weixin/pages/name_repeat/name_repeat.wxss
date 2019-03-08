@@ -1,4 +1,64 @@
 
+.inputRed {
+	border-color: red!important;
+}
+.name_repeat_error_list {
+	text-align: left;
+	margin-top: 10px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	margin-left: 19px;
+}
+/* 弹窗样式 */
+.name_repeat_error_modal {
+	height: 310px;
+	width: 570rpx;
+	background-color: white;
+	z-index: 999;
+	position: fixed;
+	top: 125px;
+	left: 45px;
+	border-radius: 5px;
+}
+.no_name_repeat_error_modal {
+	display: none;
+}
+/* 关闭的X */
+.name_repeat_error_modal_X {
+	width: 60rpx;
+	height: 30px;
+	position: fixed;
+	z-index: 999;
+	top: 450px;
+	left: 172px;
+}
+.no_name_repeat_error_modal_X {
+	display: none;
+}
+/* 蒙层 */
+.mengceng {
+	background-color:rgba(151,151,151,0.8);
+	width: 750rpx;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 998;
+}
+.alert_img_x_item {
+	width: 60rpx;
+	height: 30px;
+	position: fixed;
+	top: 450px;
+	left: 330rpx;
+	z-index: 999;
+}
 .name_repeat_set {
 	margin-top: 35px!important;
 }
@@ -135,6 +195,11 @@
 }
 .btn_hover {
 	color: black!important;
+}
+.pay_btn {
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 30px;
 }
 
 

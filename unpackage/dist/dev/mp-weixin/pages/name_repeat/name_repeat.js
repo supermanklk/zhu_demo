@@ -172,9 +172,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   data: function data() {
     return {
+      alertModal: false, // 查看失败原因弹窗,
       list: [
       { name: '推荐名称一' },
       { name: '推荐名称二' },
@@ -185,9 +210,24 @@ __webpack_require__.r(__webpack_exports__);
       range: [
       '1', '2', '3'],
 
-      array: ['店', '铺', '室', '工作室', '经营部', '服务部', '事务所'],
-      index: 0 };
-
+      array: [['a', 'b'], ['网店', '店', '铺', '室', '工作室', '经营部', '服务部', '事务所']],
+      index: 0,
+      canClick: false, // 开始查询 是否能够点击
+      inputRed: false // 字号自我检测有问题的时候标红
+    };
+  },
+  onLoad: function onLoad() {
+    var self = this;
+    // 首先需要加载经营范围
+    try {
+      var value = uni.getStorageSync('business_scope');
+      if (value) {
+        // console.log('111',value);
+        self.array[0] = value;
+      }
+    } catch (e) {
+      // error
+    }
   },
   methods: {
     change: function change() {
@@ -195,22 +235,56 @@ __webpack_require__.r(__webpack_exports__);
     },
     bindPickerChange: function bindPickerChange(e) {
       console.log('picker发送选择改变，携带值为', e.target.value);
-      this.index = e.target.value;
+      this.index = e.target.value[1];
     },
     startfind: function startfind() {
-      //开始查重 目前是随机的 没有真实的数据
-      var num = Math.random();
-      if (num > 0.5) {
-        // 查重失败的界面
-        uni.redirectTo({
-          url: '../nameRepeatError/nameRepeatError' });
+      if (this.canClick) {
+        //开始查重 目前是随机的 没有真实的数据
+        var num = Math.random();
+        if (num > 0.5) {
+          // 查重失败的界面
+          uni.navigateTo({
+            url: '../nameRepeatError/nameRepeatError' });
 
+        } else {
+          // 查重成功的界面
+          uni.navigateTo({
+            url: '../nameRepeatSuccess/nameRepeatSuccess' });
+
+        }
       } else {
-        // 查重成功的界面
-        uni.redirectTo({
-          url: '../nameRepeatSuccess/nameRepeatSuccess' });
+        uni.showToast({
+          title: '请先填写字号',
+          duration: 2000,
+          icon: 'none' });
 
       }
+
+    },
+    zihaoBlur: function zihaoBlur(e) {
+      console.log('失去焦点', e.detail.value);
+      if (e.detail.value != '') {
+        // 不等于空 可以点击开始查询
+        uni.showLoading({
+          title: '处理中' });
+
+        if (e.detail.value.indexOf('彬') != -1) {
+          this.alertModal = true;
+          this.canClick = false;
+          this.inputRed = true;
+          uni.hideLoading();
+        } else {
+          this.inputRed = false;
+          this.canClick = true;
+          uni.hideLoading();
+        }
+      } else {
+        this.canClick = false;
+      }
+      // 这里需要字号的违规检测
+    },
+    closeImgAlert: function closeImgAlert() {
+      this.alertModal = false;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -243,9 +317,61 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "name_repeat" }, [
-    _vm._m(0),
+    _c(
+      "view",
+      {
+        class:
+          _vm.alertModal == true
+            ? "name_repeat_error_modal"
+            : "no_name_repeat_error_modal"
+      },
+      [_vm._m(0), _vm._m(1)]
+    ),
+    _c(
+      "view",
+      {
+        class:
+          _vm.alertModal == true
+            ? "name_repeat_error_modal_X"
+            : "no_name_repeat_error_modal_X"
+      },
+      [
+        _c("image", {
+          staticClass: "alert_img_x_item",
+          attrs: {
+            src:
+              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/error.png",
+            mode: "",
+            eventid: "182a34ac-0"
+          },
+          on: { click: _vm.closeImgAlert }
+        })
+      ]
+    ),
+    _c("view", { class: _vm.alertModal == true ? "mengceng" : "" }),
+    _vm._m(2),
     _c("view", { staticClass: "name_repeat_set" }, [
-      _vm._m(1),
+      _c(
+        "view",
+        {
+          class:
+            _vm.inputRed == true
+              ? "name_repeat_set_1 inputRed"
+              : "name_repeat_set_1"
+        },
+        [
+          _c("text", [_vm._v("字号:")]),
+          _c("input", {
+            attrs: {
+              type: "text",
+              value: "",
+              placeholder: "给店铺起个名字",
+              eventid: "182a34ac-1"
+            },
+            on: { blur: _vm.zihaoBlur }
+          })
+        ]
+      ),
       _c(
         "view",
         { staticClass: "name_repeat_header_type" },
@@ -256,7 +382,8 @@ var render = function() {
               attrs: {
                 value: _vm.index,
                 range: _vm.array,
-                eventid: "182a34ac-0"
+                mode: "multiSelector",
+                eventid: "182a34ac-2"
               },
               on: { change: _vm.bindPickerChange }
             },
@@ -269,7 +396,7 @@ var render = function() {
                     "padding-right": "10rpx"
                   }
                 },
-                [_vm._v(_vm._s(_vm.array[_vm.index]))]
+                [_vm._v(_vm._s(_vm.array[1][_vm.index]))]
               )
             ]
           )
@@ -299,41 +426,56 @@ var render = function() {
       ],
       2
     ),
-    _vm._m(2),
+    _vm._m(3),
     _c(
       "view",
-      {
-        staticClass: "choiceIndustry_pre_nex",
-        staticStyle: { "margin-top": "60px" }
-      },
+      { staticClass: "pay_btn" },
       [
-        _vm._m(3),
         _c(
-          "view",
+          "button",
           {
-            staticClass: "choiceIndustry_pre_nex_right",
-            attrs: { eventid: "182a34ac-1" },
+            staticStyle: {
+              "margin-top": "20px",
+              width: "360rpx",
+              color: "#1AAD19",
+              "border-color": "#1AAD19"
+            },
+            attrs: {
+              type: "",
+              size: "mini",
+              plain: "true",
+              "hover-class": "btn_hover",
+              eventid: "182a34ac-3"
+            },
             on: { click: _vm.startfind }
           },
-          [
-            _c("image", {
-              staticClass: "choiceIndustry_pre_nex_right_img",
-              attrs: {
-                src:
-                  "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png",
-                mode: ""
-              }
-            }),
-            _c("text", { staticClass: "choiceIndustry_pre_nex_right_txt" }, [
-              _vm._v("开始查询")
-            ])
-          ]
+          [_vm._v("开始查询")]
         )
-      ]
+      ],
+      1
     )
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "name_repeat_error_title" }, [
+      _c("text", [_vm._v("失败原因")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "name_repeat_error_list" }, [
+      _c("text", [_vm._v("1、名字不能含有彬")]),
+      _c("text", [_vm._v("2、失败原因二")]),
+      _c("text", [_vm._v("3、失败原因三")]),
+      _c("text", [_vm._v("4、失败原因四")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -356,17 +498,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "name_repeat_set_1" }, [
-      _c("text", [_vm._v("字号:")]),
-      _c("input", {
-        attrs: { type: "text", value: "", placeholder: "给店铺起个名字" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("view", { staticClass: "changeBatch" }, [
       _c("text", { staticClass: "changeBatch_txt" }, [_vm._v("换一批")]),
       _c("image", {
@@ -376,24 +507,6 @@ var staticRenderFns = [
             "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/changeBatch.png"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIndustry_pre_nex_left" }, [
-      _c("image", {
-        staticClass: "choiceIndustry_pre_nex_left_img",
-        attrs: {
-          src:
-            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png",
-          mode: ""
-        }
-      }),
-      _c("text", { staticClass: "choiceIndustry_pre_nex_left_txt" }, [
-        _vm._v("重新选择行业")
-      ])
     ])
   }
 ]

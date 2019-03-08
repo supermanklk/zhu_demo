@@ -1,98 +1,113 @@
 {
-  "description": "项目配置文件。",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": true
-  },
-  "compileType": "miniprogram",
-  "libVersion": "",
-  "appid": "wx1b8a70921ad41da8",
-  "projectname": "uni-demo",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": 0,
-      "list": [
-        {
-          "name": "info",
-          "query": "newsid=5178500",
-          "id": 0,
-          "pathName": "pages/info/info"
-        },
-        {
-          "name": "主页面",
-          "id": 1,
-          "pathName": "pages/main_index/main_index"
-        },
-        {
-          "name": "名称查重",
-          "id": 2,
-          "pathName": "pages/name_repeat/name_repeat"
-        },
-        {
-          "name": "查重失败",
-          "id": 3,
-          "pathName": "pages/nameRepeatError/nameRepeatError"
-        },
-        {
-          "name": "选择身份",
-          "id": 4,
-          "pathName": "pages/choiceIdentity/choiceIdentity"
-        },
-        {
-          "name": "选择身份-输入邀请码",
-          "id": 5,
-          "pathName": "pages/choiceInvitationCode/choiceInvitationCode"
-        },
-        {
-          "name": "选择行业",
-          "id": 6,
-          "pathName": "pages/choiceIndustry/choiceIndustry"
-        },
-        {
-          "name": "选择行业-选择一个作为主营业务",
-          "id": 7,
-          "pathName": "pages/choiceIndustryOne/choiceIndustryOne"
-        },
-        {
-          "name": "名称查重通过页面",
-          "id": 8,
-          "pathName": "pages/nameRepeatSuccess/nameRepeatSuccess"
-        },
-        {
-          "name": "注册登记主页",
-          "id": 9,
-          "pathName": "pages/registration/registration"
-        },
-        {
-          "name": "注册登记 -- 查看注册所有信息",
-          "id": 10,
-          "pathName": "pages/registrationInfo/registrationInfo"
-        },
-        {
-          "name": "等待支付第一个页面",
-          "id": 11,
-          "pathName": "pages/waitPay/waitPay"
-        },
-        {
-          "name": "审核中",
-          "id": 12,
-          "pathName": "pages/review/review"
-        }
-      ]
-    }
-  }
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "",
+	"appid": "wx1b8a70921ad41da8",
+	"projectname": "uni-demo",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"name": "info",
+					"query": "newsid=5178500",
+					"id": 0,
+					"pathName": "pages/info/info"
+				},
+				{
+					"name": "主页面",
+					"id": 1,
+					"pathName": "pages/main_index/main_index"
+				},
+				{
+					"name": "名称查重",
+					"id": 2,
+					"pathName": "pages/name_repeat/name_repeat"
+				},
+				{
+					"name": "查重失败",
+					"id": 3,
+					"pathName": "pages/nameRepeatError/nameRepeatError"
+				},
+				{
+					"name": "选择身份",
+					"id": 4,
+					"pathName": "pages/choiceIdentity/choiceIdentity"
+				},
+				{
+					"name": "选择身份-输入邀请码",
+					"id": 5,
+					"pathName": "pages/choiceInvitationCode/choiceInvitationCode"
+				},
+				{
+					"name": "选择行业",
+					"id": 6,
+					"pathName": "pages/choiceIndustry/choiceIndustry"
+				},
+				{
+					"name": "选择行业-选择一个作为主营业务",
+					"id": 7,
+					"pathName": "pages/choiceIndustryOne/choiceIndustryOne"
+				},
+				{
+					"name": "名称查重通过页面",
+					"id": 8,
+					"pathName": "pages/nameRepeatSuccess/nameRepeatSuccess"
+				},
+				{
+					"name": "注册登记主页",
+					"id": 9,
+					"pathName": "pages/registration/registration"
+				},
+				{
+					"name": "注册登记 -- 查看注册所有信息",
+					"id": 10,
+					"pathName": "pages/registrationInfo/registrationInfo"
+				},
+				{
+					"name": "等待支付第一个页面",
+					"id": 11,
+					"pathName": "pages/waitPay/waitPay"
+				},
+				{
+					"name": "审核中",
+					"id": 12,
+					"pathName": "pages/review/review"
+				},
+				{
+					"name": "demo",
+					"id": 13,
+					"pathName": "pages/demo/demo"
+				},
+				{
+					"name": "协议说明",
+					"id": 14,
+					"pathName": "pages/protocol/protocol"
+				}
+			]
+		}
+	}
 }

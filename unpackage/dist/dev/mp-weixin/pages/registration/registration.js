@@ -113,8 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -177,11 +176,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       phone: 17637794541,
-      verificationCode: 666666,
+      verificationCode: '',
       array: ['1', '10', '100'],
       index: 0,
       isDisplayVerificationCode: false, //是否显示验证码这一栏,默认不显示
-      phoneTxt: '修改' };
+      phoneTxt: '修改',
+      codeTime: '', //默认信息反应的时间为60s
+      waitCode: '', //给用户发送的短信验证码
+      vertifyTxt: '' };
 
   },
   methods: {
@@ -192,7 +194,15 @@ __webpack_require__.r(__webpack_exports__);
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         // sourceType: ['album'], //从相册选择
         success: function success(res) {
-          console.log(JSON.stringify(res.tempFilePaths));
+          console.log(JSON.stringify(res));
+          var tempFilePaths = res.tempFilePaths;
+          uni.saveFile({
+            tempFilePath: tempFilePaths[0],
+            success: function success(res) {
+              console.log('保存返回的数据', res);
+              var savedFilePath = res;
+            } });
+
         } });
 
     },
@@ -211,18 +221,91 @@ __webpack_require__.r(__webpack_exports__);
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value;
     },
-    changePhone: function changePhone() {
-      // 修改手机号,要显示验证码这一栏
-      this.isDisplayVerificationCode = true;
-      this.phoneTxt = '获取验证码';
-      console.log('修改号码');
+    changePhone: function changePhone(e) {var _this = this;
+      // 判断点击的是 修改 还是 获取验证码
+      if (this.phoneTxt == '修改') {
+        // 修改手机号,要显示验证码这一栏
+        this.isDisplayVerificationCode = true;
+        this.phoneTxt = '获取验证码';
+        console.log('修改号码');
+      } else if (this.phoneTxt == '获取验证码' || this.phoneTxt == '重新获取验证码') {
+
+        // 需要给用户的手机号发送短信
+        var code = global.getVeritifyCode(); // 这个函数在全局
+        var mobile = this.phone; //将要绑定的手机号,即发送的手机号
+        var tpl_id = 140513; //模板号 模板就是发送信息的模板,模板是聚合数据的模板
+        var tpl_value = '%23code%23%3D' + code;
+        var key = '8972e94284e4fb4fafc3266c8834d25c'; //聚合数据的appkey
+        var url = "http://v.juhe.cn/sms/send?mobile=" + mobile + '&tpl_id=' + tpl_id + '&dtype=&key=' + key + '&tpl_value=' + tpl_value;
+        uni.request({
+          url: url,
+          success: function success(res) {
+            if (res.data.reason == "操作成功") {
+              _this.waitCode = code;
+              // 信息发送成功
+              _this.codeTime = 60;
+              _this.phoneTxt = '后重新获取';
+              var timer = setInterval(function () {
+                _this.codeTime--;
+                if (_this.codeTime <= 0) {
+                  console.log('99', _this.codeTime);
+                  clearInterval(timer);
+                  _this.codeTime = '';
+                  _this.phoneTxt = '重新获取验证码';
+                }
+              }, 1000);
+            }
+          } });
+
+      }
+
+    },
+    // 验证手机验证码
+    vertifyCode: function vertifyCode(e) {var _this2 = this;
+      // 判断用户输入的验证码与发送的验证码是否一致
+      if (e.detail.value == this.waitCode && e.detail.value != '') {
+        this.vertifyTxt = '验证成功';
+        this.codeTime = 0;
+        // this.phoneTxt = '重新取验证码';
+        uni.showToast({
+          title: '修改成功了',
+          duration: 2000 });
+
+        setTimeout(function () {
+          _this2.isDisplayVerificationCode = false;
+          _this2.phoneTxt = '修改';
+          _this2.vertifyTxt = '';
+          _this2.verificationCode = '';
+        }, 2000);
+      } else if (this.phoneTxt == '获取验证码') {
+        uni.showToast({
+          title: '请先获取验证码',
+          duration: 2000,
+          icon: 'none' });
+
+      } else {
+        this.vertifyTxt = '验证码错误';
+      }
     },
     goRegistrationInfo: function goRegistrationInfo() {
       uni.navigateTo({
         url: '../registrationInfo/registrationInfo' });
 
+    },
+    vertifyPhone: function vertifyPhone(e) {
+      var phone = e.detail.value;
+      if (phone.length != 11) {
+        uni.showToast({
+          title: '手机号不正确',
+          duration: 2000,
+          icon: 'none' });
+
+      } else {
+        console.log('89', e.detail.value);
+        this.phone = e.detail.value;
+      }
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -263,55 +346,17 @@ var render = function() {
             : "registration_block"
       },
       [
-        _c(
-          "view",
-          { staticClass: "registration_block_1" },
-          [
-            _c("text", [_vm._v("注册资金")]),
-            _c(
-              "picker",
-              {
-                attrs: {
-                  value: _vm.index,
-                  range: _vm.array,
-                  eventid: "6ef7e3a8-0"
-                },
-                on: { change: _vm.bindPickerChange }
-              },
-              [
-                _c(
-                  "view",
-                  {
-                    staticStyle: {
-                      "padding-left": "10rpx",
-                      "padding-right": "10rpx"
-                    }
-                  },
-                  [
-                    _c(
-                      "text",
-                      {
-                        staticStyle: {
-                          display: "inline-block",
-                          width: "50rpx",
-                          "border-bottom": "1px solid #E5E5E5",
-                          "margin-left": "5rpx",
-                          "margin-right": "5rpx"
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.array[_vm.index]))]
-                    ),
-                    _vm._v("万元")
-                  ]
-                )
-              ]
-            )
-          ],
-          1
-        ),
         _c("view", { staticClass: "registration_block_2" }, [
           _vm._v("手机号"),
-          _c("input", { attrs: { type: "text", value: _vm.phone } }),
+          _c("input", {
+            attrs: {
+              type: "text",
+              disabled: _vm.isDisplayVerificationCode == true ? false : true,
+              value: _vm.phone,
+              eventid: "6ef7e3a8-0"
+            },
+            on: { blur: _vm.vertifyPhone }
+          }),
           _c(
             "text",
             {
@@ -323,7 +368,7 @@ var render = function() {
               attrs: { eventid: "6ef7e3a8-1" },
               on: { click: _vm.changePhone }
             },
-            [_vm._v(_vm._s(_vm.phoneTxt))]
+            [_vm._v(_vm._s(_vm.codeTime) + _vm._s(_vm.phoneTxt))]
           )
         ]),
         _c(
@@ -337,16 +382,21 @@ var render = function() {
           [
             _vm._v("验证码"),
             _c("input", {
-              attrs: { type: "text", value: _vm.verificationCode }
+              attrs: {
+                type: "text",
+                value: _vm.verificationCode,
+                eventid: "6ef7e3a8-2"
+              },
+              on: { blur: _vm.vertifyCode }
             }),
             _c(
               "text",
               {
                 staticStyle: { color: "#FF0000" },
-                attrs: { eventid: "6ef7e3a8-2" },
+                attrs: { eventid: "6ef7e3a8-3" },
                 on: { click: function($event) {} }
               },
-              [_vm._v("验证码错误")]
+              [_vm._v(_vm._s(_vm.vertifyTxt))]
             )
           ]
         )
@@ -361,7 +411,7 @@ var render = function() {
             src:
               "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/add.png",
             mode: "",
-            eventid: "6ef7e3a8-3"
+            eventid: "6ef7e3a8-4"
           },
           on: { click: _vm.clickFront }
         }),
@@ -382,7 +432,7 @@ var render = function() {
             src:
               "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/add.png",
             mode: "",
-            eventid: "6ef7e3a8-4"
+            eventid: "6ef7e3a8-5"
           },
           on: { click: _vm.clickBack }
         }),
@@ -398,12 +448,11 @@ var render = function() {
       ])
     ]),
     _c("view", { staticClass: "registration_ok" }, [
-      _vm._m(2),
       _c(
         "view",
         {
           staticClass: "registration_ok_right",
-          attrs: { eventid: "6ef7e3a8-5" },
+          attrs: { eventid: "6ef7e3a8-6" },
           on: { click: _vm.goRegistrationInfo }
         },
         [
@@ -415,9 +464,7 @@ var render = function() {
               mode: ""
             }
           }),
-          _c("text", { staticClass: "registration_ok_txt" }, [
-            _vm._v("信息确定")
-          ])
+          _c("text", { staticClass: "registration_ok_txt" }, [_vm._v("下一步")])
         ]
       )
     ])
@@ -438,24 +485,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "registration_title" }, [
       _c("text", [_vm._v("实名认证")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registration_ok_left" }, [
-      _c("image", {
-        staticClass: "registration_ok_img",
-        attrs: {
-          src:
-            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/pre_step.png",
-          mode: ""
-        }
-      }),
-      _c("text", { staticClass: "registration_ok_txt" }, [
-        _vm._v("重新名称查重")
-      ])
     ])
   }
 ]

@@ -78,7 +78,19 @@
         {
             "path" : "pages/choiceInvitationCode/choiceInvitationCode",
             "style" : {
-				"navigationBarTitleText" : "选择身份"
+                "navigationBarTitleText" : "选择身份"
+            }
+        },
+        {
+            "path" : "pages/demo/demo",
+            "style" : {
+                "navigationBarTitleText" : "测试页面"
+            }
+        },
+        {
+            "path" : "pages/protocol/protocol",
+            "style" : {
+				"navigationBarTitleText" : "注册登记"
 			}
         }
     ],
@@ -114,10 +126,10 @@
                 "name" : "选择身份",
                 "path" : "pages/choiceIdentity/choiceIdentity"
             },
-			{
-				"name" : "选择身份-输入邀请码",
-				"path" : "pages/choiceInvitationCode/choiceInvitationCode"
-			},
+            {
+                "name" : "选择身份-输入邀请码",
+                "path" : "pages/choiceInvitationCode/choiceInvitationCode"
+            },
             {
                 "name" : "选择行业",
                 "path" : "pages/choiceIndustry/choiceIndustry"
@@ -145,7 +157,15 @@
             {
                 "name" : "审核中",
                 "path" : "pages/review/review"
-            }
+            },
+            {
+                "name" : "demo",
+                "path" : "pages/demo/demo"
+            },
+			{
+				"name" : "协议说明",
+				"path" : "pages/protocol/protocol"
+			}
         ]
     }
 }

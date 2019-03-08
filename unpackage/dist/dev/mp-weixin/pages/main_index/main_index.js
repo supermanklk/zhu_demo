@@ -231,6 +231,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 {
   data: function data() {
     return {
@@ -239,29 +244,86 @@ __webpack_require__.r(__webpack_exports__);
       // stepName : '选择套餐',
       // stepName : '查看进度',
       // stepName : '更多服务',
-      stepName: '选择行业' };
-
+      stepName: '选择行业',
+      currentStep: 0 // 默认0 为选择行业
+    };
   },
   onLoad: function onLoad(e) {
+    var self = this;
+    uni.getStorage({
+      key: 'currentStep',
+      success: function success(res) {
+        console.log('storage', res.data);
+        // self.currentStep = 1;
+      } });
+
     console.log('主页打印onload的e', e);
     switch (e.from) {
       case 'choiceIndustryOne':
         this.stepName = '名称查重';
+        this.currentStep = 1;
+        uni.setStorage({
+          key: 'currentStep',
+          data: '1',
+          success: function success() {
+            console.log('success');
+          } });
+
         break;
       case 'choiceInvitationCode':
         this.stepName = '名称查重';
+        this.currentStep = 1;
+        uni.setStorage({
+          key: 'currentStep',
+          data: '1',
+          success: function success() {
+            console.log('success');
+          } });
+
         break;
       case 'name_repeat':
         this.stepName = '注册登记';
+        this.currentStep = 2;
+        uni.setStorage({
+          key: 'currentStep',
+          data: '2',
+          success: function success() {
+            console.log('success');
+          } });
+
         break;
       case 'registrationInfo':
         this.stepName = '选择套餐';
+        this.currentStep = 3;
+        uni.setStorage({
+          key: 'currentStep',
+          data: '3',
+          success: function success() {
+            console.log('success');
+          } });
+
         break;
       case 'waitPay':
         this.stepName = '查看进度';
+        this.currentStep = 4;
+        uni.setStorage({
+          key: 'currentStep',
+          data: '4',
+          success: function success() {
+            console.log('success');
+          } });
+
         break;
       case 'review':
         this.stepName = '查看进度';
+        this.currentStep = 4;
+        uni.setStorage({
+          key: 'currentStep',
+          data: '4',
+          success: function success() {
+            console.log('success');
+          } });
+
         break;
       default:
         break;}
@@ -297,12 +359,25 @@ __webpack_require__.r(__webpack_exports__);
           break;
         case '选择行业':
           uni.redirectTo({
-            url: '../choiceIdentity/choiceIdentity' });
+            url: '../choiceIndustry/choiceIndustry' });
 
           break;
 
         default:
           break;}
+
+    },
+    reApply: function reApply() {
+      uni.showModal({
+        title: '提示',
+        content: '重新申请将会清空完成的所有步骤',
+        success: function success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定');
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        } });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -339,7 +414,171 @@ var render = function() {
     _c("view", { staticClass: "main_header" }),
     _vm._m(0),
     _vm._m(1),
-    _vm._m(2),
+    _c("view", { staticClass: "main_progress" }, [
+      _c("view", { staticClass: "left_progress" }, [
+        _c("view", { staticStyle: { position: "relative" } }, [
+          _c("image", {
+            class: _vm.currentStep == 0 ? "current_progress" : "green_ok",
+            staticStyle: { position: "absolute", top: "-5px", left: "-12rpx" },
+            attrs: {
+              src:
+                _vm.currentStep == 0
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png"
+                  : _vm.currentStep > 0
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png"
+                  : "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
+              mode: ""
+            }
+          }),
+          _c("view", { staticClass: "spindle1" })
+        ]),
+        _c("view", { staticStyle: { position: "relative" } }, [
+          _c("image", {
+            class: _vm.currentStep == 1 ? "current_progress" : "green_ok",
+            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
+            attrs: {
+              src:
+                _vm.currentStep == 1
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png"
+                  : _vm.currentStep > 1
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png"
+                  : "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
+              mode: ""
+            }
+          }),
+          _c("view", { staticClass: "spindle2" })
+        ]),
+        _c("view", { staticStyle: { position: "relative" } }, [
+          _c("image", {
+            class: _vm.currentStep == 2 ? "current_progress" : "green_ok",
+            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
+            attrs: {
+              src:
+                _vm.currentStep == 2
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png"
+                  : _vm.currentStep > 2
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png"
+                  : "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
+              mode: ""
+            }
+          }),
+          _c("view", { staticClass: "spindle3" })
+        ]),
+        _c("view", { staticStyle: { position: "relative" } }, [
+          _c("image", {
+            class: _vm.currentStep == 3 ? "current_progress" : "green_ok",
+            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
+            attrs: {
+              src:
+                _vm.currentStep == 3
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png"
+                  : _vm.currentStep > 3
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png"
+                  : "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
+              mode: ""
+            }
+          }),
+          _c("view", { staticClass: "spindle4" })
+        ]),
+        _c("view", { staticStyle: { position: "relative" } }, [
+          _c("image", {
+            class: _vm.currentStep == 4 ? "current_progress" : "green_ok",
+            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
+            attrs: {
+              src:
+                _vm.currentStep == 4
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png"
+                  : _vm.currentStep > 4
+                  ? "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png"
+                  : "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
+              mode: ""
+            }
+          })
+        ])
+      ]),
+      _c("view", { staticClass: "right_progress" }, [
+        _c("view", { staticClass: "right_progress_item" }, [
+          _c("view", {}, [
+            _c("text", [_vm._v("选择行业")]),
+            _c(
+              "text",
+              {
+                class:
+                  _vm.currentStep > 0
+                    ? "progress_status"
+                    : "progress_status_gray"
+              },
+              [_vm._v(_vm._s(_vm.currentStep > 0 ? "(已完成)" : "(待完成)"))]
+            )
+          ]),
+          _vm._m(2)
+        ]),
+        _c("view", { staticClass: "right_progress_item" }, [
+          _c("view", {}, [
+            _c("text", [_vm._v("名称查重")]),
+            _c(
+              "text",
+              {
+                class:
+                  _vm.currentStep > 0
+                    ? "progress_status"
+                    : "progress_status_gray"
+              },
+              [_vm._v(_vm._s(_vm.currentStep > 1 ? "(已完成)" : "(待完成)"))]
+            )
+          ]),
+          _vm._m(3)
+        ]),
+        _c("view", { staticClass: "right_progress_item" }, [
+          _c("view", {}, [
+            _c("text", [_vm._v("注册登记")]),
+            _c(
+              "text",
+              {
+                class:
+                  _vm.currentStep > 0
+                    ? "progress_status"
+                    : "progress_status_gray"
+              },
+              [_vm._v(_vm._s(_vm.currentStep > 2 ? "(已完成)" : "(待完成)"))]
+            )
+          ]),
+          _vm._m(4)
+        ]),
+        _c("view", { staticClass: "right_progress_item" }, [
+          _c("view", {}, [
+            _c("text", [_vm._v("选择套餐并完成支付")]),
+            _c(
+              "text",
+              {
+                class:
+                  _vm.currentStep > 0
+                    ? "progress_status"
+                    : "progress_status_gray"
+              },
+              [_vm._v(_vm._s(_vm.currentStep > 3 ? "(已完成)" : "(待完成)"))]
+            )
+          ]),
+          _vm._m(5)
+        ]),
+        _c("view", { staticClass: "right_progress_item" }, [
+          _c("view", {}, [
+            _c("text", [_vm._v("审核通过并领取材料")]),
+            _c(
+              "text",
+              {
+                class:
+                  _vm.currentStep > 0
+                    ? "progress_status"
+                    : "progress_status_gray"
+              },
+              [_vm._v(_vm._s(_vm.currentStep > 4 ? "(已完成)" : "(待完成)"))]
+            )
+          ]),
+          _vm._m(6)
+        ])
+      ])
+    ]),
     _c(
       "view",
       { staticClass: "main_find_repeat" },
@@ -366,7 +605,17 @@ var render = function() {
       ],
       1
     ),
-    _vm._m(3)
+    _c("view", {}, [
+      _c(
+        "text",
+        {
+          staticClass: "commonProblem",
+          attrs: { eventid: "6549f84c-1" },
+          on: { click: _vm.reApply }
+        },
+        [_vm._v("重新申请")]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -398,123 +647,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "main_progress" }, [
-      _c("view", { staticClass: "left_progress" }, [
-        _c("view", { staticStyle: { position: "relative" } }, [
-          _c("image", {
-            staticClass: "green_ok",
-            staticStyle: { position: "absolute", top: "-5px", left: "-12rpx" },
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png",
-              mode: ""
-            }
-          }),
-          _c("view", { staticClass: "spindle1" })
-        ]),
-        _c("view", { staticStyle: { position: "relative" } }, [
-          _c("image", {
-            staticClass: "current_progress",
-            staticStyle: { position: "absolute", top: "-9px", left: "-24rpx" },
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png",
-              mode: ""
-            }
-          }),
-          _c("view", { staticClass: "spindle2" })
-        ]),
-        _c("view", { staticStyle: { position: "relative" } }, [
-          _c("image", {
-            staticClass: "gray_spot",
-            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
-              mode: ""
-            }
-          }),
-          _c("view", { staticClass: "spindle3" })
-        ]),
-        _c("view", { staticStyle: { position: "relative" } }, [
-          _c("image", {
-            staticClass: "gray_spot",
-            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
-              mode: ""
-            }
-          }),
-          _c("view", { staticClass: "spindle4" })
-        ]),
-        _c("view", { staticStyle: { position: "relative" } }, [
-          _c("image", {
-            staticClass: "gray_spot",
-            staticStyle: { position: "absolute", top: "-3px", left: "-12rpx" },
-            attrs: {
-              src:
-                "http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png",
-              mode: ""
-            }
-          })
-        ])
-      ]),
-      _c("view", { staticClass: "right_progress" }, [
-        _c("view", { staticClass: "right_progress_item" }, [
-          _c("view", {}, [
-            _c("text", [_vm._v("选择行业")]),
-            _c("text", { staticClass: "progress_status" }, [_vm._v("(待完成)")])
-          ]),
-          _c("view", { staticClass: "step_detail" }, [
-            _c("text", [_vm._v("选择你从事的行业,用以确定经营范围")])
-          ])
-        ]),
-        _c("view", { staticClass: "right_progress_item" }, [
-          _c("view", {}, [
-            _c("text", [_vm._v("名称查重")]),
-            _c("text", { staticClass: "progress_status" }, [_vm._v("(待完成)")])
-          ]),
-          _c("view", { staticClass: "step_detail" }, [
-            _c("text", [_vm._v("给你的店铺取个合适的名字")])
-          ])
-        ]),
-        _c("view", { staticClass: "right_progress_item" }, [
-          _c("view", {}, [
-            _c("text", [_vm._v("注册登记")]),
-            _c("text", { staticClass: "progress_status" }, [_vm._v("(待完成)")])
-          ]),
-          _c("view", { staticClass: "step_detail" }, [
-            _c("text", [_vm._v("填写登记信息并完成实名认证")])
-          ])
-        ]),
-        _c("view", { staticClass: "right_progress_item" }, [
-          _c("view", {}, [
-            _c("text", [_vm._v("选择套餐并完成支付")]),
-            _c("text", { staticClass: "progress_status" }, [_vm._v("(待完成)")])
-          ]),
-          _c("view", { staticClass: "step_detail" }, [
-            _c("text", [_vm._v("根据自己的实际情况选择合适的套餐")])
-          ])
-        ]),
-        _c("view", { staticClass: "right_progress_item" }, [
-          _c("view", {}, [
-            _c("text", [_vm._v("审核通过并领取材料")]),
-            _c("text", { staticClass: "progress_status" }, [_vm._v("(待完成)")])
-          ]),
-          _c("view", { staticClass: "step_detail" }, [
-            _c("text", [_vm._v("快递寄送公章,税盘等材料")])
-          ])
-        ])
-      ])
+    return _c("view", { staticClass: "step_detail" }, [
+      _c("text", [_vm._v("选择你从事的行业,用以确定经营范围")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", {}, [
-      _c("text", { staticClass: "commonProblem" }, [_vm._v("常见问题")])
+    return _c("view", { staticClass: "step_detail" }, [
+      _c("text", [_vm._v("给你的店铺取个合适的名字")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "step_detail" }, [
+      _c("text", [_vm._v("填写登记信息并完成实名认证")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "step_detail" }, [
+      _c("text", [_vm._v("根据自己的实际情况选择合适的套餐")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "step_detail" }, [
+      _c("text", [_vm._v("快递寄送公章,税盘等材料")])
     ])
   }
 ]

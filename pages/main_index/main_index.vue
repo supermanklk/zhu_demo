@@ -23,42 +23,47 @@
 		<!-- 进度状态 -->
 		<view class="main_progress">
 			<view class="left_progress">
+				<!-- 选择行业 -->
 				<view class="" style="position: relative;">
-					<image class="green_ok" style="position: absolute; top: -5px; left: -12upx;" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png" mode=""></image>
+					<image :class="currentStep == 0 ? 'current_progress' : 'green_ok'" style="position: absolute; top: -5px; left: -12upx;" 
+					:src="currentStep == 0 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png' : (currentStep > 0 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png' : 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png')" mode=""></image>
 					<view class="spindle1">
 					</view>
 				</view>
-				
+				<!-- 名称查重 -->
 				<view class="" style="position: relative;">
-					<image class="current_progress" style="position: absolute; top: -9px; left: -24upx;" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png" mode=""></image>
+					<image :class="currentStep == 1 ? 'current_progress' : 'green_ok'"  style="position: absolute; top: -3px; left: -12upx;" 
+					:src="currentStep == 1 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png' : (currentStep > 1 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png' : 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png')"mode=""></image>
 					<view class="spindle2">
 						
 					</view>
 				</view>	
-				
+				<!-- 注册登记 -->
 				<view class="" style="position: relative;">
-					<image class="gray_spot" style="position: absolute; top: -3px; left: -12upx;" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png" mode=""></image>
+					<image :class="currentStep == 2 ? 'current_progress' : 'green_ok'" style="position: absolute; top: -3px; left: -12upx;" 
+					:src="currentStep == 2 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png' : (currentStep > 2 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png' : 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png')" mode=""></image>
 					<view class="spindle3">
 						
 					</view>
 				</view>
-				
+				<!-- 选择套餐并完成支付 -->
 				<view class="" style="position: relative;">
-					<image class="gray_spot" style="position: absolute; top: -3px; left: -12upx;" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png" mode=""></image>
+					<image :class="currentStep == 3 ? 'current_progress' : 'green_ok'" style="position: absolute; top: -3px; left: -12upx;"
+					:src="currentStep == 3 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png' : (currentStep > 3 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png' : 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png')" mode=""></image>
 					<view class="spindle4">
 						
 					</view>
 				</view>
-				
+				<!-- 审核通过并领取材料 -->
 				<view class="" style="position: relative;">
-					<image class="gray_spot" style="position: absolute; top: -3px; left: -12upx;" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png" mode=""></image>
-
+					<image :class="currentStep == 4 ? 'current_progress' : 'green_ok'" style="position: absolute; top: -3px; left: -12upx;" 
+					:src="currentStep == 4 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/current_progress.png' : (currentStep > 4 ? 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/green_ok.png' : 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/gray_spot.png')" mode=""></image>
 				</view>
 			</view>
 			<view class="right_progress">
 				<view class="right_progress_item">
 					<view class="">
-						<text>选择行业</text> <text class="progress_status">(待完成)</text>
+						<text>选择行业</text> <text :class="currentStep > 0 ? 'progress_status' : 'progress_status_gray'">{{currentStep > 0 ? '(已完成)' : '(待完成)'}}</text>
 					</view>
 					<view class="step_detail">
 						<text>选择你从事的行业,用以确定经营范围</text>
@@ -66,7 +71,7 @@
 				</view>
 				<view class="right_progress_item">
 					<view class="">
-						<text>名称查重</text> <text class="progress_status">(待完成)</text>
+						<text>名称查重</text> <text :class="currentStep > 0 ? 'progress_status' : 'progress_status_gray'">{{currentStep  > 1? '(已完成)' : '(待完成)'}}</text>
 					</view>
 					<view class="step_detail">
 						<text>给你的店铺取个合适的名字</text>
@@ -74,7 +79,7 @@
 				</view>
 				<view class="right_progress_item">
 					<view class="">
-						<text>注册登记</text> <text class="progress_status">(待完成)</text>
+						<text>注册登记</text> <text :class="currentStep > 0 ? 'progress_status' : 'progress_status_gray'">{{currentStep > 2 ? '(已完成)' : '(待完成)'}}</text>
 					</view>
 					<view class="step_detail">
 						<text>填写登记信息并完成实名认证</text>
@@ -82,7 +87,7 @@
 				</view>
 				<view class="right_progress_item">
 					<view class="">
-						<text>选择套餐并完成支付</text> <text class="progress_status">(待完成)</text>
+						<text>选择套餐并完成支付</text> <text :class="currentStep > 0 ? 'progress_status' : 'progress_status_gray'">{{currentStep > 3 ? '(已完成)' : '(待完成)'}}</text>
 					</view>
 					<view class="step_detail">
 						<text>根据自己的实际情况选择合适的套餐</text>
@@ -90,7 +95,7 @@
 				</view>
 				<view class="right_progress_item">
 					<view class="">
-						<text>审核通过并领取材料</text> <text class="progress_status">(待完成)</text>
+						<text>审核通过并领取材料</text> <text :class="currentStep > 0 ? 'progress_status' : 'progress_status_gray'">{{currentStep > 4 ? '(已完成)' : '(待完成)'}}</text>
 					</view>
 					<view class="step_detail">
 						<text>快递寄送公章,税盘等材料</text>
@@ -108,8 +113,8 @@
 		
 		<!-- 常见问题 -->
 		<view class="">
-			<text class="commonProblem">
-				常见问题
+			<text class="commonProblem" @click="reApply">
+				重新申请
 			</text>
 		</view>
 	</view>
@@ -125,28 +130,85 @@
 				// stepName : '查看进度',
 				// stepName : '更多服务',
 				stepName : '选择行业',
+				currentStep : 0, // 默认0 为选择行业
 			};
 		},
 		onLoad(e) {
+			var self = this;
+			uni.getStorage({
+				key: 'currentStep',
+				success: function (res) {
+					console.log('storage',res.data);
+					// self.currentStep = 1;
+				}
+			});
 			console.log('主页打印onload的e',e);
 			switch (e.from){
 				case 'choiceIndustryOne':
 					this.stepName = '名称查重';
+					this.currentStep = 1;
+					uni.setStorage({
+						key: 'currentStep',
+						data: '1',
+						success: function () {
+							console.log('success');
+						}
+					});
 					break;
 				case 'choiceInvitationCode':
 					this.stepName = '名称查重';
+					this.currentStep = 1;
+					uni.setStorage({
+						key: 'currentStep',
+						data: '1',
+						success: function () {
+							console.log('success');
+						}
+					});
 					break;
 				case 'name_repeat':
 					this.stepName = '注册登记';
+					this.currentStep = 2;
+					uni.setStorage({
+						key: 'currentStep',
+						data: '2',
+						success: function () {
+							console.log('success');
+						}
+					});
 					break;
 				case 'registrationInfo':
 					this.stepName = '选择套餐';
+					this.currentStep = 3;
+					uni.setStorage({
+						key: 'currentStep',
+						data: '3',
+						success: function () {
+							console.log('success');
+						}
+					});
 					break;
 				case 'waitPay':
 					this.stepName = '查看进度';
+					this.currentStep = 4;
+					uni.setStorage({
+						key: 'currentStep',
+						data: '4',
+						success: function () {
+							console.log('success');
+						}
+					});
 					break;
 				case 'review':
 					this.stepName = '查看进度';
+					this.currentStep = 4;
+					uni.setStorage({
+						key: 'currentStep',
+						data: '4',
+						success: function () {
+							console.log('success');
+						}
+					});
 					break;
 				default:
 					break;
@@ -182,13 +244,26 @@
 						break;
 					case '选择行业':
 						uni.redirectTo({
-							url: '../choiceIdentity/choiceIdentity'
+							url: '../choiceIndustry/choiceIndustry'
 						});
 						break;
 						
 					default:
 						break;
 				}
+			},
+			reApply() {
+				uni.showModal({
+				title: '提示',
+				content: '重新申请将会清空完成的所有步骤',
+				success: function (res) {
+					if (res.confirm) {
+						console.log('用户点击确定');
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
 			}
 		}
 	}
@@ -272,13 +347,18 @@
 		font-size: 12px;
 		margin-left: 18upx;
 	}
+	.progress_status_gray {
+		color: #999999;
+		font-size: 12px;
+		margin-left: 18upx;
+	}
 	.right_progress_item {
 		margin-bottom: 21px;
 	}
 	
 	/* 常见问题 */
 	.commonProblem {
-		color: #BD10E0;
+		/* color: #BD10E0; */
 		font-size: 10px;
 	}
 	
@@ -308,6 +388,7 @@
 		height: 15px;
 	}
 	.current_progress {
+		left: -15px!important;
 		width: 60upx;
 		height: 30px;
 	}

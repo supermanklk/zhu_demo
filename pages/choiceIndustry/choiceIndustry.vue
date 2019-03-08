@@ -3,10 +3,10 @@
 	<view class="choiceIndustry">
 		<view class="choiceIndustry_header">
 			<view class="choiceIndustry_header_1">
-				<text>选择你的行业</text>
+				<text>{{activeArr == '' ? title : '(已选'+activeArr.length+'/5:  '+activeArr+')'}}</text>
 			</view>
 			<view class="choiceIndustry_header_2">
-				<text>(最多选5项)</text>
+				<text>{{activeArr == '' ? '(最多选5项)' : '综合税率5%'}}</text>
 			</view>
 			<view class="choiceIndustry_header_3">
 				<text>热门</text>
@@ -38,10 +38,6 @@
 		
 		<!-- 重新选择身份 下一步 -->
 		<view class="choiceIndustry_pre_nex">
-			<view class="choiceIndustry_pre_nex_left" @click="returnPre">
-				<image class="choiceIndustry_pre_nex_left_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/left_right.png" mode=""></image>
-				<text class="choiceIndustry_pre_nex_left_txt">重新选择身份</text>
-			</view>
 			<view class="choiceIndustry_pre_nex_right" @click="clickNext">
 				<image class="choiceIndustry_pre_nex_right_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon.png" mode=""></image>
 				<!-- <image class="choiceIndustry_pre_nex_right_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/right_icon_gray.png" mode=""></image> -->
@@ -58,27 +54,25 @@
 	export default {
 		data() {
 			return {
+				title : '请选择你的行业',
+				activeArr : '',
 				popularData : [
 					{"name" : "服饰", "active" : false},
 					{"name" : "箱包", "active" : false},
-					{"name" : "鞋帽", "active" : false},
-					{"name" : "母婴", "active" : false},
+					{"name" : "鞋帽配饰", "active" : false},
 					{"name" : "美妆", "active" : false},
-					{"name" : "数码", "active" : false},
+					{"name" : "母婴", "active" : false},
 					{"name" : "家纺", "active" : false},
-					{"name" : "家电", "active" : false},
-					{"name" : "家具", "active" : false},
-					{"name" : "日用品", "active" : false},
-					{"name" : "百货", "active" : false},
-					{"name" : "农产品", "active" : false},
-					{"name" : "办公用品", "active" : false},
-					{"name" : "汽车用品", "active" : false},
+					{"name" : "日化用品", "active" : false},
+					{"name" : "体育用品", "active" : false},
+					{"name" : "厨房用具", "active" : false},
+					{"name" : "家用电器", "active" : false},
+					{"name" : "文具办公", "active" : false},
+					{"name" : "数码产品", "active" : false},
+					{"name" : "珠宝首饰", "active" : false},
+					{"name" : "日用百货", "active" : false},
+					{"name" : "礼品玩具", "active" : false},
 					{"name" : "宠物用品", "active" : false},
-					{"name" : "花艺", "active" : false},
-					{"name" : "运动", "active" : false},
-					{"name" : "软件", "active" : false},
-					{"name" : "摄影", "active" : false},
-					{"name" : "广告", "active" : false}
 				],
 				moreData : [
 					{"name" : "男装", "active" : false},
@@ -87,32 +81,28 @@
 					{"name" : "内衣", "active" : false},
 					{"name" : "男鞋", "active" : false},
 					{"name" : "女鞋", "active" : false},
-					{"name" : "化妆品", "active" : false},
-					{"name" : "床品", "active" : false},
-					{"name" : "眼镜", "active" : false},
 					{"name" : "钟表", "active" : false},
 					{"name" : "手表", "active" : false},
-					{"name" : "乐器", "active" : false},
-					{"name" : "建材", "active" : false},
-					{"name" : "卫浴", "active" : false},
+					{"name" : "眼镜", "active" : false},
+					{"name" : "家具", "active" : false},
 					{"name" : "灯具", "active" : false},
-					{"name" : "工具", "active" : false},
-					{"name" : "文具", "active" : false},
-					{"name" : "玩具", "active" : false},
-					{"name" : "书刊", "active" : false},
-					{"name" : "琴行", "active" : false},
-					{"name" : "手机", "active" : false},
-					{"name" : "通讯", "active" : false},
-					{"name" : "鲜花", "active" : false},
-					{"name" : "珠宝", "active" : false},
-					{"name" : "汽车", "active" : false},
-					{"name" : "户外", "active" : false},
-					{"name" : "信息技术", "active" : false},
-					{"name" : "信息咨询", "active" : false},
-					{"name" : "宠物", "active" : false},
+					{"name" : "涂料", "active" : false},
+					{"name" : "五金", "active" : false},
+					{"name" : "卫浴", "active" : false},
+					{"name" : "瓷砖", "active" : false},
+					{"name" : "建材", "active" : false},
+					{"name" : "图书报刊", "active" : false},
+					{"name" : "乐器", "active" : false},
+					{"name" : "汽车用品", "active" : false},
+					{"name" : "汽车配件", "active" : false},
 					{"name" : "游戏", "active" : false},
 					{"name" : "动漫", "active" : false},
-					{"name" : "影视", "active" : false}
+					{"name" : "宠物", "active" : false},
+					{"name" : "花艺", "active" : false},
+					{"name" : "摄影", "active" : false},
+					{"name" : "软件开发", "active" : false},
+					{"name" : "信息技术", "active" : false},
+					{"name" : "广告", "active" : false},
 				],
 				popularActive : [
 					
@@ -162,7 +152,19 @@
 						icon :'none'
 					});
 				}
-				
+				let activeArr = [];
+				for(let i = 0; i < this.popularData.length; i++) {
+					if(this.popularData[i].active == true) {
+						activeArr.push(this.popularData[i].name);
+					}
+				}
+				for(let n = 0; n < this.moreData.length; n++) {
+					if(this.moreData[n].active == true) {
+						activeArr.push(this.moreData[n].name);
+					}
+				}
+				// 已选的类目
+				this.activeArr = activeArr;
 			},
 			returnPre() {
 				uni.navigateBack({
@@ -170,9 +172,27 @@
 				});
 			},
 			clickNext() {
-				uni.navigateTo({
-					url: '../choiceIndustryOne/choiceIndustryOne'
-				});
+				// 点击下一步必须选择至少一个经营类目
+				if(this.activeArr.length >=1) {
+					// 将选择的范围存到缓存中
+					uni.setStorage({
+						key: 'business_scope',
+						data: this.activeArr,
+						success: function () {
+							console.log('经营范围存储成功');
+						}
+					});
+					uni.redirectTo({
+						url: '../main_index/main_index?from=choiceIndustryOne'
+					});
+				} else {
+					uni.showToast({
+						title: '请先选择类目',
+						duration: 2000,
+						icon :'none'
+					});
+				}
+				
 			}
 		}
 	}

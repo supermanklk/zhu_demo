@@ -27,14 +27,14 @@
 .registration_block {
 	margin: 0 auto;
 	width: 674rpx;
-	height: 84px;
+	height: 42px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
 }
 .registration_block_add {
 	margin: 0 auto;
 	width: 674rpx;
-	height: 132px;
+	height: 84px;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
 	/* transition: height 500ms; */
