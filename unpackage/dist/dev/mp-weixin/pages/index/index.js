@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(global, uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -182,16 +182,16 @@ var _left;var _default =
 
   onLoad: function onLoad() {
 
-    uni.request({
-      url: global.host + 'Zhu/demo',
-      method: 'GET',
-      data: {},
-      success: function success(res) {
-        console.log('99', res);
-      },
-      fail: function fail() {},
-      complete: function complete() {} });
-
+    // 			uni.request({
+    // 				url: global.host + 'Zhu/demo',
+    // 				method: 'GET',
+    // 				data: {},
+    // 				success: res => {
+    // 					console.log('99',res);
+    // 				},
+    // 				fail: () => {},
+    // 				complete: () => {}
+    // 			});
     _left = this;
 
     var res = global.isLogin();
@@ -288,9 +288,11 @@ var _left;var _default =
             console.log('res2', res2);
 
             uni.request({
-              url: global.host + 'Zhu/demo',
+              url: global.host + 'Zhu/getOpenid',
               method: 'GET',
-              data: {},
+              data: {
+                code: res2.code },
+
               success: function success(res) {
                 console.log(res);
               },
@@ -304,90 +306,90 @@ var _left;var _default =
               method: 'GET',
               success: function success(res) {
                 console.log(4564645645, res);
-                // 								// 得到openid
-                // 								console.log('res',res);
-                // 								try {
-                // 									uni.setStorageSync('openid', res);
-                // 									let openid = res.data.openid;
-                // 									// 存储完以后跳转到选择身份 选择身份阶段为 88
-                // 									// 发送请求 存储用户信息,且修改当前阶段在 选择身份(88)
-                // 									uni.request({
-                // 										url: global.host + 'Zhu/getUserInfo?openid=' + openid,
-                // 										method: 'GET',
-                // 										data: {},
-                // 										success: res => {
-                // 											console.log('查询用户信息是否存在',res);
-                // 											if(res.data.length >= 1) {
-                // 												// 说明用户已经在用户表内,就不需要再注册
-                // 												console.log('用户数据已经在数据表了');
-                // 											} else {
-                // 												// 用户信息没有在数据表 插入新数据
-                // 												uni.request({
-                // 													url: global.host + 'Zhu/insertUserInfo?openid=' + openid,
-                // 													method: 'GET',
-                // 													data: {},
-                // 													success: res => {
-                // 														console.log('新建用户数据到数据库',res);
-                // 													},
-                // 													fail: () => {},
-                // 													complete: () => {}
-                // 												});
-                // 											}
-                // 											// 首选查看用户是否有step 有了就不需要再操作
-                // 											uni.request({
-                // 												url: global.host + 'Zhu/getCurrentStep',
-                // 												method: 'GET',
-                // 												data: {
-                // 													openid : openid 
-                // 												},
-                // 												success: res => {
-                // 													let current_step = res.data.res[0].current_step;
-                // 													console.log('查看index时候的current_step',current_step);
-                // 													if(current_step!= '888') {
-                // 														// 说明已经存在current_step 不用修改88
-                // 														uni.redirectTo({
-                // 															url: '../main_index/main_index'
-                // 														});
-                // 													} else {
-                // 														uni.redirectTo({
-                // 															url: '../choiceIdentity/choiceIdentity'
-                // 														});
-                // 														
-                // 														// 修改该用户的setp
-                // // 														uni.request({
-                // // 															url: global.host + 'Zhu/editCurrentStep',
-                // // 															method: 'GET',
-                // // 															data: {
-                // // 																openid : openid,
-                // // 																current_step : 88 // 88 对应的是选择身份
-                // // 															},
-                // // 															success: res => {
-                // // 																console.log('查看修改进度的返回结果',res);
-                // // 																uni.redirectTo({
-                // // 																	url: '../choiceIdentity/choiceIdentity'
-                // // 																});
-                // // 															},
-                // // 															fail: () => {},
-                // // 															complete: () => {}
-                // 														// });
-                // 													}
-                // 												},
-                // 												fail: () => {},
-                // 												complete: () => {}
-                // 											});
-                // 											
-                // 										
-                // 										},
-                // 										fail: () => {},
-                // 										complete: () => {}
-                // 									});
-                // 									
-                // // 									uni.redirectTo({
-                // // 										url: '../choiceIdentity/choiceIdentity'
-                // // 									});
-                // 								} catch (e) {
-                // 									// error
-                // 								}
+                // 得到openid
+                console.log('res', res);
+                try {
+                  uni.setStorageSync('openid', res);
+                  var openid = res.data.openid;
+                  // 存储完以后跳转到选择身份 选择身份阶段为 88
+                  // 发送请求 存储用户信息,且修改当前阶段在 选择身份(88)
+                  uni.request({
+                    url: global.host + 'Zhu/getUserInfo?openid=' + openid,
+                    method: 'GET',
+                    data: {},
+                    success: function success(res) {
+                      console.log('查询用户信息是否存在', res);
+                      if (res.data.length >= 1) {
+                        // 说明用户已经在用户表内,就不需要再注册
+                        console.log('用户数据已经在数据表了');
+                      } else {
+                        // 用户信息没有在数据表 插入新数据
+                        uni.request({
+                          url: global.host + 'Zhu/insertUserInfo?openid=' + openid,
+                          method: 'GET',
+                          data: {},
+                          success: function success(res) {
+                            console.log('新建用户数据到数据库', res);
+                          },
+                          fail: function fail() {},
+                          complete: function complete() {} });
+
+                      }
+                      // 首选查看用户是否有step 有了就不需要再操作
+                      uni.request({
+                        url: global.host + 'Zhu/getCurrentStep',
+                        method: 'GET',
+                        data: {
+                          openid: openid },
+
+                        success: function success(res) {
+                          var current_step = res.data.res[0].current_step;
+                          console.log('查看index时候的current_step', current_step);
+                          if (current_step != '888') {
+                            // 说明已经存在current_step 不用修改88
+                            uni.redirectTo({
+                              url: '../main_index/main_index' });
+
+                          } else {
+                            uni.redirectTo({
+                              url: '../choiceIdentity/choiceIdentity' });
+
+
+                            // 修改该用户的setp
+                            // 														uni.request({
+                            // 															url: global.host + 'Zhu/editCurrentStep',
+                            // 															method: 'GET',
+                            // 															data: {
+                            // 																openid : openid,
+                            // 																current_step : 88 // 88 对应的是选择身份
+                            // 															},
+                            // 															success: res => {
+                            // 																console.log('查看修改进度的返回结果',res);
+                            // 																uni.redirectTo({
+                            // 																	url: '../choiceIdentity/choiceIdentity'
+                            // 																});
+                            // 															},
+                            // 															fail: () => {},
+                            // 															complete: () => {}
+                            // });
+                          }
+                        },
+                        fail: function fail() {},
+                        complete: function complete() {} });
+
+
+
+                    },
+                    fail: function fail() {},
+                    complete: function complete() {} });
+
+
+                  // 									uni.redirectTo({
+                  // 										url: '../choiceIdentity/choiceIdentity'
+                  // 									});
+                } catch (e) {
+                  // error
+                }
               },
               fail: function fail(e) {
                 console.log('error', e);
@@ -409,7 +411,7 @@ var _left;var _default =
 
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
