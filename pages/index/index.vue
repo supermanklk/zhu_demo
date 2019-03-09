@@ -171,21 +171,6 @@
 					  provider: 'weixin',
 					  success: function (res2) {
 						console.log('res2',res2);
-						
-						uni.request({
-							url: global.host + 'Zhu/getOpenid',
-							method: 'GET',
-							data: {
-								code : res2.code
-							},
-							success: res => {
-								console.log(res);
-							},
-							fail: () => {},
-							complete: () => {}
-						});
-						
-						return false;
 						uni.request({
 							url: global.host + 'Zhu/getOpenid',
 							method: 'GET',

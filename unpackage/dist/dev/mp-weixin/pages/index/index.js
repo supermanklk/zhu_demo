@@ -286,21 +286,6 @@ var _left;var _default =
           provider: 'weixin',
           success: function success(res2) {
             console.log('res2', res2);
-
-            uni.request({
-              url: global.host + 'Zhu/getOpenid',
-              method: 'GET',
-              data: {
-                code: res2.code },
-
-              success: function success(res) {
-                console.log(res);
-              },
-              fail: function fail() {},
-              complete: function complete() {} });
-
-
-            return false;
             uni.request({
               url: global.host + 'Zhu/getOpenid',
               method: 'GET',
