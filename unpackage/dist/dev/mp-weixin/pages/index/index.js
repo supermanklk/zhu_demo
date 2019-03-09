@@ -302,14 +302,16 @@ var _left;var _default =
 
             return false;
             uni.request({
-              url: global.host + 'Zhu/getOpenid?code=' + res2.code,
+              url: global.host + 'Zhu/getOpenid',
               method: 'GET',
+              data: {
+                code: res2.code },
+
               success: function success(res) {
-                console.log(4564645645, res);
                 // 得到openid
-                console.log('res', res);
+                console.log('res999', res);
                 try {
-                  uni.setStorageSync('openid', res);
+                  uni.setStorageSync('openid', res.data);
                   var openid = res.data.openid;
                   // 存储完以后跳转到选择身份 选择身份阶段为 88
                   // 发送请求 存储用户信息,且修改当前阶段在 选择身份(88)
