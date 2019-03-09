@@ -96,9 +96,47 @@
 			},
 			payMoney() {
 				// 目前认为是支付成功
-				uni.reLaunch({
-					url: '../main_index/main_index?from=waitPay'
-				});
+				// 支付成功要修改数据库 公司的
+				try {
+					const openid = uni.getStorageSync('openid');
+					if (openid) {
+							uni.request({
+							url: global.host + 'Zhu/goToPay',
+							method: 'GET',
+							data: {
+								openid : openid,
+								is_pay : 1 // 1代表都成功了
+							},
+							success: res => {
+								console.log('修改支付返回的数据',res);
+								// 并且需要修改step
+								if (openid) {
+										uni.request({
+										url: global.host + 'Zhu/editCurrentStep',
+										method: 'GET',
+										data: {
+											openid : openid,
+											current_step : 4 // 4代表人工阶段
+										},
+										success: res => {
+											console.log('支付成功修改了step时候跳转',res);
+											uni.redirectTo({
+												url: '../main_index/main_index?from=waitPay'
+											});
+										},
+										fail: () => {},
+										complete: () => {}
+									});
+								}
+							},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+				} catch (e) {
+					// error
+					console.log('error888',e);
+				}
 			}
 		}
 	}

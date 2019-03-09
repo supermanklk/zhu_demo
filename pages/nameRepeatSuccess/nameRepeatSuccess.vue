@@ -38,18 +38,85 @@
 	export default {
 		data() {
 			return {
-				
+				zi_hao : '',
+				industry_description : '',
+				organization_form : ''
 			};
+		},
+		onLoad(e) {
+			console.log(e);
+			if(e) {
+				this.zi_hao = decodeURIComponent(e.name);
+				this.industry_description = decodeURIComponent(e.business);
+				this.organization_form = e.organization;
+			}
 		},
 		methods:{
 			goTorRegistration() {
 				// 查重成功,去注册登记页面
-// 				uni.navigateTo({
-// 					url: '../registration/registration'
-// 				});
-				uni.reLaunch({
-					url: '../main_index/main_index?from=name_repeat'
-				});
+				// 点击确定,保留执照name 并切改step
+				try {
+					const bussiness_name = uni.getStorageSync('bussiness_name');
+					if (bussiness_name) {
+						// 保留name,修改step
+						try {
+							const business_scope = uni.getStorageSync('business_scope');
+							const openid = uni.getStorageSync('openid');
+							if (business_scope && openid) {
+								uni.request({
+									url: global.host + 'Zhu/setCompanyInfo',
+									method: 'GET',
+									data: {
+										openid : openid,
+										business_scope : business_scope,
+										zi_hao : this.zi_hao,
+										organization_form : this.organization_form,
+										industry_description : this.industry_description,
+										name_check : 1 // 代表通过
+									},
+									success: res => {
+											// 保存成功修改step到注册登记
+											try {
+												const openid = uni.getStorageSync('openid');
+												if (openid) {
+														uni.request({
+														url: global.host + 'Zhu/editCurrentStep',
+														method: 'GET',
+														data: {
+															openid : openid,
+															current_step : 2 // 2代表注册登记阶段
+														},
+														success: res => {
+															console.log('选择身份后,进行跳转main之前,修改状态',res);
+															uni.redirectTo({
+																url: '../main_index/main_index?from=name_repeat'
+															});
+														},
+														fail: () => {},
+														complete: () => {}
+													});
+												}
+											} catch (e) {
+												// error
+												console.log('error888',e);
+											}
+									},
+									fail: (e) => {
+										console.log('查重报错',e);
+									},
+									complete: () => {}
+								});
+							}
+							
+						} catch (e) {
+							// error
+						}
+						
+					}
+				} catch (e) {
+					// error
+				}
+				
 			},
 			clickOk() {
 				

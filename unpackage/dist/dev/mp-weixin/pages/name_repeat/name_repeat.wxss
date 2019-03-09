@@ -84,7 +84,7 @@
 	margin-right: 10rpx;
 }
 .name_repeat_header_type {
-	width: 144rpx;
+	width: 236rpx;
 	height: 32px;
 	border: 1px solid #E5E5E5;
 	display: -webkit-box;

@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -158,8 +158,31 @@ __webpack_require__.r(__webpack_exports__);
     clickNext: function clickNext() {
       if (this.activeIndex == 1) {
         // 往普通卖家跳转
-        uni.navigateTo({
-          url: '../choiceIndustry/choiceIndustry' });
+        // 同时需要修改进度,选择身份阶段已经过
+        try {
+          var openid = uni.getStorageSync('openid');
+          if (openid) {
+            uni.request({
+              url: global.host + 'Zhu/editCurrentStep',
+              method: 'GET',
+              data: {
+                openid: openid,
+                current_step: 0 // 0代表处理选择行业阶段
+              },
+              success: function success(res) {
+                console.log('选择身份后,进行跳转main之前,修改状态', res);
+                uni.redirectTo({
+                  url: '../main_index/main_index' });
+
+              },
+              fail: function fail() {},
+              complete: function complete() {} });
+
+          }
+        } catch (e) {
+          // error
+          console.log('error888', e);
+        }
 
       } else {
         // 往有邀请码的卖家跳转
@@ -169,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

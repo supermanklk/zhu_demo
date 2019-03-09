@@ -6,10 +6,10 @@
 		<!-- 头像 姓名 -->
 		<view class="main_avator_name">
 			<!-- 头像 -->
-			<image class="main_avator" src="https://static.dingtalk.com/media/lADPDgQ9qUSQq5zNBLbNBNc_1239_1206.jpg" mode=""></image>
+			<image class="main_avator" :src="avatarUrl" mode=""></image>
 			<!-- 姓名 -->
 			<view class="main_name">
-				<text>这个彬</text>
+				<text>{{nickName}}</text>
 			</view>
 		</view>
 		
@@ -131,6 +131,10 @@
 				// stepName : '更多服务',
 				stepName : '选择行业',
 				currentStep : 0, // 默认0 为选择行业
+				nickName : '', // 微信名字
+				avatarUrl : '', // 微信头像
+				openid : '' ,// openid
+				current_step : 0,
 			};
 		},
 		onLoad(e) {
@@ -142,77 +146,194 @@
 					// self.currentStep = 1;
 				}
 			});
-			console.log('主页打印onload的e',e);
-			switch (e.from){
-				case 'choiceIndustryOne':
-					this.stepName = '名称查重';
-					this.currentStep = 1;
-					uni.setStorage({
-						key: 'currentStep',
-						data: '1',
-						success: function () {
-							console.log('success');
-						}
+			
+			try {
+				const openid = uni.getStorageSync('openid');
+				if (openid) {
+					console.log('',openid)
+					uni.request({
+						url: global.host + 'Zhu/getCurrentStep',
+						method: 'GET',
+						data: {
+							openid : openid 
+						},
+						success: res => {
+							console.log('动态',res);
+							let current_step = res.data.res[0].current_step;
+							console.log('获取后台的当前状态',current_step);
+							this.current_step = current_step;
+							switch (current_step){
+								case '0':
+									this.stepName = '选择行业';
+									this.currentStep = 0;
+									uni.setStorage({
+										key: 'currentStep',
+										data: '0',
+										success: function () {
+											console.log('success');
+										}
+									});
+									break;
+								case '1':
+									this.stepName = '名称查重';
+									this.currentStep = 1;
+									uni.setStorage({
+										key: 'currentStep',
+										data: '1',
+										success: function () {
+											console.log('success');
+										}
+									});
+									break;
+								case '2':
+									this.stepName = '注册登记';
+									this.currentStep = 2;
+									uni.setStorage({
+										key: 'currentStep',
+										data: '2',
+										success: function () {
+											console.log('success');
+										}
+									});
+									break;
+								case '3':
+									this.stepName = '选择套餐';
+									this.currentStep = 3;
+									uni.setStorage({
+										key: 'currentStep',
+										data: '3',
+										success: function () {
+											console.log('success');
+										}
+									});
+									break;
+								case '4':
+									this.stepName = '查看进度';
+									this.currentStep = 4;
+									uni.setStorage({
+										key: 'currentStep',
+										data: '4',
+										success: function () {
+											console.log('success');
+										}
+									});
+									break;
+								case '4':
+									this.stepName = '查看进度';
+									this.currentStep = 4;
+									uni.setStorage({
+										key: 'currentStep',
+										data: '4',
+										success: function () {
+											console.log('success');
+										}
+									});
+									break;
+								default:
+									break;
+							}
+						},
+						fail: () => {},
+						complete: () => {}
 					});
-					break;
-				case 'choiceInvitationCode':
-					this.stepName = '名称查重';
-					this.currentStep = 1;
-					uni.setStorage({
-						key: 'currentStep',
-						data: '1',
-						success: function () {
-							console.log('success');
-						}
-					});
-					break;
-				case 'name_repeat':
-					this.stepName = '注册登记';
-					this.currentStep = 2;
-					uni.setStorage({
-						key: 'currentStep',
-						data: '2',
-						success: function () {
-							console.log('success');
-						}
-					});
-					break;
-				case 'registrationInfo':
-					this.stepName = '选择套餐';
-					this.currentStep = 3;
-					uni.setStorage({
-						key: 'currentStep',
-						data: '3',
-						success: function () {
-							console.log('success');
-						}
-					});
-					break;
-				case 'waitPay':
-					this.stepName = '查看进度';
-					this.currentStep = 4;
-					uni.setStorage({
-						key: 'currentStep',
-						data: '4',
-						success: function () {
-							console.log('success');
-						}
-					});
-					break;
-				case 'review':
-					this.stepName = '查看进度';
-					this.currentStep = 4;
-					uni.setStorage({
-						key: 'currentStep',
-						data: '4',
-						success: function () {
-							console.log('success');
-						}
-					});
-					break;
-				default:
-					break;
+					
+				}
+			} catch (e) {
+				// error
 			}
+			
+			
+			
+			
+			try {
+				const nickName = uni.getStorageSync('nickName');
+				const avatarUrl = uni.getStorageSync('avatarUrl');
+				const openid = uni.getStorageSync('openid');
+				if (nickName && avatarUrl && openid) {
+					this.nickName = nickName;
+					this.avatarUrl = avatarUrl;
+					this.openid = openid;
+				}
+			} catch (e) {
+				// error
+				console.log('获取同步缓存失败,')
+			}
+			
+			console.log('主页打印onload的e',e);
+			console.log('hahha',this.current_step);
+
+						
+			
+// 			switch (e.from){
+// 				case 'choiceIndustryOne':
+// 					this.stepName = '名称查重';
+// 					this.currentStep = 1;
+// 					uni.setStorage({
+// 						key: 'currentStep',
+// 						data: '1',
+// 						success: function () {
+// 							console.log('success');
+// 						}
+// 					});
+// 					break;
+// 				case 'choiceInvitationCode':
+// 					this.stepName = '名称查重';
+// 					this.currentStep = 1;
+// 					uni.setStorage({
+// 						key: 'currentStep',
+// 						data: '1',
+// 						success: function () {
+// 							console.log('success');
+// 						}
+// 					});
+// 					break;
+// 				case 'name_repeat':
+// 					this.stepName = '注册登记';
+// 					this.currentStep = 2;
+// 					uni.setStorage({
+// 						key: 'currentStep',
+// 						data: '2',
+// 						success: function () {
+// 							console.log('success');
+// 						}
+// 					});
+// 					break;
+// 				case 'registrationInfo':
+// 					this.stepName = '选择套餐';
+// 					this.currentStep = 3;
+// 					uni.setStorage({
+// 						key: 'currentStep',
+// 						data: '3',
+// 						success: function () {
+// 							console.log('success');
+// 						}
+// 					});
+// 					break;
+// 				case 'waitPay':
+// 					this.stepName = '查看进度';
+// 					this.currentStep = 4;
+// 					uni.setStorage({
+// 						key: 'currentStep',
+// 						data: '4',
+// 						success: function () {
+// 							console.log('success');
+// 						}
+// 					});
+// 					break;
+// 				case 'review':
+// 					this.stepName = '查看进度';
+// 					this.currentStep = 4;
+// 					uni.setStorage({
+// 						key: 'currentStep',
+// 						data: '4',
+// 						success: function () {
+// 							console.log('success');
+// 						}
+// 					});
+// 					break;
+// 				default:
+// 					break;
+// 			}
 		},
 		methods: {
 			clickStep() {

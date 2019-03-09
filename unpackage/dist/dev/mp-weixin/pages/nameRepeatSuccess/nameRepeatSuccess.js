@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -152,24 +152,91 @@ __webpack_require__.r(__webpack_exports__);
 
 {
   data: function data() {
-    return {};
+    return {
+      zi_hao: '',
+      industry_description: '',
+      organization_form: '' };
 
-
+  },
+  onLoad: function onLoad(e) {
+    console.log(e);
+    if (e) {
+      this.zi_hao = decodeURIComponent(e.name);
+      this.industry_description = decodeURIComponent(e.business);
+      this.organization_form = e.organization;
+    }
   },
   methods: {
     goTorRegistration: function goTorRegistration() {
       // 查重成功,去注册登记页面
-      // 				uni.navigateTo({
-      // 					url: '../registration/registration'
-      // 				});
-      uni.reLaunch({
-        url: '../main_index/main_index?from=name_repeat' });
+      // 点击确定,保留执照name 并切改step
+      try {
+        var bussiness_name = uni.getStorageSync('bussiness_name');
+        if (bussiness_name) {
+          // 保留name,修改step
+          try {
+            var business_scope = uni.getStorageSync('business_scope');
+            var openid = uni.getStorageSync('openid');
+            if (business_scope && openid) {
+              uni.request({
+                url: global.host + 'Zhu/setCompanyInfo',
+                method: 'GET',
+                data: {
+                  openid: openid,
+                  business_scope: business_scope,
+                  zi_hao: this.zi_hao,
+                  organization_form: this.organization_form,
+                  industry_description: this.industry_description,
+                  name_check: 1 // 代表通过
+                },
+                success: function success(res) {
+                  // 保存成功修改step到注册登记
+                  try {
+                    var _openid = uni.getStorageSync('openid');
+                    if (_openid) {
+                      uni.request({
+                        url: global.host + 'Zhu/editCurrentStep',
+                        method: 'GET',
+                        data: {
+                          openid: _openid,
+                          current_step: 2 // 2代表注册登记阶段
+                        },
+                        success: function success(res) {
+                          console.log('选择身份后,进行跳转main之前,修改状态', res);
+                          uni.redirectTo({
+                            url: '../main_index/main_index?from=name_repeat' });
+
+                        },
+                        fail: function fail() {},
+                        complete: function complete() {} });
+
+                    }
+                  } catch (e) {
+                    // error
+                    console.log('error888', e);
+                  }
+                },
+                fail: function fail(e) {
+                  console.log('查重报错', e);
+                },
+                complete: function complete() {} });
+
+            }
+
+          } catch (e) {
+            // error
+          }
+
+        }
+      } catch (e) {
+        // error
+      }
 
     },
     clickOk: function clickOk() {
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

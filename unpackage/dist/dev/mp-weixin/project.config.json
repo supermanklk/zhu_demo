@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -98,13 +98,8 @@
 					"pathName": "pages/review/review"
 				},
 				{
-					"name": "demo",
-					"id": 13,
-					"pathName": "pages/demo/demo"
-				},
-				{
 					"name": "协议说明",
-					"id": 14,
+					"id": 13,
 					"pathName": "pages/protocol/protocol"
 				}
 			]

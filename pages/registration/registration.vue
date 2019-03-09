@@ -60,7 +60,7 @@
 	export default {
 		data() {
 			return {
-				phone : 17637794541,
+				phone : '18888888888',
 				verificationCode : '',
 				array: ['1', '10', '100'],
 				index: 0,
@@ -114,7 +114,9 @@
 					this.phoneTxt = '获取验证码';
 					console.log('修改号码');
 				} else if(this.phoneTxt == '获取验证码' || this.phoneTxt == '重新获取验证码') {
-					
+					if(this.phone.length != 11) {
+						return false;
+					}
 					// 需要给用户的手机号发送短信
 					let code = global.getVeritifyCode(); // 这个函数在全局
 					let mobile = this.phone; //将要绑定的手机号,即发送的手机号
@@ -156,12 +158,32 @@
 						title: '修改成功了',
 						duration: 2000
 					});
-					setTimeout(() => {
-						this.isDisplayVerificationCode  = false;
-						this.phoneTxt = '修改';
-						this.vertifyTxt = '';
-						this.verificationCode = '';
-					},2000)
+					try {
+						const openid = uni.getStorageSync('openid');
+						if (openid) {
+							uni.request({
+								url: global.host + 'Zhu/changePhone',
+								method: 'GET',
+								data: {
+									openid : openid,
+									user_phone : this.phone
+								},
+								success: res => {
+									console.log('修改手机号成功',res);
+									setTimeout(() => {
+										this.isDisplayVerificationCode  = false;
+										this.phoneTxt = '修改';
+										this.vertifyTxt = '';
+										this.verificationCode = '';
+									},2000)
+								},
+								fail: () => {},
+								complete: () => {}
+							});
+						}
+					} catch (e) {
+						// error
+					}
 				} else if(this.phoneTxt == '获取验证码'){
 					uni.showToast({
 						title: '请先获取验证码',

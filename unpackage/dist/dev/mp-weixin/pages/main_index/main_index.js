@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -245,10 +245,14 @@ __webpack_require__.r(__webpack_exports__);
       // stepName : '查看进度',
       // stepName : '更多服务',
       stepName: '选择行业',
-      currentStep: 0 // 默认0 为选择行业
-    };
+      currentStep: 0, // 默认0 为选择行业
+      nickName: '', // 微信名字
+      avatarUrl: '', // 微信头像
+      openid: '', // openid
+      current_step: 0 };
+
   },
-  onLoad: function onLoad(e) {
+  onLoad: function onLoad(e) {var _this = this;
     var self = this;
     uni.getStorage({
       key: 'currentStep',
@@ -257,77 +261,194 @@ __webpack_require__.r(__webpack_exports__);
         // self.currentStep = 1;
       } });
 
+
+    try {
+      var openid = uni.getStorageSync('openid');
+      if (openid) {
+        console.log('', openid);
+        uni.request({
+          url: global.host + 'Zhu/getCurrentStep',
+          method: 'GET',
+          data: {
+            openid: openid },
+
+          success: function success(res) {
+            console.log('动态', res);
+            var current_step = res.data.res[0].current_step;
+            console.log('获取后台的当前状态', current_step);
+            _this.current_step = current_step;
+            switch (current_step) {
+              case '0':
+                _this.stepName = '选择行业';
+                _this.currentStep = 0;
+                uni.setStorage({
+                  key: 'currentStep',
+                  data: '0',
+                  success: function success() {
+                    console.log('success');
+                  } });
+
+                break;
+              case '1':
+                _this.stepName = '名称查重';
+                _this.currentStep = 1;
+                uni.setStorage({
+                  key: 'currentStep',
+                  data: '1',
+                  success: function success() {
+                    console.log('success');
+                  } });
+
+                break;
+              case '2':
+                _this.stepName = '注册登记';
+                _this.currentStep = 2;
+                uni.setStorage({
+                  key: 'currentStep',
+                  data: '2',
+                  success: function success() {
+                    console.log('success');
+                  } });
+
+                break;
+              case '3':
+                _this.stepName = '选择套餐';
+                _this.currentStep = 3;
+                uni.setStorage({
+                  key: 'currentStep',
+                  data: '3',
+                  success: function success() {
+                    console.log('success');
+                  } });
+
+                break;
+              case '4':
+                _this.stepName = '查看进度';
+                _this.currentStep = 4;
+                uni.setStorage({
+                  key: 'currentStep',
+                  data: '4',
+                  success: function success() {
+                    console.log('success');
+                  } });
+
+                break;
+              case '4':
+                _this.stepName = '查看进度';
+                _this.currentStep = 4;
+                uni.setStorage({
+                  key: 'currentStep',
+                  data: '4',
+                  success: function success() {
+                    console.log('success');
+                  } });
+
+                break;
+              default:
+                break;}
+
+          },
+          fail: function fail() {},
+          complete: function complete() {} });
+
+
+      }
+    } catch (e) {
+      // error
+    }
+
+
+
+
+    try {
+      var nickName = uni.getStorageSync('nickName');
+      var avatarUrl = uni.getStorageSync('avatarUrl');
+      var _openid = uni.getStorageSync('openid');
+      if (nickName && avatarUrl && _openid) {
+        this.nickName = nickName;
+        this.avatarUrl = avatarUrl;
+        this.openid = _openid;
+      }
+    } catch (e) {
+      // error
+      console.log('获取同步缓存失败,');
+    }
+
     console.log('主页打印onload的e', e);
-    switch (e.from) {
-      case 'choiceIndustryOne':
-        this.stepName = '名称查重';
-        this.currentStep = 1;
-        uni.setStorage({
-          key: 'currentStep',
-          data: '1',
-          success: function success() {
-            console.log('success');
-          } });
+    console.log('hahha', this.current_step);
 
-        break;
-      case 'choiceInvitationCode':
-        this.stepName = '名称查重';
-        this.currentStep = 1;
-        uni.setStorage({
-          key: 'currentStep',
-          data: '1',
-          success: function success() {
-            console.log('success');
-          } });
 
-        break;
-      case 'name_repeat':
-        this.stepName = '注册登记';
-        this.currentStep = 2;
-        uni.setStorage({
-          key: 'currentStep',
-          data: '2',
-          success: function success() {
-            console.log('success');
-          } });
 
-        break;
-      case 'registrationInfo':
-        this.stepName = '选择套餐';
-        this.currentStep = 3;
-        uni.setStorage({
-          key: 'currentStep',
-          data: '3',
-          success: function success() {
-            console.log('success');
-          } });
-
-        break;
-      case 'waitPay':
-        this.stepName = '查看进度';
-        this.currentStep = 4;
-        uni.setStorage({
-          key: 'currentStep',
-          data: '4',
-          success: function success() {
-            console.log('success');
-          } });
-
-        break;
-      case 'review':
-        this.stepName = '查看进度';
-        this.currentStep = 4;
-        uni.setStorage({
-          key: 'currentStep',
-          data: '4',
-          success: function success() {
-            console.log('success');
-          } });
-
-        break;
-      default:
-        break;}
-
+    // 			switch (e.from){
+    // 				case 'choiceIndustryOne':
+    // 					this.stepName = '名称查重';
+    // 					this.currentStep = 1;
+    // 					uni.setStorage({
+    // 						key: 'currentStep',
+    // 						data: '1',
+    // 						success: function () {
+    // 							console.log('success');
+    // 						}
+    // 					});
+    // 					break;
+    // 				case 'choiceInvitationCode':
+    // 					this.stepName = '名称查重';
+    // 					this.currentStep = 1;
+    // 					uni.setStorage({
+    // 						key: 'currentStep',
+    // 						data: '1',
+    // 						success: function () {
+    // 							console.log('success');
+    // 						}
+    // 					});
+    // 					break;
+    // 				case 'name_repeat':
+    // 					this.stepName = '注册登记';
+    // 					this.currentStep = 2;
+    // 					uni.setStorage({
+    // 						key: 'currentStep',
+    // 						data: '2',
+    // 						success: function () {
+    // 							console.log('success');
+    // 						}
+    // 					});
+    // 					break;
+    // 				case 'registrationInfo':
+    // 					this.stepName = '选择套餐';
+    // 					this.currentStep = 3;
+    // 					uni.setStorage({
+    // 						key: 'currentStep',
+    // 						data: '3',
+    // 						success: function () {
+    // 							console.log('success');
+    // 						}
+    // 					});
+    // 					break;
+    // 				case 'waitPay':
+    // 					this.stepName = '查看进度';
+    // 					this.currentStep = 4;
+    // 					uni.setStorage({
+    // 						key: 'currentStep',
+    // 						data: '4',
+    // 						success: function () {
+    // 							console.log('success');
+    // 						}
+    // 					});
+    // 					break;
+    // 				case 'review':
+    // 					this.stepName = '查看进度';
+    // 					this.currentStep = 4;
+    // 					uni.setStorage({
+    // 						key: 'currentStep',
+    // 						data: '4',
+    // 						success: function () {
+    // 							console.log('success');
+    // 						}
+    // 					});
+    // 					break;
+    // 				default:
+    // 					break;
+    // 			}
   },
   methods: {
     clickStep: function clickStep() {
@@ -380,7 +501,7 @@ __webpack_require__.r(__webpack_exports__);
         } });
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -412,8 +533,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "main_content" }, [
     _c("view", { staticClass: "main_header" }),
+    _c("view", { staticClass: "main_avator_name" }, [
+      _c("image", {
+        staticClass: "main_avator",
+        attrs: { src: _vm.avatarUrl, mode: "" }
+      }),
+      _c("view", { staticClass: "main_name" }, [
+        _c("text", [_vm._v(_vm._s(_vm.nickName))])
+      ])
+    ]),
     _vm._m(0),
-    _vm._m(1),
     _c("view", { staticClass: "main_progress" }, [
       _c("view", { staticClass: "left_progress" }, [
         _c("view", { staticStyle: { position: "relative" } }, [
@@ -511,7 +640,7 @@ var render = function() {
               [_vm._v(_vm._s(_vm.currentStep > 0 ? "(已完成)" : "(待完成)"))]
             )
           ]),
-          _vm._m(2)
+          _vm._m(1)
         ]),
         _c("view", { staticClass: "right_progress_item" }, [
           _c("view", {}, [
@@ -527,7 +656,7 @@ var render = function() {
               [_vm._v(_vm._s(_vm.currentStep > 1 ? "(已完成)" : "(待完成)"))]
             )
           ]),
-          _vm._m(3)
+          _vm._m(2)
         ]),
         _c("view", { staticClass: "right_progress_item" }, [
           _c("view", {}, [
@@ -543,7 +672,7 @@ var render = function() {
               [_vm._v(_vm._s(_vm.currentStep > 2 ? "(已完成)" : "(待完成)"))]
             )
           ]),
-          _vm._m(4)
+          _vm._m(3)
         ]),
         _c("view", { staticClass: "right_progress_item" }, [
           _c("view", {}, [
@@ -559,7 +688,7 @@ var render = function() {
               [_vm._v(_vm._s(_vm.currentStep > 3 ? "(已完成)" : "(待完成)"))]
             )
           ]),
-          _vm._m(5)
+          _vm._m(4)
         ]),
         _c("view", { staticClass: "right_progress_item" }, [
           _c("view", {}, [
@@ -575,7 +704,7 @@ var render = function() {
               [_vm._v(_vm._s(_vm.currentStep > 4 ? "(已完成)" : "(待完成)"))]
             )
           ]),
-          _vm._m(6)
+          _vm._m(5)
         ])
       ])
     ]),
@@ -619,22 +748,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "main_avator_name" }, [
-      _c("image", {
-        staticClass: "main_avator",
-        attrs: {
-          src:
-            "https://static.dingtalk.com/media/lADPDgQ9qUSQq5zNBLbNBNc_1239_1206.jpg",
-          mode: ""
-        }
-      }),
-      _c("view", { staticClass: "main_name" }, [_c("text", [_vm._v("这个彬")])])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

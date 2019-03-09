@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -365,9 +365,32 @@ __webpack_require__.r(__webpack_exports__);
     },
     goMain_index: function goMain_index() {
       if (this.radio == true) {
-        uni.reLaunch({
-          url: '../main_index/main_index?from=registrationInfo' });
+        // 修改step 并保留用户的身份证信息
+        // 已经模拟身份证信息保存了
+        try {
+          var openid = uni.getStorageSync('openid');
+          if (openid) {
+            uni.request({
+              url: global.host + 'Zhu/editCurrentStep',
+              method: 'GET',
+              data: {
+                openid: openid,
+                current_step: 3 // 3代表选择套餐阶段
+              },
+              success: function success(res) {
+                console.log('选择身份后,进行跳转main之前,修改状态', res);
+                uni.redirectTo({
+                  url: '../main_index/main_index?from=registrationInfo' });
 
+              },
+              fail: function fail() {},
+              complete: function complete() {} });
+
+          }
+        } catch (e) {
+          // error
+          console.log('error888', e);
+        }
       } else {
         uni.showToast({
           title: '请先同意筑商协议...',
@@ -379,7 +402,7 @@ __webpack_require__.r(__webpack_exports__);
     radioChange: function radioChange() {
       this.radio = !this.radio;
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

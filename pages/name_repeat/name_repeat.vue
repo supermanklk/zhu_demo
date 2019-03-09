@@ -23,13 +23,13 @@
 		
 		<view class="name_repeat_header">
 			<image class="name_repeat_header_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/office_icon.png" mode=""></image>
-			<text class="name_repeat_header_title">景宁  (字号)  服装店</text>
+			<text class="name_repeat_header_title">景宁  {{zihao}}  {{typeText}}</text>
 		</view>
 		<!-- 店铺起名字 -->
 		<view class="name_repeat_set">
 			<view :class="inputRed == true ? 'name_repeat_set_1 inputRed' : 'name_repeat_set_1'">
 				<text>字号:</text>
-				<input  @blur="zihaoBlur" type="text" value="" placeholder="给店铺起个名字" />
+				<input  @blur="zihaoBlur" type="text" value="" placeholder="给店铺起个名字吧" />
 			</view>
 			<view class="name_repeat_header_type">
 					<picker @change="bindPickerChange" :value="index" :range="array" mode="multiSelector">
@@ -95,10 +95,14 @@
 				range : [
 					'1','2','3'
 				],
-				array : [['a','b'],['网店', '店','铺', '室', '工作室','经营部','服务部','事务所']],
+				array : [['a','b'],['网店', '店','铺', '商行', '工作室','商店','服务部','事务所']],
 				index: 0,
 				canClick : false, // 开始查询 是否能够点击
 				inputRed : false, // 字号自我检测有问题的时候标红
+				zihao : '(字号)',
+				type : '网店',
+				typeText : '网店',
+				industry_description : ''
 			};
 		},
 		onLoad() {
@@ -121,22 +125,110 @@
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value[1];
+				if(e.target.value[1] == 0) {
+					this.type = 32;
+					this.typeText = '网店';
+				}
+				if(e.target.value[1] == 1) {
+					this.type = 3;
+					this.typeText = '店';
+				}
+				if(e.target.value[1] == 2) {
+					this.type = 8;
+					this.typeText = '铺';
+				}
+				if(e.target.value[1] == 3) {
+					this.type = 18;
+					this.typeText = '商行';
+				}
+				if(e.target.value[1] == 4) {
+					this.type = 29;
+					this.typeText = '工作室';
+				}
+				if(e.target.value[1] == 5) {
+					this.type = 53;
+					this.typeText = '商店';
+				}
+				if(e.target.value[1] == 6) {
+					this.type = 42;
+					this.typeText = '服务部';
+				}
+				if(e.target.value[1] == 7) {
+					this.type = 58;
+					this.typeText = '事务所';
+				}
+				this.industry_description = this.array[0][e.target.value[0]];
+				console.log(this.array[0][e.target.value[0]]);
 			},
 			startfind() {
+				// let returnInfo =  global.returnData('服装');
+				let returnInfo =  global.returnData(this.industry_description);
+				if(this.industry_description == '') {
+					uni.showToast({
+						title: '请选择经营范围',
+						duration: 2000,
+						icon :'none'
+					});
+					return false;
+				}
 				if(this.canClick) {
 					//开始查重 目前是随机的 没有真实的数据
-					let num = Math.random();
-					if(num > 0.5) {
-						// 查重失败的界面
-						uni.navigateTo({
-							url: '../nameRepeatError/nameRepeatError'
-						});	
-					} else {
-						// 查重成功的界面
-						uni.navigateTo({
-							url: '../nameRepeatSuccess/nameRepeatSuccess'
-						});	
-					}
+// 					let num = Math.random();
+// 					if(num > 0.5) {
+// 						// 查重失败的界面
+// 						uni.navigateTo({
+// 							url: '../nameRepeatError/nameRepeatError'
+// 						});	
+// 					} else {
+// 						// 查重成功的界面
+// 						uni.navigateTo({
+// 							url: '../nameRepeatSuccess/nameRepeatSuccess'
+// 						});	
+// 					}
+					uni.showLoading({
+						title: '正在查重,请耐心等待'
+					});
+					let name = encodeURIComponent(this.zihao).replace(/25+/g,'');
+					let business = encodeURIComponent(this.industry_description).replace(/25+/g,'');
+					uni.request({
+						url: global.host + 'Zhu/getName?character='+name + '&business=' + business,
+						method: 'GET',
+						data: {
+							business_big : returnInfo[0],
+							business_center : returnInfo[1],
+							business_small : returnInfo[2],
+							organization : this.type,
+							account : 'supermanzhangbin',
+							password : 'Zhangbin521..'
+						},
+						success: res => {
+							console.log('325435',res);
+							uni.hideLoading();
+							if(res.data) {
+								if(res.data.indexOf('查重失败') != -1) {
+									// 说明查重失败
+									uni.navigateTo({
+										url: '../nameRepeatError/nameRepeatError'
+									});	
+								}else if(res.data.indexOf('查重通过') != -1) {
+									// 查询通过,把这个字号給它缓存到本地
+									try {
+										uni.setStorageSync('bussiness_name', res.data.split('，')[0]);
+									} catch (e) {
+										// error
+									}
+									uni.navigateTo({
+										url: '../nameRepeatSuccess/nameRepeatSuccess?name=' + name + '&business=' + business + '&organization=' + this.type
+									});	
+								}
+							}
+						},
+						fail: (e) => {
+							console.log('查重报错',e);
+							uni.hideLoading();
+						},
+						complete: () => {}
+					});
 				} else {
 					uni.showToast({
 						title: '请先填写字号',
@@ -159,6 +251,7 @@
 						this.inputRed = true;
 						uni.hideLoading();
 					} else {
+						this.zihao = e.detail.value;
 						this.inputRed = false;
 						this.canClick = true;
 						uni.hideLoading();
@@ -246,7 +339,7 @@
 	margin-right: 10upx;
 }
 .name_repeat_header_type {
-	width: 144upx;
+	width: 236upx;
 	height: 32px;
 	border: 1px solid #E5E5E5;
 	display: flex;

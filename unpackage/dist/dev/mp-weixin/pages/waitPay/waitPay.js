@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -211,11 +211,49 @@ __webpack_require__.r(__webpack_exports__);
     },
     payMoney: function payMoney() {
       // 目前认为是支付成功
-      uni.reLaunch({
-        url: '../main_index/main_index?from=waitPay' });
+      // 支付成功要修改数据库 公司的
+      try {
+        var openid = uni.getStorageSync('openid');
+        if (openid) {
+          uni.request({
+            url: global.host + 'Zhu/goToPay',
+            method: 'GET',
+            data: {
+              openid: openid,
+              is_pay: 1 // 1代表都成功了
+            },
+            success: function success(res) {
+              console.log('修改支付返回的数据', res);
+              // 并且需要修改step
+              if (openid) {
+                uni.request({
+                  url: global.host + 'Zhu/editCurrentStep',
+                  method: 'GET',
+                  data: {
+                    openid: openid,
+                    current_step: 4 // 4代表人工阶段
+                  },
+                  success: function success(res) {
+                    console.log('支付成功修改了step时候跳转', res);
+                    uni.redirectTo({
+                      url: '../main_index/main_index?from=waitPay' });
 
+                  },
+                  fail: function fail() {},
+                  complete: function complete() {} });
+
+              }
+            },
+            fail: function fail() {},
+            complete: function complete() {} });
+
+        }
+      } catch (e) {
+        // error
+        console.log('error888', e);
+      }
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

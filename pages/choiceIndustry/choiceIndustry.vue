@@ -182,9 +182,31 @@
 							console.log('经营范围存储成功');
 						}
 					});
-					uni.redirectTo({
-						url: '../main_index/main_index?from=choiceIndustryOne'
-					});
+					// 修改step
+					try {
+						const openid = uni.getStorageSync('openid');
+						if (openid) {
+								uni.request({
+								url: global.host + 'Zhu/editCurrentStep',
+								method: 'GET',
+								data: {
+									openid : openid,
+									current_step : 1 // 0代表处理选择行业阶段
+								},
+								success: res => {
+									console.log('选择身份后,进行跳转main之前,修改状态',res);
+									uni.redirectTo({
+										url: '../main_index/main_index?from=choiceIndustryOne'
+									});
+								},
+								fail: () => {},
+								complete: () => {}
+							});
+						}
+					} catch (e) {
+						// error
+						console.log('error888',e);
+					}
 				} else {
 					uni.showToast({
 						title: '请先选择类目',

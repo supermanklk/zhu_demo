@@ -250,9 +250,32 @@
 			},
 			goMain_index() {
 				if(this.radio == true) {
-					uni.reLaunch({
-						url: '../main_index/main_index?from=registrationInfo'
-					});
+					// 修改step 并保留用户的身份证信息
+					// 已经模拟身份证信息保存了
+					try {
+						const openid = uni.getStorageSync('openid');
+						if (openid) {
+								uni.request({
+								url: global.host + 'Zhu/editCurrentStep',
+								method: 'GET',
+								data: {
+									openid : openid,
+									current_step : 3 // 3代表选择套餐阶段
+								},
+								success: res => {
+									console.log('选择身份后,进行跳转main之前,修改状态',res);
+									uni.redirectTo({
+										url: '../main_index/main_index?from=registrationInfo'
+									});
+								},
+								fail: () => {},
+								complete: () => {}
+							});
+						}
+					} catch (e) {
+						// error
+						console.log('error888',e);
+					}
 				} else {
 					uni.showToast({
 					title: '请先同意筑商协议...',
