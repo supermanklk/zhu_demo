@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -145,6 +145,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
   },
+  onLoad: function onLoad() {
+    console.log(55);
+    uni.request({
+      url: global.host + 'Zhu/demo',
+      method: 'GET',
+      success: function success(res) {
+        console.log('999999789', res);
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
+
+  },
   methods: {
     goBack: function goBack() {
       // 返回上一步
@@ -152,7 +164,7 @@ __webpack_require__.r(__webpack_exports__);
         delta: 1 });
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

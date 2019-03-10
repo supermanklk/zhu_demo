@@ -151,11 +151,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 {
   data: function data() {
-    return {};
+    return {
+      datainfo: '' };
 
-
+  },
+  onLoad: function onLoad() {
+    try {
+      var value = uni.getStorageSync('beian');
+      if (value) {
+        console.log(value);
+        this.datainfo = value.data;
+      }
+    } catch (e) {
+      // error
+    }
   },
   methods: {
     goMain_index: function goMain_index() {
@@ -197,6 +214,9 @@ var render = function() {
   return _c("view", [
     _vm._m(0),
     _vm._m(1),
+    _c("view", { staticClass: "datainfo" }, [
+      _c("text", [_vm._v(_vm._s(_vm.datainfo))])
+    ]),
     _c(
       "view",
       { staticClass: "review_return_main" },

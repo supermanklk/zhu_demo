@@ -26,6 +26,12 @@
 				</view>
 		</view>
 		
+		<view class="datainfo">
+			<text>
+				{{datainfo}}
+			</text>
+		</view>
+		
 		<!-- 返回主页 -->
 		<view class="review_return_main">
 			<button type="" @click="goMain_index" size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;" hover-class = "btn_hover">
@@ -39,8 +45,19 @@
 	export default {
 		data() {
 			return {
-				
+				datainfo : ''
 			};
+		},
+		onLoad() {
+				try {
+					const value = uni.getStorageSync('beian');
+					if (value) {
+						console.log(value);
+						this.datainfo = value.data;
+					}
+				} catch (e) {
+					// error
+				}
 		},
 		methods:{
 			goMain_index() {
@@ -54,6 +71,15 @@
 </script>
 
 <style>
+.datainfo {
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 600upx;
+	font-size: 14px;
+	border: 1px solid #4CD964;
+	border-radius: 5px;
+	padding: 5px;
+}
 .review {
 	text-align: center;
 	display: flex;

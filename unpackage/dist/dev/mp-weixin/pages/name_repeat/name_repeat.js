@@ -341,6 +341,10 @@ __webpack_require__.r(__webpack_exports__);
           fail: function fail(e) {
             console.log('查重报错', e);
             uni.hideLoading();
+            uni.showToast({
+              title: '系统繁忙,请重试',
+              duration: 2000 });
+
           },
           complete: function complete() {} });
 

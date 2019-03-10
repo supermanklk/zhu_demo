@@ -110,24 +110,77 @@
 							success: res => {
 								console.log('修改支付返回的数据',res);
 								// 并且需要修改step
-								if (openid) {
-										uni.request({
-										url: global.host + 'Zhu/editCurrentStep',
-										method: 'GET',
-										data: {
-											openid : openid,
-											current_step : 4 // 4代表人工阶段
-										},
-										success: res => {
-											console.log('支付成功修改了step时候跳转',res);
-											uni.redirectTo({
-												url: '../main_index/main_index?from=waitPay'
+								try {
+									const bussiness_name = uni.getStorageSync('bussiness_name');
+									if (bussiness_name) {
+										if (openid) {
+												uni.request({
+												url: global.host + 'Zhu/editCurrentStep',
+												method: 'GET',
+												data: {
+													openid : openid,
+													current_step : 4 // 4代表人工阶段
+												},
+												success: res => {
+													// 提交核名
+													uni.showLoading({
+														title: '办理核名中...'
+													});
+													let S_OPSCOPE = encodeURIComponent('服装网店').replace(/25+/g,'');
+													let S_DOM_LOCATION = encodeURIComponent('鑫景商城4栋71号444').replace(/25+/g,'');
+													let S_FDDBR = encodeURIComponent('康乐').replace(/25+/g,'');
+													let globalName = encodeURIComponent(bussiness_name.replace('名称查重通过', '')).replace(/25+/g,'');
+													console.log(999)
+													console.log(global.host + 'Zhu/sendName?S_OPSCOPE=' + S_OPSCOPE + '&S_DOM_LOCATION=' + S_DOM_LOCATION + '&S_FDDBR=' + S_FDDBR + '&globalName=' + globalName);
+													console.log(888)
+													uni.request({
+														url: global.host + 'Zhu/sendName?S_OPSCOPE=' + S_OPSCOPE + '&S_DOM_LOCATION=' + S_DOM_LOCATION + '&S_FDDBR=' + S_FDDBR + '&globalName=' + globalName,
+														method: 'GET',
+														data: {
+															S_MOBTEL : '18602197097',
+														},
+														success: res => {
+															uni.hideLoading();
+															console.log('提交查询',res);
+															try {
+																uni.setStorageSync('beian', res);
+																	console.log('支付成功修改了step时候跳转',res);
+																uni.redirectTo({
+																	url: '../main_index/main_index?from=waitPay'
+																});
+															} catch (e) {
+																// error
+															}
+														},
+														fail: (e) => {
+															console.log(e);
+															uni.showToast({
+																title: '已提交,请联系客服',
+																duration: 2000
+															});
+															uni.request({
+															url: global.host + 'Zhu/editCurrentStep',
+															method: 'GET',
+															data: {
+																openid : openid,
+																current_step : 3 
+															},
+															})
+														},
+														complete: () => {}
+													});
+													
+												},
+												fail: () => {},
+												complete: () => {}
 											});
-										},
-										fail: () => {},
-										complete: () => {}
-									});
+										}
+										
+									}
+								} catch (e) {
+									// error
 								}
+								
 							},
 							fail: () => {},
 							complete: () => {}

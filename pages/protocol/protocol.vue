@@ -30,6 +30,18 @@
 				
 			};
 		},
+		onLoad() {
+			console.log(55);
+				uni.request({
+				url: global.host + 'Zhu/demo',
+				method: 'GET',
+				success: res => {
+					console.log('999999789',res);
+				},
+				fail: () => {},
+				complete: () => {}
+			});	
+		},
 		methods:{
 			goBack() {
 				// 返回上一步

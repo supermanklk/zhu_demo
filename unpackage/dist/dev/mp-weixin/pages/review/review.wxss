@@ -1,4 +1,13 @@
 
+.datainfo {
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 600rpx;
+	font-size: 14px;
+	border: 1px solid #4CD964;
+	border-radius: 5px;
+	padding: 5px;
+}
 .review {
 	text-align: center;
 	display: -webkit-box;

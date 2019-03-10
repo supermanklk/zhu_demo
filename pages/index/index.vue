@@ -64,21 +64,7 @@
 				]
 			}
 		},
-	
 		onLoad() {
-			
-// 			uni.request({
-// 				url: global.host + 'Zhu/demo',
-// 				method: 'GET',
-// 				data: {},
-// 				success: res => {
-// 					console.log('99',res);
-// 				},
-// 				fail: () => {},
-// 				complete: () => {}
-// 			});
-			_left = this;
-			
 			var res = global.isLogin();
 			// 如果存在openid 说明已经登录过
 			  if(res){
@@ -182,8 +168,8 @@
 								console.log('res999',res);
 								try {
 									uni.setStorageSync('openid', res.data);
-									let openid = res.data.openid;
-									// 存储完以后跳转到选择身份 选择身份阶段为 88
+									let openid = res.data;
+									// 存储完以后跳转到选择身份 选择身份阶段为 888
 									// 发送请求 存储用户信息,且修改当前阶段在 选择身份(88)
 									uni.request({
 										url: global.host + 'Zhu/getUserInfo?openid=' + openid,
@@ -194,6 +180,31 @@
 											if(res.data.length >= 1) {
 												// 说明用户已经在用户表内,就不需要再注册
 												console.log('用户数据已经在数据表了');
+													// 首选查看用户是否有step 有了就不需要再操作
+												uni.request({
+													url: global.host + 'Zhu/getCurrentStep',
+													method: 'GET',
+													data: {
+														openid : openid 
+													},
+													success: res => {
+														console.log('嘿嘿嘿',res);
+														let current_step = res.data.res[0].current_step;
+														console.log('查看index时候的current_step',current_step);
+														if(current_step!= '888') {
+															// 说明已经存在current_step 不用修改88
+															uni.redirectTo({
+																url: '../main_index/main_index'
+															});
+														} else {
+															uni.redirectTo({
+																url: '../choiceIdentity/choiceIdentity'
+															});
+														}
+													},
+													fail: () => {},
+													complete: () => {}
+												});
 											} else {
 												// 用户信息没有在数据表 插入新数据
 												uni.request({
@@ -202,53 +213,52 @@
 													data: {},
 													success: res => {
 														console.log('新建用户数据到数据库',res);
+														// 注册的同时 需要创建他的公司
+														uni.request({
+															url: global.host + 'Zhu/insertOffice',
+															method: 'GET',
+															data: {
+																openid : openid,
+																current_step : 888,
+															},
+															success: res => {
+																console.log('新建用户公司数据到数据库',res);
+																	// 首选查看用户是否有step 有了就不需要再操作
+																uni.request({
+																	url: global.host + 'Zhu/getCurrentStep',
+																	method: 'GET',
+																	data: {
+																		openid : openid 
+																	},
+																	success: res => {
+																		console.log('嘿嘿嘿',res);
+																		let current_step = res.data.res[0].current_step;
+																		console.log('查看index时候的current_step',current_step);
+																		if(current_step!= '888') {
+																			// 说明已经存在current_step 不用修改88
+																			uni.redirectTo({
+																				url: '../main_index/main_index'
+																			});
+																		} else {
+																			uni.redirectTo({
+																				url: '../choiceIdentity/choiceIdentity'
+																			});
+																		}
+																	},
+																	fail: () => {},
+																	complete: () => {}
+																});
+															},
+															fail: () => {},
+															complete: () => {}
+														});
 													},
 													fail: () => {},
 													complete: () => {}
 												});
+												
 											}
-											// 首选查看用户是否有step 有了就不需要再操作
-											uni.request({
-												url: global.host + 'Zhu/getCurrentStep',
-												method: 'GET',
-												data: {
-													openid : openid 
-												},
-												success: res => {
-													let current_step = res.data.res[0].current_step;
-													console.log('查看index时候的current_step',current_step);
-													if(current_step!= '888') {
-														// 说明已经存在current_step 不用修改88
-														uni.redirectTo({
-															url: '../main_index/main_index'
-														});
-													} else {
-														uni.redirectTo({
-															url: '../choiceIdentity/choiceIdentity'
-														});
-														
-														// 修改该用户的setp
-// 														uni.request({
-// 															url: global.host + 'Zhu/editCurrentStep',
-// 															method: 'GET',
-// 															data: {
-// 																openid : openid,
-// 																current_step : 88 // 88 对应的是选择身份
-// 															},
-// 															success: res => {
-// 																console.log('查看修改进度的返回结果',res);
-// 																uni.redirectTo({
-// 																	url: '../choiceIdentity/choiceIdentity'
-// 																});
-// 															},
-// 															fail: () => {},
-// 															complete: () => {}
-														// });
-													}
-												},
-												fail: () => {},
-												complete: () => {}
-											});
+										
 											
 										
 										},

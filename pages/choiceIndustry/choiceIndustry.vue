@@ -175,13 +175,18 @@
 				// 点击下一步必须选择至少一个经营类目
 				if(this.activeArr.length >=1) {
 					// 将选择的范围存到缓存中
-					uni.setStorage({
-						key: 'business_scope',
-						data: this.activeArr,
-						success: function () {
-							console.log('经营范围存储成功');
-						}
-					});
+					try {
+						uni.setStorageSync('business_scope', this.activeArr);
+					} catch (e) {
+						// error
+					}
+// 					uni.setStorage({
+// 						key: 'business_scope',
+// 						data: this.activeArr,
+// 						success: function () {
+// 							console.log('经营范围存储成功');
+// 						}
+// 					});
 					// 修改step
 					try {
 						const openid = uni.getStorageSync('openid');

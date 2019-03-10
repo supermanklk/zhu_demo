@@ -255,7 +255,7 @@
 					try {
 						const openid = uni.getStorageSync('openid');
 						if (openid) {
-								uni.request({
+							uni.request({
 								url: global.host + 'Zhu/editCurrentStep',
 								method: 'GET',
 								data: {
@@ -263,10 +263,30 @@
 									current_step : 3 // 3代表选择套餐阶段
 								},
 								success: res => {
-									console.log('选择身份后,进行跳转main之前,修改状态',res);
-									uni.redirectTo({
-										url: '../main_index/main_index?from=registrationInfo'
+									// 在跳转之前,要保留用户的信息
+									uni.request({
+										url: global.host + 'Zhu/changeIdCard',
+										method: 'GET',
+										data: {
+											openid : openid,
+											user_name : '张彬',
+											id_card_number : '411328199408230055',
+											id_card_sex : 1,
+											id_card_nation : 1,
+											id_card_address : '上海宝山新二路55号',
+											id_card_front : 'https://wx.qlogo.cn/mmopen/vi_32/vHvGVjRQ5MUwy7Osj6C1pkaQghVh6vQ4IfCJicPa4NIpax0URult0eyic0T398nAyR73vricMfBAr3IXYbfsPxicAw/132',
+											id_card_back : 'https://wx.qlogo.cn/mmopen/vi_32/vHvGVjRQ5MUwy7Osj6C1pkaQghVh6vQ4IfCJicPa4NIpax0URult0eyic0T398nAyR73vricMfBAr3IXYbfsPxicAw/132'
+										},
+										success: res => {
+											// 保留成功以后去跳转到主页
+											uni.redirectTo({
+												url: '../main_index/main_index?from=registrationInfo'
+											});
+										},
+										fail: () => {},
+										complete: () => {}
 									});
+									
 								},
 								fail: () => {},
 								complete: () => {}
