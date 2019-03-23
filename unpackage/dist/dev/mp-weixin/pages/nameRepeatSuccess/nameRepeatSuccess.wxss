@@ -1,5 +1,6 @@
 
 .nameRepeatSuccess_prompt {
+	font-family: PingFangSC-Light;
 	font-size: 14px;
 	margin-top: 25px;
 }
@@ -45,12 +46,12 @@
 }
 .nameRepeatSuccess_header_img {
 	margin: 0 auto;
-	width: 80rpx;
-	height: 40px;
+	width: 120rpx;
+	height: 60px;
 }
 .nameRepeatSuccess_header_txt {
 	margin-top: 34px;
-	font-size: 14px;
+	font-size: 20px;
 	margin-bottom: 25px;
 }
 .choiceIndustry_pre_nex {
@@ -106,7 +107,8 @@
 }
 .goTorRegistration {
 	 margin: 0 auto;
-	 margin-top: 200px;
+	 margin-top: 165px;
+	 margin-bottom: 15px;
 	 text-align: center;
 }
 

@@ -84,7 +84,19 @@
         {
             "path" : "pages/protocol/protocol",
             "style" : {
-				"navigationBarTitleText" : "注册登记"
+                "navigationBarTitleText" : "注册登记"
+            }
+        },
+		{
+			"path" : "pages/name_repeat_ing/name_repeat_ing",
+			 "style" : {
+			    "navigationBarTitleText" : "名称查重"
+			}
+		}
+        ,{
+            "path" : "pages/pay_demo/pay_demo",
+            "style" : {
+				"navigationBarTitleText" : "支付测试"
 			}
         }
     ],
@@ -152,9 +164,17 @@
                 "name" : "审核中",
                 "path" : "pages/review/review"
             },
+            {
+                "name" : "协议说明",
+                "path" : "pages/protocol/protocol"
+            },
 			{
-				"name" : "协议说明",
-				"path" : "pages/protocol/protocol"
+			    "name" : "名称查重进行中",
+			    "path" : "pages/name_repeat_ing/name_repeat_ing"
+			},
+			{
+			    "name" : "支付测试",
+			    "path" : "pages/pay_demo/pay_demo"
 			}
         ]
     }

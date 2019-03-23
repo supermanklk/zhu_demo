@@ -56,8 +56,22 @@
 								},
 								success: res => {
 									console.log('选择身份后,进行跳转main之前,修改状态',res);
-									uni.redirectTo({
-										url: '../main_index/main_index'
+									// 修改数据库身份
+									uni.request({
+										url: global.host + '/Zhu/changeUserType',
+										method: 'GET',
+										data: {
+											openid : openid,
+											user_type : 1 //普通卖家
+										},
+										success: res => {
+											console.log('修改用户身份之后跳转',res);
+											uni.reLaunch({
+												url: '../main_index/main_index'
+											});
+										},
+										fail: () => {},
+										complete: () => {}
 									});
 								},
 								fail: () => {},
@@ -88,6 +102,7 @@
 	font-style: normal;
 }
 .choiceIdentity_header {
+	font-size: 20px;
 	margin-top: 100px;
 }
 

@@ -454,17 +454,17 @@ __webpack_require__.r(__webpack_exports__);
     clickStep: function clickStep() {
       switch (this.stepName) {
         case '名称查重':
-          uni.redirectTo({
+          uni.navigateTo({
             url: '../name_repeat/name_repeat' });
 
           break;
         case '注册登记':
-          uni.redirectTo({
+          uni.navigateTo({
             url: '../registration/registration' });
 
           break;
         case '选择套餐':
-          uni.redirectTo({
+          uni.navigateTo({
             url: '../waitPay/waitPay' });
 
           break;
@@ -479,7 +479,7 @@ __webpack_require__.r(__webpack_exports__);
 
           break;
         case '选择行业':
-          uni.redirectTo({
+          uni.navigateTo({
             url: '../choiceIndustry/choiceIndustry' });
 
           break;
@@ -491,10 +491,36 @@ __webpack_require__.r(__webpack_exports__);
     reApply: function reApply() {
       uni.showModal({
         title: '提示',
-        content: '重新申请将会清空完成的所有步骤',
+        content: '重新申请将会清空已完成的所有步骤',
         success: function success(res) {
           if (res.confirm) {
             console.log('用户点击确定');
+            // 清空数据库
+            var openid = uni.getStorageSync('openid');
+            uni.request({
+              url: global.host + 'Zhu/initialization',
+              method: 'GET',
+              data: {
+                openid: openid,
+                type: 3 // 在2个表的记录都删除
+              },
+              success: function success(res) {
+                console.log('数据库清理成功');
+                // 清除本地缓存
+                try {
+                  uni.clearStorageSync();
+                  console.log('本地缓存清理成功');
+                  uni.redirectTo({
+                    url: '../index/index' });
+
+                } catch (e) {
+                  // error
+                }
+              },
+              fail: function fail() {},
+              complete: function complete() {} });
+
+
           } else if (res.cancel) {
             console.log('用户点击取消');
           }

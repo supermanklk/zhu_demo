@@ -2,15 +2,18 @@
 	<view class="content">
 		<!-- 步骤介绍 -->
 		<view class="step">
-			<text class="stepTitle">
-				简单5步在线申请个体营业执照
-			</text>
+			<!-- #ifdef MP-WEIXIN  -->
+			<view class="applyImmediately">
+				<button  size="mini" plain="true" style=" width: 360upx;height: 46px; line-height: 46px; border-radius: 23px; font-size: 20px; font-weight: 500;  background: white; color: #e47149; border-color: #1AAD19;"  hover-class = "btn_hover" open-type="getUserInfo" @getuserinfo="getuserinfo">微信登录</button>
+			</view>
+			<!-- #endif --> 
+			<image style="width: 750upx; height: 600px;"  src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/zhushangmain.png" mode=""></image>
 		</view>
 		
 		<!-- 宣传区域 -->
-		<view class="promotionArea">
+		<!-- <view class="promotionArea">
 			
-		</view>
+		</view> -->
 		
 		<!-- 立即申请 -->
 		<!-- <view class="applyImmediately">
@@ -26,16 +29,16 @@
 		<!-- #endif -->  
 		
 		<!-- #ifdef MP-WEIXIN  -->
-		<view class="applyImmediately">
+		<!-- <view class="applyImmediately">
 			<button  size="mini" plain="true" style="width: 360upx; color: #1AAD19; border-color: #1AAD19;"  hover-class = "btn_hover" open-type="getUserInfo" @getuserinfo="getuserinfo">微信登录</button>
-		</view>
+		</view> -->
 		<!-- #endif -->  
 		<!-- 常见问题 -->
-		<view class="">
+		<!-- <view class="">
 			<text class="commonProblem">
 				常见问题
 			</text>
-		</view>
+		</view> -->
 		
 	</view>
 </template>
@@ -80,7 +83,7 @@
 							 	success: res => {
 									console.log('在idnex下查看进度',res);
 									let current_step = res.data.res[0].current_step;
-									if(current_step == '88') {
+									if(current_step == '888') {
 										// 到选择身份
 										console.log('目前处于选择身份阶段');
 										uni.redirectTo({
@@ -152,13 +155,13 @@
 					} catch (e) {
 						// error
 					}
-					console.log(333);
 					uni.login({
 					  provider: 'weixin',
 					  success: function (res2) {
 						console.log('res2',res2);
 						uni.request({
 							url: global.host + 'Zhu/getOpenid',
+							// url: 'http://crm.binbin.aiyongbao.com/Zhu/getOpenid',
 							method: 'GET',
 							data: {
 								code : res2.code
@@ -197,7 +200,7 @@
 																url: '../main_index/main_index'
 															});
 														} else {
-															uni.redirectTo({
+															uni.navigateTo({
 																url: '../choiceIdentity/choiceIdentity'
 															});
 														}
@@ -314,8 +317,9 @@
 	}
 	
 	.step {
-		margin-top: 25px;
-		margin-bottom: 25px;
+		position: relative;
+		/* margin-top: 25px; */
+		/* margin-bottom: 25px; */
 		text-align: center;
 	}
 	.stepTitle {
@@ -330,8 +334,11 @@
 	
 	/* 立即申请 */
 	.applyImmediately {
+		bottom: 50px;
+		position: absolute;
+		left: 195upx;
 		margin-top: 25px;
-		margin-bottom: 25px;
+		/* margin-bottom: 25px; */
 	}
 	.btn_hover {
 		color: black!important;

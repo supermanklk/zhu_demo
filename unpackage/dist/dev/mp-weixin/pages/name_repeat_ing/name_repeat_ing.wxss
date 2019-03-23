@@ -1,0 +1,38 @@
+
+.name_repeat_ing {
+	margin-top: 50px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	text-align: center;
+}
+.name_repeat_ing_img {
+	margin: 0 auto;
+	width: 120rpx;
+	height: 60px;
+}
+.an{
+
+    -webkit-transform: rotate(360deg);
+
+    animation: rotation 2 linear infinite;
+
+    -moz-animation: rotation 2 linear infinite;
+
+    -webkit-animation: rotation 2s linear infinite;
+
+    -o-animation: rotation 2s linear infinite;
+}
+@-webkit-keyframes rotation{
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}
+}
+
+
+

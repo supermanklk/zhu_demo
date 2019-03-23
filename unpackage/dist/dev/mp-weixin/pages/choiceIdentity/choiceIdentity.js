@@ -171,8 +171,22 @@ __webpack_require__.r(__webpack_exports__);
               },
               success: function success(res) {
                 console.log('选择身份后,进行跳转main之前,修改状态', res);
-                uni.redirectTo({
-                  url: '../main_index/main_index' });
+                // 修改数据库身份
+                uni.request({
+                  url: global.host + '/Zhu/changeUserType',
+                  method: 'GET',
+                  data: {
+                    openid: openid,
+                    user_type: 1 //普通卖家
+                  },
+                  success: function success(res) {
+                    console.log('修改用户身份之后跳转', res);
+                    uni.reLaunch({
+                      url: '../main_index/main_index' });
+
+                  },
+                  fail: function fail() {},
+                  complete: function complete() {} });
 
               },
               fail: function fail() {},

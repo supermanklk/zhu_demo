@@ -49,14 +49,33 @@
 			};
 		},
 		onLoad() {
+			console.log('进度页面');
 				try {
 					const value = uni.getStorageSync('beian');
-					if (value) {
+					if (value.data) {
 						console.log(value);
 						this.datainfo = value.data;
+					} else {
+						const openid = uni.getStorageSync('openid');
+						// 如果本地缓存没有则去接口请求
+						uni.request({
+							url: global.host + 'Zhu/getCompanyInfo',
+							method: 'GET',
+							data: {
+								openid : openid
+							},
+							success: res => {
+								console.log('res11',res);
+								let notification = JSON.parse(res.data.data["0"].notification).data;
+								this.datainfo = notification;
+							},
+							fail: () => {},
+							complete: () => {}
+						});
 					}
 				} catch (e) {
 					// error
+					console.log('error,进度页面');
 				}
 		},
 		methods:{
@@ -139,7 +158,8 @@
 	height: 30px;
 }
 .review_return_main {
-	margin-top: 235px;
+	margin-top: 120px;
 	text-align: center;
+	padding-bottom: 50px;
 }
 </style>

@@ -156,6 +156,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _left;var _default =
 {
   data: function data() {
@@ -195,7 +198,7 @@ var _left;var _default =
             success: function success(res) {
               console.log('在idnex下查看进度', res);
               var current_step = res.data.res[0].current_step;
-              if (current_step == '88') {
+              if (current_step == '888') {
                 // 到选择身份
                 console.log('目前处于选择身份阶段');
                 uni.redirectTo({
@@ -267,13 +270,13 @@ var _left;var _default =
         } catch (e) {
           // error
         }
-        console.log(333);
         uni.login({
           provider: 'weixin',
           success: function success(res2) {
             console.log('res2', res2);
             uni.request({
               url: global.host + 'Zhu/getOpenid',
+              // url: 'http://crm.binbin.aiyongbao.com/Zhu/getOpenid',
               method: 'GET',
               data: {
                 code: res2.code },
@@ -312,7 +315,7 @@ var _left;var _default =
                                 url: '../main_index/main_index' });
 
                             } else {
-                              uni.redirectTo({
+                              uni.navigateTo({
                                 url: '../choiceIdentity/choiceIdentity' });
 
                             }
@@ -439,57 +442,51 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "content" }, [
-    _vm._m(0),
-    _c("view", { staticClass: "promotionArea" }),
-    _c(
-      "view",
-      { staticClass: "applyImmediately" },
-      [
-        _c(
-          "button",
-          {
-            staticStyle: {
-              width: "360rpx",
-              color: "#1AAD19",
-              "border-color": "#1AAD19"
+    _c("view", { staticClass: "step" }, [
+      _c(
+        "view",
+        { staticClass: "applyImmediately" },
+        [
+          _c(
+            "button",
+            {
+              staticStyle: {
+                width: "360rpx",
+                height: "46px",
+                "line-height": "46px",
+                "border-radius": "23px",
+                "font-size": "20px",
+                "font-weight": "500",
+                background: "white",
+                color: "#e47149",
+                "border-color": "#1AAD19"
+              },
+              attrs: {
+                size: "mini",
+                plain: "true",
+                "hover-class": "btn_hover",
+                "open-type": "getUserInfo",
+                eventid: "4179a01c-0"
+              },
+              on: { getuserinfo: _vm.getuserinfo }
             },
-            attrs: {
-              size: "mini",
-              plain: "true",
-              "hover-class": "btn_hover",
-              "open-type": "getUserInfo",
-              eventid: "4179a01c-0"
-            },
-            on: { getuserinfo: _vm.getuserinfo }
-          },
-          [_vm._v("微信登录")]
-        )
-      ],
-      1
-    ),
-    _vm._m(1)
+            [_vm._v("微信登录")]
+          )
+        ],
+        1
+      ),
+      _c("image", {
+        staticStyle: { width: "750rpx", height: "600px" },
+        attrs: {
+          src:
+            "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/zhushangmain.png",
+          mode: ""
+        }
+      })
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "step" }, [
-      _c("text", { staticClass: "stepTitle" }, [
-        _vm._v("简单5步在线申请个体营业执照")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", {}, [
-      _c("text", { staticClass: "commonProblem" }, [_vm._v("常见问题")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -165,60 +165,64 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 // var count = 0;
 var _default = {
   data: function data() {
     return {
-      title: '请选择你的行业',
+      title: '(最多选5项)',
       activeArr: '',
       popularData: [
-      { "name": "服饰", "active": false },
+      { "name": "服装", "active": false },
       { "name": "箱包", "active": false },
-      { "name": "鞋帽配饰", "active": false },
-      { "name": "美妆", "active": false },
-      { "name": "母婴", "active": false },
-      { "name": "家纺", "active": false },
-      { "name": "日化用品", "active": false },
-      { "name": "体育用品", "active": false },
-      { "name": "厨房用具", "active": false },
-      { "name": "家用电器", "active": false },
-      { "name": "文具办公", "active": false },
-      { "name": "数码产品", "active": false },
-      { "name": "珠宝首饰", "active": false },
-      { "name": "日用百货", "active": false },
-      { "name": "礼品玩具", "active": false },
-      { "name": "宠物用品", "active": false }],
+      { "name": "鞋帽", "active": false },
+      { "name": "美妆个护", "active": false },
+      { "name": "母婴百货", "active": false }],
+
+
+
+
+
+
+
+
+
+
+
 
       moreData: [
-      { "name": "男装", "active": false },
-      { "name": "女装", "active": false },
-      { "name": "童装", "active": false },
-      { "name": "内衣", "active": false },
-      { "name": "男鞋", "active": false },
-      { "name": "女鞋", "active": false },
-      { "name": "钟表", "active": false },
-      { "name": "手表", "active": false },
-      { "name": "眼镜", "active": false },
-      { "name": "家具", "active": false },
-      { "name": "灯具", "active": false },
-      { "name": "涂料", "active": false },
-      { "name": "五金", "active": false },
-      { "name": "卫浴", "active": false },
-      { "name": "瓷砖", "active": false },
-      { "name": "建材", "active": false },
-      { "name": "图书报刊", "active": false },
-      { "name": "乐器", "active": false },
-      { "name": "汽车用品", "active": false },
-      { "name": "汽车配件", "active": false },
-      { "name": "游戏", "active": false },
-      { "name": "动漫", "active": false },
-      { "name": "宠物", "active": false },
-      { "name": "花艺", "active": false },
-      { "name": "摄影", "active": false },
-      { "name": "软件开发", "active": false },
-      { "name": "信息技术", "active": false },
-      { "name": "广告", "active": false }],
-
+        // 					{"name" : "男装", "active" : false},
+        // 					{"name" : "女装", "active" : false},
+        // 					{"name" : "童装", "active" : false},
+        // 					{"name" : "内衣", "active" : false},
+        // 					{"name" : "男鞋", "active" : false},
+        // 					{"name" : "女鞋", "active" : false},
+        // 					{"name" : "钟表", "active" : false},
+        // 					{"name" : "手表", "active" : false},
+        // 					{"name" : "眼镜", "active" : false},
+        // 					{"name" : "家具", "active" : false},
+        // 					{"name" : "灯具", "active" : false},
+        // 					{"name" : "涂料", "active" : false},
+        // 					{"name" : "五金", "active" : false},
+        // 					{"name" : "卫浴", "active" : false},
+        // 					{"name" : "瓷砖", "active" : false},
+        // 					{"name" : "建材", "active" : false},
+        // 					{"name" : "图书报刊", "active" : false},
+        // 					{"name" : "乐器", "active" : false},
+        // 					{"name" : "汽车用品", "active" : false},
+        // 					{"name" : "汽车配件", "active" : false},
+        // 					{"name" : "游戏", "active" : false},
+        // 					{"name" : "动漫", "active" : false},
+        // 					{"name" : "宠物", "active" : false},
+        // 					{"name" : "花艺", "active" : false},
+        // 					{"name" : "摄影", "active" : false},
+        // 					{"name" : "软件开发", "active" : false},
+        // 					{"name" : "信息技术", "active" : false},
+        // 					{"name" : "广告", "active" : false},
+      ],
       popularActive: [],
 
 
@@ -295,13 +299,6 @@ var _default = {
         } catch (e) {
 
         } // error
-        // 					uni.setStorage({
-        // 						key: 'business_scope',
-        // 						data: this.activeArr,
-        // 						success: function () {
-        // 							console.log('经营范围存储成功');
-        // 						}
-        // 					});
         // 修改step
         try {
           var openid = uni.getStorageSync('openid');
@@ -314,8 +311,7 @@ var _default = {
                 current_step: 1 // 0代表处理选择行业阶段
               },
               success: function success(res) {
-                console.log('选择身份后,进行跳转main之前,修改状态', res);
-                uni.redirectTo({
+                uni.reLaunch({
                   url: '../main_index/main_index?from=choiceIndustryOne' });
 
               },
@@ -368,6 +364,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "choiceIndustry" }, [
     _c("view", { staticClass: "choiceIndustry_header" }, [
+      _vm._m(0),
       _c("view", { staticClass: "choiceIndustry_header_1" }, [
         _c("text", [
           _vm._v(
@@ -378,45 +375,32 @@ var render = function() {
             )
           )
         ])
-      ]),
-      _c("view", { staticClass: "choiceIndustry_header_2" }, [
-        _c("text", [
-          _vm._v(_vm._s(_vm.activeArr == "" ? "(最多选5项)" : "综合税率5%"))
-        ])
-      ]),
-      _vm._m(0)
+      ])
     ]),
     _c(
       "view",
       { staticClass: "popularData" },
       _vm._l(_vm.popularData, function(item, index) {
-        return _c(
-          "div",
-          {
-            key: index,
-            attrs: {
-              "data-id": "popularData",
-              "data-popularDataIndex": index,
-              eventid: "e78ffd28-0-" + index
-            },
-            on: { click: _vm.clickItem }
-          },
-          [
-            _c(
-              "view",
-              {
-                class:
-                  item.active == true
-                    ? "popularData_item active"
-                    : "popularData_item"
+        return _c("div", { key: index, attrs: { "data-id": "popularData" } }, [
+          _c(
+            "view",
+            {
+              key: index,
+              class:
+                item.active == true
+                  ? "popularData_item active"
+                  : "popularData_item",
+              attrs: {
+                "data-popularDataIndex": index,
+                eventid: "e78ffd28-0-" + index
               },
-              [_c("text", [_vm._v(_vm._s(item.name))])]
-            )
-          ]
-        )
+              on: { click: _vm.clickItem }
+            },
+            [_c("text", [_vm._v(_vm._s(item.name))])]
+          )
+        ])
       })
     ),
-    _vm._m(1),
     _c(
       "view",
       { staticClass: "popularData" },
@@ -478,15 +462,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "choiceIndustry_header_3" }, [
-      _c("text", [_vm._v("热门")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "choiceIndustry_header_3" }, [
-      _c("text", [_vm._v("更多")])
+      _c("text", [_vm._v("选择你的行业")])
     ])
   }
 ]

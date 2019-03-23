@@ -7,10 +7,10 @@
 				<text>失败原因</text>
 			</view>
 			<view class="name_repeat_error_list">
-				<text>1、失败原因一</text>
-				<text>2、失败原因二</text>
+				<text>1、{{errormsg1}}</text>
+				<!-- <text>2、失败原因二</text>
 				<text>3、失败原因三</text>
-				<text>4、失败原因四</text>
+				<text>4、失败原因四</text> -->
 			</view>
 		</view>
 		<!-- 弹窗关闭的X -->
@@ -29,15 +29,6 @@
 				<text class="find_idea" @click="click_error"> &nbsp;&nbsp;点击查看原因</text>
 			</view>
 		</view>
-		
-		<!-- <view class="name_repeat_error_header">
-			<image class="name_repeat_error_header_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/Zhu/icon/error_icon.png" mode=""></image>
-			<view class="name_repeat_error_header_txt">
-				<text style="font-size: 14px;">提交超时</text>
-				<text class="find_idea" @click="click_error"> 所选名称已失效,请重新申请</text>
-			</view>
-		</view> -->
-		
 		
 		<!-- 推荐列表 -->
 		<view class="name_repeat_list">
@@ -68,8 +59,20 @@
 					{ name : '推荐名称三'},
 					{ name : '推荐名称四'},
 					{ name : '推荐名称五'}
-				]
+				],
+				errormsg1 : '',
 			};
+		},
+		onLoad(e) {
+			console.log('进到了错误页面',e);
+			if(e) {
+				if(e.errormsg.indexOf('timed')!= -1) {
+					this.errormsg1 = '系统错误,请重试';
+				} else {
+					this.errormsg1 = '系统错误,请重试.错误码:400312';
+					// this.errormsg1 = e.errormsg;
+				}
+			}
 		},
 		methods: {
 			// uni-app的弹窗组件都是这个样子的
@@ -80,8 +83,8 @@
 				this.alertModal = false;
 			},
 			goToBack() {
-				uni.navigateBack({
-					delta: 1
+				uni.redirectTo({
+					url: '../name_repeat/name_repeat'
 				});
 			}
 		}
@@ -143,6 +146,7 @@
 	display: flex;
 	flex-direction: column;
 	margin-left: 19px;
+	margin-right: 19px;
 }
 
 	

@@ -1,0 +1,1 @@
+<template name="5861134c"><view class="_view 5861134c"><button bindtap="handleProxy" type="primary" data-eventid="{{'5861134c-0'}}" data-comkey="{{$k}}" class="_button 5861134c">支付测试</button></view></template>

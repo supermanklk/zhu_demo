@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(global, uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -172,10 +172,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _self;var _default =
 {
   data: function data() {
     return {
-      phone: '18888888888',
+      phone: '',
       verificationCode: '',
       array: ['1', '10', '100'],
       index: 0,
@@ -183,37 +184,100 @@ __webpack_require__.r(__webpack_exports__);
       phoneTxt: '修改',
       codeTime: '', //默认信息反应的时间为60s
       waitCode: '', //给用户发送的短信验证码
-      vertifyTxt: '' };
+      vertifyTxt: '',
+      imgfrontsrc: 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/id_front_img.png',
+      imgbacksrc: 'http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/id_back_img.png',
+      viewDisable: false, // 页面内是否可以操作, 比如在上传图片的时候就不能操作了
+      nosendcode: true // 不能发送验证码
+    };
+  },
+  onLoad: function onLoad() {var _this = this;
+    // 获取手机号,首先查看该用户下面有没有手机号
+    if (global.openid) {
+      // 存在openid
+      uni.request({
+        url: global.host + 'Zhu/getUserInfo?openid=' + global.openid,
+        method: 'GET',
+        data: {},
+        success: function success(res) {
+          console.log('registration onload的时候获取用户信息', res);
+          if (res.data[0].user_phone) {
+            _this.phone = res.data[0].user_phone;
+          } else {
 
+          }
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    }
   },
   methods: {
-    clickFront: function clickFront() {
-      console.log('点击了正面');
+    clickFront: function clickFront(type) {
+      console.log('viewDisable', this.viewDisable);
+      if (this.viewDisable == true) return false;
+      if (type == 1) {
+        // 正面
+        console.log('点击了正面', type);
+      } else if (type == 2) {
+        // 反面
+        console.log('点击了反面', type);
+      }
+      _self = this;
       uni.chooseImage({
         count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        // sourceType: ['album'], //从相册选择
+        sizeType: ['compressed'], //可以指定是原图还是压缩图，默认二者都有
         success: function success(res) {
           console.log(JSON.stringify(res));
+          // 上传中禁止其他操作  
+          _self.viewDisable = true;
+          uni.showLoading({
+            title: '上传中...' });
+
+          console.log('上传的res', res);
           var tempFilePaths = res.tempFilePaths;
-          uni.saveFile({
-            tempFilePath: tempFilePaths[0],
-            success: function success(res) {
-              console.log('保存返回的数据', res);
-              var savedFilePath = res;
+          console.log('图片路径', tempFilePaths[0]);
+          if (type == 1) {
+            _self.imgfrontsrc = tempFilePaths[0];
+          } else if (type == 2) {
+            _self.imgbacksrc = tempFilePaths[0];
+          }
+          var uploadTask = uni.uploadFile({
+            url: global.host + '/Zhu/upload',
+            filePath: tempFilePaths[0],
+            name: 'file',
+            formData: {
+              'user': 'test' },
+
+            success: function success(uploadFileRes) {
+              console.log('上传反馈', uploadFileRes);
+              console.log('上传反馈的数据', JSON.parse(uploadFileRes.data));
+              _self.viewDisable = false;
+              uni.hideLoading();
+              var uploadFileRes1 = JSON.parse(uploadFileRes.data);
+              var imgurl = uploadFileRes1.msg;
+              // 将正面的base64存到本地
+              try {
+                if (type == 1) {
+                  uni.setStorageSync('base64front', uploadFileRes1.base64);
+                  uni.setStorageSync('imgfront', imgurl);
+                } else if (type == 2) {
+                  uni.setStorageSync('base64back', uploadFileRes1.base64);
+                  uni.setStorageSync('imgback', imgurl);
+                }
+              } catch (e) {
+                // error
+                console.log('error-base64front');
+              }
+
             } });
 
-        } });
-
-    },
-    clickBack: function clickBack() {
-      console.log('点击了反面');
-      uni.chooseImage({
-        count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        // sourceType: ['album'], //从相册选择
-        success: function success(res) {
-          console.log(JSON.stringify(res.tempFilePaths));
+          uploadTask.onProgressUpdate(function (res) {
+            _self.percent = res.progress;
+            console.log('上传进度' + res.progress);
+            console.log('已经上传的数据长度' + res.totalBytesSent);
+            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
+          });
         } });
 
     },
@@ -221,8 +285,17 @@ __webpack_require__.r(__webpack_exports__);
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value;
     },
-    changePhone: function changePhone(e) {var _this = this;
+    changePhone: function changePhone(e) {var _this2 = this;
+      if (this.nosendcode == false) {
+        uni.showToast({
+          title: '手机号不正确',
+          duration: 1000,
+          icon: 'none' });
+
+        return false;
+      }
       // 判断点击的是 修改 还是 获取验证码
+      if (this.viewDisable == true) return false;
       if (this.phoneTxt == '修改') {
         // 修改手机号,要显示验证码这一栏
         this.isDisplayVerificationCode = true;
@@ -235,25 +308,29 @@ __webpack_require__.r(__webpack_exports__);
         // 需要给用户的手机号发送短信
         var code = global.getVeritifyCode(); // 这个函数在全局
         var mobile = this.phone; //将要绑定的手机号,即发送的手机号
-        var tpl_id = 140513; //模板号 模板就是发送信息的模板,模板是聚合数据的模板
-        var tpl_value = '%23code%23%3D' + code;
-        var key = '8972e94284e4fb4fafc3266c8834d25c'; //聚合数据的appkey
-        var url = "http://v.juhe.cn/sms/send?mobile=" + mobile + '&tpl_id=' + tpl_id + '&dtype=&key=' + key + '&tpl_value=' + tpl_value;
+        // 					let tpl_id = 140513; //模板号 模板就是发送信息的模板,模板是聚合数据的模板
+        // 					let tpl_value = '%23code%23%3D' + code;
+        // 					let key = '8972e94284e4fb4fafc3266c8834d25c'; //聚合数据的appkey
+        // 					let url = "http://v.juhe.cn/sms/send?mobile=" + mobile + '&tpl_id=' + tpl_id + '&dtype=&key=' +  key + '&tpl_value=' + tpl_value; 
         uni.request({
-          url: url,
+          url: global.host + 'Zhu/getPhoneCode',
+          data: {
+            code: code,
+            mobile: mobile },
+
           success: function success(res) {
             if (res.data.reason == "操作成功") {
-              _this.waitCode = code;
+              _this2.waitCode = code;
               // 信息发送成功
-              _this.codeTime = 60;
-              _this.phoneTxt = '后重新获取';
+              _this2.codeTime = 60;
+              _this2.phoneTxt = '后重新获取';
               var timer = setInterval(function () {
-                _this.codeTime--;
-                if (_this.codeTime <= 0) {
-                  console.log('99', _this.codeTime);
+                _this2.codeTime--;
+                if (_this2.codeTime <= 0) {
+                  console.log('99', _this2.codeTime);
                   clearInterval(timer);
-                  _this.codeTime = '';
-                  _this.phoneTxt = '重新获取验证码';
+                  _this2.codeTime = '';
+                  _this2.phoneTxt = '重新获取验证码';
                 }
               }, 1000);
             }
@@ -263,33 +340,36 @@ __webpack_require__.r(__webpack_exports__);
 
     },
     // 验证手机验证码
-    vertifyCode: function vertifyCode(e) {var _this2 = this;
+    vertifyCode: function vertifyCode(e) {var _this3 = this;
+      _self = this;
       // 判断用户输入的验证码与发送的验证码是否一致
       if (e.detail.value == this.waitCode && e.detail.value != '') {
         this.vertifyTxt = '验证成功';
         this.codeTime = 0;
         // this.phoneTxt = '重新取验证码';
-        uni.showToast({
-          title: '修改成功了',
-          duration: 2000 });
 
         try {
           var openid = uni.getStorageSync('openid');
           if (openid) {
+            console.log('user_phone', _self.phone);
             uni.request({
               url: global.host + 'Zhu/changePhone',
               method: 'GET',
               data: {
                 openid: openid,
-                user_phone: this.phone },
+                user_phone: _self.phone },
 
               success: function success(res) {
+                uni.showToast({
+                  title: '修改成功了',
+                  duration: 2000 });
+
                 console.log('修改手机号成功', res);
                 setTimeout(function () {
-                  _this2.isDisplayVerificationCode = false;
-                  _this2.phoneTxt = '修改';
-                  _this2.vertifyTxt = '';
-                  _this2.verificationCode = '';
+                  _this3.isDisplayVerificationCode = false;
+                  _this3.phoneTxt = '修改';
+                  _this3.vertifyTxt = '';
+                  _this3.verificationCode = '';
                 }, 2000);
               },
               fail: function fail() {},
@@ -303,31 +383,243 @@ __webpack_require__.r(__webpack_exports__);
         uni.showToast({
           title: '请先获取验证码',
           duration: 2000,
-          icon: 'none' });
+          image: '../../static/icon/error.png' });
 
       } else {
         this.vertifyTxt = '验证码错误';
       }
     },
     goRegistrationInfo: function goRegistrationInfo() {
-      uni.navigateTo({
-        url: '../registrationInfo/registrationInfo' });
+      if (this.viewDisable == true) return false; // 如果有任务进行,不能进行其他操作.
+      // 先判断缓存是否有 frontinfo 与 backinfo 
+      try {
+        var base64front = uni.getStorageSync('base64front'); // 身份证正面base64
+        var base64back = uni.getStorageSync('base64back'); // 身份证反面base64
+        var imgfront = uni.getStorageSync('imgfront'); // 身份证正面的地址
+        var imgback = uni.getStorageSync('imgback'); // 身份证反面的地址
+        if (this.phone == '') {
+          uni.showToast({
+            title: '你点击修改,绑定手机号',
+            image: '../../static/icon/error.png',
+            duration: 2000 });
 
+          return false;
+        }
+        if (base64front && base64back && imgfront && imgback) {
+          // 信息都存在的情况
+          uni.showLoading({
+            title: '正面信息读取中' });
+
+          uni.request({
+            url: global.host + 'Zhu/getInfoID',
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' },
+
+            data: {
+              image: base64front,
+              side: 'front' },
+
+            success: function success(res) {
+              uni.hideLoading();
+              console.log('正面身份证信息', res);var _res$data$result =
+              res.data.result,idcard = _res$data$result.idcard,realname = _res$data$result.realname,address = _res$data$result.address,born = _res$data$result.born;
+              if (idcard == '' || realname == '' || address == '' || born == '') {
+                uni.showModal({
+                  title: '认证失败',
+                  content: '正面身份证模糊,请重新上传',
+                  showCancel: false,
+                  success: function success(res) {
+                    if (res.confirm) {
+                      console.log('用户点击确定');
+                    } else if (res.cancel) {
+                      console.log('用户点击取消');
+                    }
+                  } });
+
+                return false;
+              }
+              // 将正面的信息存到缓存
+              try {
+                uni.setStorageSync('infofront', res);
+              } catch (e) {
+                // error
+                console.log('设置缓存失败infofront');
+              }
+              if (res) {
+                uni.request({
+                  url: global.host + 'Zhu/verificationRealName',
+                  method: 'GET',
+                  data: {
+                    idcard: idcard,
+                    realname: realname },
+
+
+                  success: function success(res) {
+                    console.log('查看实名情况', res);
+                    if (res.data.msg == '身份证号码和真实姓名不一致') {
+                      console.log('实名未通过');
+                      uni.showModal({
+                        title: '提示',
+                        content: '身份证正面信息模糊,请重新上传正面身份证',
+                        success: function success(res) {
+                          if (res.confirm) {
+                            console.log('用户点击确定');
+                          } else if (res.cancel) {
+                            console.log('用户点击取消');
+                          }
+                        } });
+
+                      // 实名未通过
+                    } else if (res.data.msg == '身份证号码和真实姓名一致') {
+                      // 实名通过
+                      console.log('实名通过');
+                      uni.showLoading({
+                        title: '反面信息读取中' });
+
+                      uni.request({
+                        url: global.host + 'Zhu/getInfoID',
+                        method: 'POST',
+                        header: {
+                          'content-type': 'application/x-www-form-urlencoded' },
+
+                        data: {
+                          image: base64back,
+                          side: 'back' },
+
+                        success: function success(res) {
+                          uni.hideLoading();
+                          console.log('反面身份证信息', res);var _res$data$result2 =
+                          res.data.result,begin = _res$data$result2.begin,department = _res$data$result2.department,end = _res$data$result2.end,side = _res$data$result2.side;
+                          if (begin.length != 8 || end.length != 8 || side != "back" || department == '') {
+                            uni.showModal({
+                              title: '提示',
+                              content: '背面身份证验证失败,请重新上传',
+                              success: function success(res) {
+                                if (res.confirm) {
+                                  console.log('用户点击确定');
+                                } else if (res.cancel) {
+                                  console.log('用户点击取消');
+                                }
+                              } });
+
+                          } else {
+                            try {
+                              uni.setStorageSync('infoback', res);
+                            } catch (e) {
+                              console.error('infobackerror');
+                            }
+                            var infoback = res;
+                            // 获取正面信息
+                            try {
+                              var infofront = uni.getStorageSync('infofront');
+                              var _imgfront = uni.getStorageSync('imgfront');
+                              var _imgback = uni.getStorageSync('imgback');
+                              if (infofront) {
+                                console.log('正面与反面都认证成功');
+                                if (global.openid) {var _infofront$data$resul =
+                                  infofront.data.result,_realname = _infofront$data$resul.realname,sex = _infofront$data$resul.sex,nation = _infofront$data$resul.nation,_born = _infofront$data$resul.born,_address = _infofront$data$resul.address,_idcard = _infofront$data$resul.idcard;
+                                  if (sex == '男') sex = 1;
+                                  if (sex == '女') sex = 2;
+                                  uni.request({
+                                    url: global.host + 'Zhu/changeIdCard',
+                                    method: 'GET',
+                                    data: {
+                                      openid: global.openid,
+                                      user_name: _realname,
+                                      id_card_number: _idcard,
+                                      id_card_sex: sex,
+                                      id_card_nation: nation,
+                                      id_card_address: _address,
+                                      id_card_front: _imgfront,
+                                      id_card_back: _imgback },
+
+                                    success: function success(res) {
+                                      // 正面与反面都认证成功
+                                      // 需要最后验证一下 正反身份证是否匹配
+                                      // 背面身份证去除 公安局 然后看地址是否在正面的身份证地址存在
+                                      // if(infofront)
+                                      console.log('back', infoback.data.result.department.split('公安局')[0]);
+                                      var match = infoback.data.result.department.split('公安局')[0];
+                                      console.log(infofront.data.result.address.indexOf(match) != -1);
+                                      if (infofront.data.result.address.indexOf(match) != -1) {
+                                        uni.navigateTo({
+                                          url: '../registrationInfo/registrationInfo' });
+
+                                      } else {
+                                        uni.showModal({
+                                          title: '提示',
+                                          content: '身份证正反面不匹配,请重新上传',
+                                          success: function success(res) {
+                                            if (res.confirm) {
+                                              console.log('用户点击确定');
+                                            } else if (res.cancel) {
+                                              console.log('用户点击取消');
+                                            }
+                                          } });
+
+                                      }
+
+                                    },
+                                    fail: function fail() {},
+                                    complete: function complete() {} });
+
+                                } else {
+                                  console.log('registration_error');
+                                }
+                              }
+                            } catch (e) {
+                              // error
+                            }
+
+
+
+
+
+                          }
+                        },
+                        fail: function fail() {},
+                        complete: function complete() {} });
+
+
+                    }
+                  },
+                  fail: function fail() {},
+                  complete: function complete() {} });
+
+              }
+
+            },
+            fail: function fail() {},
+            complete: function complete() {} });
+
+        } else {
+          uni.showToast({
+            title: '请先上传身份证',
+            duration: 2000,
+            image: '../../static/icon/error.png' });
+
+        }
+      } catch (e) {
+        // error
+      }
     },
     vertifyPhone: function vertifyPhone(e) {
       var phone = e.detail.value;
       if (phone.length != 11) {
         uni.showToast({
           title: '手机号不正确',
-          duration: 2000,
-          icon: 'none' });
+          duration: 1000,
+          image: '../../static/icon/error.png' });
 
+        this.nosendcode = false;
       } else {
+        this.nosendcode = true;
         console.log('89', e.detail.value);
         this.phone = e.detail.value;
       }
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -435,16 +727,16 @@ var render = function() {
             mode: "",
             eventid: "6ef7e3a8-4"
           },
-          on: { click: _vm.clickFront }
+          on: {
+            click: function($event) {
+              _vm.clickFront(1)
+            }
+          }
         }),
         _c("text", [_vm._v("身份证人像面")]),
         _c("image", {
           staticClass: "card_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/id_front_img.png",
-            mode: ""
-          }
+          attrs: { src: _vm.imgfrontsrc, mode: "" }
         })
       ]),
       _c("view", { staticClass: "id_block" }, [
@@ -456,16 +748,16 @@ var render = function() {
             mode: "",
             eventid: "6ef7e3a8-5"
           },
-          on: { click: _vm.clickBack }
+          on: {
+            click: function($event) {
+              _vm.clickFront(2)
+            }
+          }
         }),
         _c("text", [_vm._v("身份证国徽面")]),
         _c("image", {
           staticClass: "card_img",
-          attrs: {
-            src:
-              "http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/id_back_img.png",
-            mode: ""
-          }
+          attrs: { src: _vm.imgbacksrc, mode: "" }
         })
       ])
     ]),

@@ -164,15 +164,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
 {
   data: function data() {
     return {
@@ -182,9 +173,21 @@ __webpack_require__.r(__webpack_exports__);
       { name: '推荐名称二' },
       { name: '推荐名称三' },
       { name: '推荐名称四' },
-      { name: '推荐名称五' }] };
+      { name: '推荐名称五' }],
 
+      errormsg1: '' };
 
+  },
+  onLoad: function onLoad(e) {
+    console.log('进到了错误页面', e);
+    if (e) {
+      if (e.errormsg.indexOf('timed') != -1) {
+        this.errormsg1 = '系统错误,请重试';
+      } else {
+        this.errormsg1 = '系统错误,请重试.错误码:400312';
+        // this.errormsg1 = e.errormsg;
+      }
+    }
   },
   methods: {
     // uni-app的弹窗组件都是这个样子的
@@ -195,8 +198,8 @@ __webpack_require__.r(__webpack_exports__);
       this.alertModal = false;
     },
     goToBack: function goToBack() {
-      uni.navigateBack({
-        delta: 1 });
+      uni.redirectTo({
+        url: '../name_repeat/name_repeat' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -238,7 +241,12 @@ var render = function() {
             ? "name_repeat_error_modal"
             : "no_name_repeat_error_modal"
       },
-      [_vm._m(0), _vm._m(1)]
+      [
+        _vm._m(0),
+        _c("view", { staticClass: "name_repeat_error_list" }, [
+          _c("text", [_vm._v("1、" + _vm._s(_vm.errormsg1))])
+        ])
+      ]
     ),
     _c(
       "view",
@@ -305,7 +313,7 @@ var render = function() {
         )
       })
     ),
-    _vm._m(2)
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
@@ -315,17 +323,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "name_repeat_error_title" }, [
       _c("text", [_vm._v("失败原因")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "name_repeat_error_list" }, [
-      _c("text", [_vm._v("1、失败原因一")]),
-      _c("text", [_vm._v("2、失败原因二")]),
-      _c("text", [_vm._v("3、失败原因三")]),
-      _c("text", [_vm._v("4、失败原因四")])
     ])
   },
   function() {

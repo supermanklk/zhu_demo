@@ -210,43 +210,76 @@ __webpack_require__.r(__webpack_exports__);
       range: [
       '1', '2', '3'],
 
-      array: [['a', 'b'], ['网店', '店', '铺', '商行', '工作室', '商店', '服务部', '事务所']],
-      index: 0,
+      // array : [['a','b'],['网店', '店','铺', '商行', '工作室','商店','服务部','事务所']],
+      array: [['a', 'b'], ['店', '网店']],
+      index: 0, // 形式
+      indexzero: 0, // 主营业务
       canClick: false, // 开始查询 是否能够点击
       inputRed: false, // 字号自我检测有问题的时候标红
       zihao: '(字号)',
       type: '网店',
       typeText: '网店',
-      industry_description: '' };
-
+      industry_description: '',
+      isFirst: true, //是否第一次进来,是的话,需要重新选择 店铺后缀
+      error1: '' // 第一道字号检测错误一
+    };
   },
   onLoad: function onLoad() {
+    // 查重之前先清理库内过期的字号
     var self = this;
-    // 首先需要加载经营范围
     try {
-      var value = uni.getStorageSync('business_scope');
-      if (value) {
-        // console.log('111',value);
-        self.array[0] = value;
+      var business_scope = uni.getStorageSync('business_scope');
+      if (business_scope) {
+        console.log(business_scope);
+        self.array[0] = business_scope;
+        if (business_scope[0] == '健康销售') {
+          self.array[1] = ['店'];
+        }
       }
     } catch (e) {
       // error
     }
+    console.log(888);
+    uni.request({
+      url: global.host + 'Zhu/clearCharacterTimeout',
+      method: 'GET',
+      data: {},
+      success: function success(res) {
+        console.log('清理过期的字号', res);
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
+
+    console.log(666);
+    // 首先需要加载经营范围
+    // 			try {
+    // 				const value = uni.getStorageSync('business_scope');
+    // 				console.log('business_scope',business_scope);
+    // 				if (value) {
+    // 					console.log('111',value);
+    // 					self.array[0] = value;
+    // 				}
+    // 			} catch (e) {
+    // 				// error
+    // 			}
   },
   methods: {
     change: function change() {
       console.log(11);
     },
     bindPickerChange: function bindPickerChange(e) {
+      this.isFirst = false; // 改变以后,  文字 请选择店铺后缀就不会出现
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value[1];
+      this.indexzero = e.target.value[0];
+
       if (e.target.value[1] == 0) {
-        this.type = 32;
-        this.typeText = '网店';
-      }
-      if (e.target.value[1] == 1) {
         this.type = 3;
         this.typeText = '店';
+      }
+      if (e.target.value[1] == 1) {
+        this.type = 32;
+        this.typeText = '网店';
       }
       if (e.target.value[1] == 2) {
         this.type = 8;
@@ -274,107 +307,119 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.industry_description = this.array[0][e.target.value[0]];
       console.log(this.array[0][e.target.value[0]]);
+      // 将主营业务缓存
+      try {
+        uni.setStorageSync('main_scope', this.array[0][e.target.value[0]]);
+      } catch (e) {
+        // error
+      }
     },
     startfind: function startfind() {var _this = this;
-      // let returnInfo =  global.returnData('服装');
-      var returnInfo = global.returnData(this.industry_description);
-      if (this.industry_description == '') {
-        uni.showToast({
-          title: '请选择经营范围',
-          duration: 2000,
-          icon: 'none' });
 
-        return false;
-      }
-      if (this.canClick) {
-        //开始查重 目前是随机的 没有真实的数据
-        // 					let num = Math.random();
-        // 					if(num > 0.5) {
-        // 						// 查重失败的界面
-        // 						uni.navigateTo({
-        // 							url: '../nameRepeatError/nameRepeatError'
-        // 						});	
-        // 					} else {
-        // 						// 查重成功的界面
-        // 						uni.navigateTo({
-        // 							url: '../nameRepeatSuccess/nameRepeatSuccess'
-        // 						});	
-        // 					}
-        uni.showLoading({
-          title: '正在查重,请耐心等待' });
+      uni.request({
+        url: global.host + 'Zhu/getController',
+        method: 'GET',
+        data: {},
+        success: function success(res) {
+          // 点击查重 做一个开关
+          console.log('查看开关情况', res);
+          if (res.data[0].switch11 != 1) {
+            // 已经被关闭 不能进行查重
+            // 在维护
+            uni.showLoading({
+              title: '第一批邀请测试结束，敬请期待下一次开放。' });
 
-        var name = encodeURIComponent(this.zihao).replace(/25+/g, '');
-        var business = encodeURIComponent(this.industry_description).replace(/25+/g, '');
-        uni.request({
-          url: global.host + 'Zhu/getName?character=' + name + '&business=' + business,
-          method: 'GET',
-          data: {
-            business_big: returnInfo[0],
-            business_center: returnInfo[1],
-            business_small: returnInfo[2],
-            organization: this.type,
-            account: 'supermanzhangbin',
-            password: 'Zhangbin521..' },
+            setTimeout(function () {
+              uni.hideLoading();
+            }, 2000);
+          } else {
+            // let returnInfo =  global.returnData('服装');
+            var returnInfo = global.returnData(_this.industry_description);
+            if (_this.industry_description == '') {
+              uni.showToast({
+                title: '请选择经营范围',
+                duration: 2000,
+                icon: 'none' });
 
-          success: function success(res) {
-            console.log('325435', res);
-            uni.hideLoading();
-            if (res.data) {
-              if (res.data.indexOf('查重失败') != -1) {
-                // 说明查重失败
-                uni.navigateTo({
-                  url: '../nameRepeatError/nameRepeatError' });
+              return false;
+            }
+            if (_this.canClick) {
+              try {
+                uni.setStorageSync('zihao', _this.zihao);
+              } catch (e) {
+                // error
+                console.log('设置字号失败');
+              }
+              var name = encodeURIComponent(_this.zihao).replace(/25+/g, '');
+              var business = encodeURIComponent(_this.industry_description).replace(/25+/g, '');
+              uni.redirectTo({
+                url: '../name_repeat_ing/name_repeat_ing?character=' + name + '&business=' + business + '&business_big=' + returnInfo[0] + '&business_center=' + returnInfo[1] + '&business_small=' + returnInfo[2] + '&organization=' + _this.type });
 
-              } else if (res.data.indexOf('查重通过') != -1) {
-                // 查询通过,把这个字号給它缓存到本地
-                try {
-                  uni.setStorageSync('bussiness_name', res.data.split('，')[0]);
-                } catch (e) {
-                  // error
-                }
-                uni.navigateTo({
-                  url: '../nameRepeatSuccess/nameRepeatSuccess?name=' + name + '&business=' + business + '&organization=' + _this.type });
+            } else {
+              if (_this.inputRed) {
+                uni.showToast({
+                  title: '请修改字号',
+                  duration: 2000,
+                  icon: 'none' });
+
+              } else {
+                uni.showToast({
+                  title: '请先填写字号',
+                  duration: 2000,
+                  icon: 'none' });
 
               }
             }
-          },
-          fail: function fail(e) {
-            console.log('查重报错', e);
-            uni.hideLoading();
-            uni.showToast({
-              title: '系统繁忙,请重试',
-              duration: 2000 });
+          }
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
 
-          },
-          complete: function complete() {} });
 
-      } else {
-        uni.showToast({
-          title: '请先填写字号',
-          duration: 2000,
-          icon: 'none' });
-
-      }
 
     },
-    zihaoBlur: function zihaoBlur(e) {
+    zihaoBlur: function zihaoBlur(e) {var _this2 = this;
       console.log('失去焦点', e.detail.value);
       if (e.detail.value != '') {
         // 不等于空 可以点击开始查询
         uni.showLoading({
           title: '处理中' });
 
-        if (e.detail.value.indexOf('彬') != -1) {
-          this.alertModal = true;
-          this.canClick = false;
-          this.inputRed = true;
-          uni.hideLoading();
-        } else {
-          this.zihao = e.detail.value;
-          this.inputRed = false;
-          this.canClick = true;
-          uni.hideLoading();
-        }
+
+        uni.request({
+          url: global.host + 'Zhu/verificationContent?content=' + e.detail.value,
+          method: 'GET',
+          data: {},
+          success: function success(res) {
+            console.log(res);
+            if (res.data.result.spam == 0) {
+              console.log('global.verificationContent(e.detail.value)', global.verificationContent(e.detail.value));
+              if (global.verificationContent(e.detail.value) != 'ok') {
+                _this2.error1 = global.verificationContent(e.detail.value);
+                _this2.alertModal = true;
+                _this2.canClick = false;
+                _this2.inputRed = true;
+                uni.hideLoading();
+              } else {
+                _this2.error1 = global.verificationContent(e.detail.value);
+                _this2.zihao = e.detail.value;
+                _this2.inputRed = false;
+                _this2.canClick = true;
+                uni.hideLoading();
+              }
+            } else {
+              _this2.error1 = '不能含有中外地名、国际组织、中外历史名人或者公司品牌名称以及敏感词';
+              _this2.alertModal = true;
+              _this2.canClick = false;
+              _this2.inputRed = true;
+              uni.hideLoading();
+            }
+          },
+          fail: function fail() {},
+          complete: function complete() {} });
+
+
+
       } else {
         this.canClick = false;
       }
@@ -422,7 +467,12 @@ var render = function() {
             ? "name_repeat_error_modal"
             : "no_name_repeat_error_modal"
       },
-      [_vm._m(0), _vm._m(1)]
+      [
+        _vm._m(0),
+        _c("view", { staticClass: "name_repeat_error_list" }, [
+          _c("text", [_vm._v("1、" + _vm._s(_vm.error1))])
+        ])
+      ]
     ),
     _c(
       "view",
@@ -456,7 +506,12 @@ var render = function() {
         }
       }),
       _c("text", { staticClass: "name_repeat_header_title" }, [
-        _vm._v("景宁  " + _vm._s(_vm.zihao) + "  " + _vm._s(_vm.typeText))
+        _vm._v(
+          "景宁" +
+            _vm._s(_vm.zihao) +
+            _vm._s(_vm.array[0][_vm.indexzero]) +
+            _vm._s(_vm.typeText)
+        )
       ])
     ]),
     _c("view", { staticClass: "name_repeat_set" }, [
@@ -469,8 +524,9 @@ var render = function() {
               : "name_repeat_set_1"
         },
         [
-          _c("text", [_vm._v("字号:")]),
+          _c("text", [_vm._v("字号 :")]),
           _c("input", {
+            staticStyle: { "text-align": "left", "padding-left": "10rpx" },
             attrs: {
               type: "text",
               value: "",
@@ -505,7 +561,17 @@ var render = function() {
                     "padding-right": "10rpx"
                   }
                 },
-                [_vm._v(_vm._s(_vm.array[1][_vm.index]))]
+                [
+                  _c("text", { staticStyle: { color: "#B2B2B2" } }, [
+                    _vm._v(_vm._s(_vm.isFirst == true ? "点击选店铺后缀" : ""))
+                  ]),
+                  _vm._v(
+                    _vm._s(
+                      _vm.isFirst == true ? "" : _vm.array[0][_vm.indexzero]
+                    ) +
+                      _vm._s(_vm.isFirst == true ? "" : _vm.array[1][_vm.index])
+                  )
+                ]
               )
             ]
           )
@@ -535,7 +601,7 @@ var render = function() {
       ],
       2
     ),
-    _vm._m(2),
+    _vm._m(1),
     _c(
       "view",
       { staticClass: "pay_btn" },
@@ -572,17 +638,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "name_repeat_error_title" }, [
       _c("text", [_vm._v("失败原因")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "name_repeat_error_list" }, [
-      _c("text", [_vm._v("1、名字不能含有彬")]),
-      _c("text", [_vm._v("2、失败原因二")]),
-      _c("text", [_vm._v("3、失败原因三")]),
-      _c("text", [_vm._v("4、失败原因四")])
     ])
   },
   function() {

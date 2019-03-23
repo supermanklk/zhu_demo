@@ -11,12 +11,14 @@
 	font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
 }
 .choiceIndustry_header_1 {
-	margin-top: 25px;
+	margin-top: 20px;
+	margin-bottom: 70px;
 }
 .choiceIndustry_header_2 {
 	margin-top: 5px;
 }
 .choiceIndustry_header_3 {
+	font-size: 14px;
 	margin-top: 15px;
 }
 .popularData {
@@ -26,25 +28,29 @@
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-flex-wrap: wrap;
-	    -ms-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	    -ms-flex-pack: justify;
-	        justify-content: space-between;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	-webkit-align-content: center;
+	    -ms-flex-line-pack: center;
+	        align-content: center;
+	/* justify-content: space-between; */
 }
 .popularData_item {
+	margin: 0 auto;
 	font-size: 14px;
 	color: #E77D53;
 	border: 1px solid #E77D53;
-	width: 150rpx;
-	height: 25px;
+	width: 200rpx;
+	height: 34px;
+	line-height: 34px;
 	margin-top: 10px;
 	border-radius: 5px;
 }
 .choiceIndustry_pre_nex {
-	margin-top: 50px;
+	margin-top: 140px;
 	margin-bottom: 55px;
 	display: -webkit-box;
 	display: -webkit-flex;

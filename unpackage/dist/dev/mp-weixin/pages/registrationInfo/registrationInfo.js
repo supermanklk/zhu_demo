@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -334,13 +334,98 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _self;var _default =
 {
   data: function data() {
     return {
       alertImg: false, //预览弹窗是否显示,默认不显示
       alertProtocol: false, //查看协议
-      radio: false };
+      radio: false,
+      bussiness_name: '', // 企业名称
+      realname: '', // 名字
+      idcard: '', // 首份证号
+      user_phone: '', // 用户手机号
+      business_scope: '', // 经营范围
+      main_scope: '' // 主营业务
+    };
 
+  },
+  onLoad: function onLoad() {
+    _self = this;
+    uni.request({
+      url: global.host + 'Zhu/getUserInfo',
+      method: 'GET',
+      data: {
+        openid: global.openid },
+
+      success: function success(res) {
+        console.log('查看该用户信息', res.data[0].user_phone);
+        // 把用户信息存在缓存
+        try {
+          uni.setStorageSync('userinfo', res.data[0]);
+        } catch (e) {
+          console.log('设置用户信息失败');
+          // error
+        }
+        var user_phone = res.data[0].user_phone;
+        _self.user_phone = user_phone;
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
+
+    try {
+      var bussiness_name = uni.getStorageSync('bussiness_name');
+      var infofront = uni.getStorageSync('infofront');
+      var infoback = uni.getStorageSync('infoback');
+      var business_scope = uni.getStorageSync('business_scope');
+      console.log(business_scope);
+      if (bussiness_name && infofront && infoback) {var _infofront$data$resul =
+        infofront.data.result,realname = _infofront$data$resul.realname,idcard = _infofront$data$resul.idcard;
+        this.realname = realname;
+        this.idcard = idcard;
+        var txt = '';
+        try {
+          var main_scope = uni.getStorageSync('main_scope');
+          this.main_scope = main_scope;
+          for (var i = 0; i < business_scope.length; i++) {
+            if (business_scope[i] != main_scope) {
+              txt = business_scope[i] + ',' + txt;
+            }
+          }
+          var text = main_scope + ',' + txt;
+          try {
+            uni.setStorageSync('business_scope_text', text.substr(0, text.length - 1));
+          } catch (e) {
+            // error
+          }
+          this.business_scope = text.substr(0, text.length - 1);
+          this.bussiness_name = bussiness_name.replace(/名称查重通过/, '');
+        } catch (e) {
+          console.log('errormain_scope');
+        }
+
+      }
+    } catch (e) {
+      // error
+    }
   },
   methods: {
     lookPreImg: function lookPreImg() {
@@ -379,29 +464,12 @@ __webpack_require__.r(__webpack_exports__);
               },
               success: function success(res) {
                 // 在跳转之前,要保留用户的信息
-                uni.request({
-                  url: global.host + 'Zhu/changeIdCard',
-                  method: 'GET',
-                  data: {
-                    openid: openid,
-                    user_name: '张彬',
-                    id_card_number: '411328199408230055',
-                    id_card_sex: 1,
-                    id_card_nation: 1,
-                    id_card_address: '上海宝山新二路55号',
-                    id_card_front: 'https://wx.qlogo.cn/mmopen/vi_32/vHvGVjRQ5MUwy7Osj6C1pkaQghVh6vQ4IfCJicPa4NIpax0URult0eyic0T398nAyR73vricMfBAr3IXYbfsPxicAw/132',
-                    id_card_back: 'https://wx.qlogo.cn/mmopen/vi_32/vHvGVjRQ5MUwy7Osj6C1pkaQghVh6vQ4IfCJicPa4NIpax0URult0eyic0T398nAyR73vricMfBAr3IXYbfsPxicAw/132' },
+                uni.reLaunch({
+                  url: '../main_index/main_index?from=registrationInfo' });
 
-                  success: function success(res) {
-                    // 保留成功以后去跳转到主页
-                    uni.redirectTo({
-                      url: '../main_index/main_index?from=registrationInfo' });
-
-                  },
-                  fail: function fail() {},
-                  complete: function complete() {} });
-
-
+                // 									uni.redirectTo({
+                // 										url: '../main_index/main_index?from=registrationInfo'
+                // 									});
               },
               fail: function fail() {},
               complete: function complete() {} });
@@ -524,15 +592,53 @@ var render = function() {
     _c("view", { class: _vm.alertProtocol == true ? "mengceng" : "" }),
     _vm._m(8),
     _c("view", { staticClass: "registrationInfo_info" }, [
-      _vm._m(9),
-      _vm._m(10),
-      _vm._m(11),
-      _vm._m(12),
+      _c("view", { staticClass: "registrationInfo_info_item" }, [
+        _vm._m(9),
+        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
+          _c("text", [_vm._v(_vm._s(_vm.realname))])
+        ])
+      ]),
+      _c("view", { staticClass: "registrationInfo_info_item" }, [
+        _vm._m(10),
+        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
+          _c("text", [_vm._v(_vm._s(_vm.idcard))])
+        ])
+      ]),
+      _c("view", { staticClass: "registrationInfo_info_item" }, [
+        _vm._m(11),
+        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
+          _c("text", [_vm._v(_vm._s(_vm.user_phone))])
+        ])
+      ]),
+      _c("view", { staticClass: "registrationInfo_info_item" }, [
+        _vm._m(12),
+        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
+          _c("text", [_vm._v(_vm._s(_vm.bussiness_name))])
+        ])
+      ]),
       _vm._m(13),
       _vm._m(14),
       _vm._m(15),
       _c("view", { staticClass: "registrationInfo_info_item" }, [
         _vm._m(16),
+        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
+          _c("text", [
+            _vm._v(
+              "网上销售：" +
+                _vm._s(_vm.business_scope) +
+                "(依法须批准的醒目,经相关部门批准方可开展经营活动)"
+            )
+          ])
+        ])
+      ]),
+      _c("view", { staticClass: "registrationInfo_info_item" }, [
+        _vm._m(17),
+        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
+          _c("text", [_vm._v(_vm._s(_vm.main_scope))])
+        ])
+      ]),
+      _c("view", { staticClass: "registrationInfo_info_item" }, [
+        _vm._m(18),
         _c("view", { staticClass: "registrationInfo_info_item_right" }, [
           _c(
             "text",
@@ -546,8 +652,6 @@ var render = function() {
         ])
       ])
     ]),
-    _vm._m(17),
-    _vm._m(18),
     _c("view", { staticClass: "registrationInfo_protocol" }, [
       _c(
         "view",
@@ -674,26 +778,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registrationInfo_info_item" }, [
-      _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-        _c("text", [_vm._v("申请名称")])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [_vm._v("景宁甄好服装店")])
-      ])
+    return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
+      _c("text", [_vm._v("姓名")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registrationInfo_info_item" }, [
-      _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-        _c("text", [_vm._v("注册资本")])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [_vm._v("1 万元")])
-      ])
+    return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
+      _c("text", [_vm._v("身份证号")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
+      _c("text", [_vm._v("联系方式")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
+      _c("text", [_vm._v("申请名称")])
     ])
   },
   function() {
@@ -705,20 +815,7 @@ var staticRenderFns = [
         _c("text", [_vm._v("登记地址")])
       ]),
       _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [_vm._v("浙江省丽水市景宁自治县红星街道108号")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registrationInfo_info_item" }, [
-      _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-        _c("text", [_vm._v("联系方式")])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [_vm._v("17637794541")])
+        _c("text", [_vm._v("浙江省丽水市景宁畲族自治县红星街道108号")])
       ])
     ])
   },
@@ -731,7 +828,7 @@ var staticRenderFns = [
         _c("text", [_vm._v("登记机关")])
       ]),
       _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [_vm._v("景宁自治县市场监督管理局")])
+        _c("text", [_vm._v("景宁畲族自治县市场监督管理局")])
       ])
     ])
   },
@@ -744,24 +841,7 @@ var staticRenderFns = [
         _c("text", [_vm._v("管辖单位")])
       ]),
       _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [_vm._v("景宁自治县市场监督管理局")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registrationInfo_info_item" }, [
-      _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-        _c("text", [_vm._v("经营范围")])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-        _c("text", [
-          _vm._v(
-            "服饰,箱包,鞋帽,母婴,没装的互联网零售.(仅限于通过互联网从事经营活动)(依法须批准的醒目,经相关部门批准方可开展经营活动)"
-          )
-        ])
+        _c("text", [_vm._v("景宁畲族自治县市场监督管理局")])
       ])
     ])
   },
@@ -770,91 +850,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-      _c("text", [_vm._v("执照预览")])
+      _c("text", [_vm._v("经营范围")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "view",
-      {
-        staticClass: "registrationInfo_header",
-        staticStyle: { "margin-top": "15px" }
-      },
-      [_c("text", [_vm._v("个人信息")])]
-    )
+    return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
+      _c("text", [_vm._v("主营业务")])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "registrationInfo_info" }, [
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("姓名")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("这个超人")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("性别")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("男")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("民族")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("汉")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("出生")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("19999999")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("身份证号")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("310000000000000022")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("地址")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("地球美国帝国大厦顶楼")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("签发机关")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("复仇者联盟政审局")])
-        ])
-      ]),
-      _c("view", { staticClass: "registrationInfo_info_item" }, [
-        _c("view", { staticClass: "registrationInfo_info_item_left" }, [
-          _c("text", [_vm._v("有效期限")])
-        ]),
-        _c("view", { staticClass: "registrationInfo_info_item_right" }, [
-          _c("text", [_vm._v("2015.02.11-2015.02.29")])
-        ])
-      ])
+    return _c("view", { staticClass: "registrationInfo_info_item_left" }, [
+      _c("text", [_vm._v("执照预览")])
     ])
   }
 ]

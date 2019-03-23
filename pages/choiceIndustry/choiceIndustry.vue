@@ -2,21 +2,25 @@
 <template>
 	<view class="choiceIndustry">
 		<view class="choiceIndustry_header">
+			
+			<view class="choiceIndustry_header_3">
+				<text>选择你的行业</text>
+			</view>
 			<view class="choiceIndustry_header_1">
 				<text>{{activeArr == '' ? title : '(已选'+activeArr.length+'/5:  '+activeArr+')'}}</text>
 			</view>
-			<view class="choiceIndustry_header_2">
+			<!-- <view class="choiceIndustry_header_2">
 				<text>{{activeArr == '' ? '(最多选5项)' : '综合税率5%'}}</text>
-			</view>
-			<view class="choiceIndustry_header_3">
+			</view> -->
+			<!-- <view class="choiceIndustry_header_3">
 				<text>热门</text>
-			</view>
+			</view> -->
 		</view>
 		
 		<!-- 热门类目 -->
 		<view class="popularData">
-			<div v-for="(item, index) in popularData" data-id="popularData" :key="index" :data-popularDataIndex="index"  @click="clickItem">
-				<view :class="item.active == true ? 'popularData_item active' : 'popularData_item' " >
+			<div v-for="(item, index) in popularData" data-id="popularData" :key="index">
+				<view :key="index" :data-popularDataIndex="index"  @click="clickItem" :class="item.active == true ? 'popularData_item active' : 'popularData_item' " >
 					<text>{{item.name}}</text>
 				</view>
 			</div>
@@ -24,9 +28,9 @@
 		
 		
 		<!-- 更多 -->
-		<view class="choiceIndustry_header_3">
+		<!-- <view class="choiceIndustry_header_3">
 			<text>更多</text>
-		</view>
+		</view> -->
 		<!-- 更多类目 -->
 		<view class="popularData">
 			<div v-for="(item, index) in moreData" data-id="moreData" :key="index" :data-moreDataIndex="index"  @click="clickItem">
@@ -54,55 +58,55 @@
 	export default {
 		data() {
 			return {
-				title : '请选择你的行业',
+				title : '(最多选5项)',
 				activeArr : '',
 				popularData : [
-					{"name" : "服饰", "active" : false},
+					{"name" : "服装", "active" : false},
 					{"name" : "箱包", "active" : false},
-					{"name" : "鞋帽配饰", "active" : false},
-					{"name" : "美妆", "active" : false},
-					{"name" : "母婴", "active" : false},
-					{"name" : "家纺", "active" : false},
-					{"name" : "日化用品", "active" : false},
-					{"name" : "体育用品", "active" : false},
-					{"name" : "厨房用具", "active" : false},
-					{"name" : "家用电器", "active" : false},
-					{"name" : "文具办公", "active" : false},
-					{"name" : "数码产品", "active" : false},
-					{"name" : "珠宝首饰", "active" : false},
-					{"name" : "日用百货", "active" : false},
-					{"name" : "礼品玩具", "active" : false},
-					{"name" : "宠物用品", "active" : false},
+					{"name" : "鞋帽", "active" : false},
+					{"name" : "美妆个护", "active" : false},
+					{"name" : "母婴百货", "active" : false},
+// 					{"name" : "家纺", "active" : false},
+// 					{"name" : "日化用品", "active" : false},
+// 					{"name" : "体育用品", "active" : false},
+// 					{"name" : "厨房用具", "active" : false},
+// 					{"name" : "家用电器", "active" : false},
+// 					{"name" : "文具办公", "active" : false},
+// 					{"name" : "数码产品", "active" : false},
+// 					{"name" : "珠宝首饰", "active" : false},
+// 					{"name" : "日用百货", "active" : false},
+// 					{"name" : "礼品玩具", "active" : false},
+// 					{"name" : "宠物用品", "active" : false},
 				],
 				moreData : [
-					{"name" : "男装", "active" : false},
-					{"name" : "女装", "active" : false},
-					{"name" : "童装", "active" : false},
-					{"name" : "内衣", "active" : false},
-					{"name" : "男鞋", "active" : false},
-					{"name" : "女鞋", "active" : false},
-					{"name" : "钟表", "active" : false},
-					{"name" : "手表", "active" : false},
-					{"name" : "眼镜", "active" : false},
-					{"name" : "家具", "active" : false},
-					{"name" : "灯具", "active" : false},
-					{"name" : "涂料", "active" : false},
-					{"name" : "五金", "active" : false},
-					{"name" : "卫浴", "active" : false},
-					{"name" : "瓷砖", "active" : false},
-					{"name" : "建材", "active" : false},
-					{"name" : "图书报刊", "active" : false},
-					{"name" : "乐器", "active" : false},
-					{"name" : "汽车用品", "active" : false},
-					{"name" : "汽车配件", "active" : false},
-					{"name" : "游戏", "active" : false},
-					{"name" : "动漫", "active" : false},
-					{"name" : "宠物", "active" : false},
-					{"name" : "花艺", "active" : false},
-					{"name" : "摄影", "active" : false},
-					{"name" : "软件开发", "active" : false},
-					{"name" : "信息技术", "active" : false},
-					{"name" : "广告", "active" : false},
+// 					{"name" : "男装", "active" : false},
+// 					{"name" : "女装", "active" : false},
+// 					{"name" : "童装", "active" : false},
+// 					{"name" : "内衣", "active" : false},
+// 					{"name" : "男鞋", "active" : false},
+// 					{"name" : "女鞋", "active" : false},
+// 					{"name" : "钟表", "active" : false},
+// 					{"name" : "手表", "active" : false},
+// 					{"name" : "眼镜", "active" : false},
+// 					{"name" : "家具", "active" : false},
+// 					{"name" : "灯具", "active" : false},
+// 					{"name" : "涂料", "active" : false},
+// 					{"name" : "五金", "active" : false},
+// 					{"name" : "卫浴", "active" : false},
+// 					{"name" : "瓷砖", "active" : false},
+// 					{"name" : "建材", "active" : false},
+// 					{"name" : "图书报刊", "active" : false},
+// 					{"name" : "乐器", "active" : false},
+// 					{"name" : "汽车用品", "active" : false},
+// 					{"name" : "汽车配件", "active" : false},
+// 					{"name" : "游戏", "active" : false},
+// 					{"name" : "动漫", "active" : false},
+// 					{"name" : "宠物", "active" : false},
+// 					{"name" : "花艺", "active" : false},
+// 					{"name" : "摄影", "active" : false},
+// 					{"name" : "软件开发", "active" : false},
+// 					{"name" : "信息技术", "active" : false},
+// 					{"name" : "广告", "active" : false},
 				],
 				popularActive : [
 					
@@ -180,13 +184,6 @@
 					} catch (e) {
 						// error
 					}
-// 					uni.setStorage({
-// 						key: 'business_scope',
-// 						data: this.activeArr,
-// 						success: function () {
-// 							console.log('经营范围存储成功');
-// 						}
-// 					});
 					// 修改step
 					try {
 						const openid = uni.getStorageSync('openid');
@@ -199,8 +196,7 @@
 									current_step : 1 // 0代表处理选择行业阶段
 								},
 								success: res => {
-									console.log('选择身份后,进行跳转main之前,修改状态',res);
-									uni.redirectTo({
+									uni.reLaunch({
 										url: '../main_index/main_index?from=choiceIndustryOne'
 									});
 								},
@@ -239,32 +235,37 @@
 }
 
 .choiceIndustry_header_1 {
-	margin-top: 25px;
+	margin-top: 20px;
+	margin-bottom: 70px;
 }
 .choiceIndustry_header_2 {
 	margin-top: 5px;
 }
 .choiceIndustry_header_3 {
+	font-size: 14px;
 	margin-top: 15px;
 }
 .popularData {
 	width: 660upx;
 	margin: 0 auto;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-direction: column;
+	align-content: center;
+	/* justify-content: space-between; */
 }
 .popularData_item {
+	margin: 0 auto;
 	font-size: 14px;
 	color: #E77D53;
 	border: 1px solid #E77D53;
-	width: 150upx;
-	height: 25px;
+	width: 200upx;
+	height: 34px;
+	line-height: 34px;
 	margin-top: 10px;
 	border-radius: 5px;
 }
 .choiceIndustry_pre_nex {
-	margin-top: 50px;
+	margin-top: 140px;
 	margin-bottom: 55px;
 	display: flex;
 	flex-direction: row;

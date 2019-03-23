@@ -13,8 +13,9 @@
 	text-align: center;
 }
 .step {
-	margin-top: 25px;
-	margin-bottom: 25px;
+	position: relative;
+	/* margin-top: 25px; */
+	/* margin-bottom: 25px; */
 	text-align: center;
 }
 .stepTitle {
@@ -28,8 +29,11 @@
 }
 /* 立即申请 */
 .applyImmediately {
+	bottom: 50px;
+	position: absolute;
+	left: 195rpx;
 	margin-top: 25px;
-	margin-bottom: 25px;
+	/* margin-bottom: 25px; */
 }
 .btn_hover {
 	color: black!important;

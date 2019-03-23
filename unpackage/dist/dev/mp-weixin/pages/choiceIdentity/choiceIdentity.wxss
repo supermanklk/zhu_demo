@@ -5,6 +5,7 @@
 	font-style: normal;
 }
 .choiceIdentity_header {
+	font-size: 20px;
 	margin-top: 100px;
 }
 .choiceIdentity_block_1 {

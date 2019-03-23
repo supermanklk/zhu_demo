@@ -1,4 +1,7 @@
 
+.name_repeat_error_title {
+	margin-top: 20px;
+}
 .inputRed {
 	border-color: red!important;
 }
@@ -84,7 +87,7 @@
 	margin-right: 10rpx;
 }
 .name_repeat_header_type {
-	width: 236rpx;
+	width: 260rpx;
 	height: 32px;
 	border: 1px solid #E5E5E5;
 	display: -webkit-box;

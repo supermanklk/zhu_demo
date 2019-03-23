@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -191,14 +191,38 @@ __webpack_require__.r(__webpack_exports__);
           this.number = e.detail.value.split('');
           this.focus = false;
           // 这里就是输入完验证码,需要开始调用校验邀请码的的函数
-          uni.showToast({
-            title: '通过验证码,正为你跳转下一步',
-            duration: 3000,
-            success: function success() {
-              uni.reLaunch({
-                url: '../main_index/main_index?from=choiceInvitationCode' });
+          if (e.detail.value == '724724' || e.detail.value == '334455') {
+            var arr = ['健康销售'];
+            uni.setStorageSync('business_scope', arr);
+            uni.setStorageSync('innercode', e.detail.value);
+            var openid = uni.getStorageSync('openid');
+            if (openid) {
+              uni.request({
+                url: global.host + 'Zhu/editCurrentStep',
+                method: 'GET',
+                data: {
+                  openid: openid,
+                  current_step: 1 // 0代表处理选择行业阶段
+                },
+                success: function success(res) {
+                  uni.showToast({
+                    title: '通过邀请,正在跳转',
+                    duration: 3000,
+                    success: function success() {
+                      uni.reLaunch({
+                        url: '../main_index/main_index?from=choiceInvitationCode' });
 
-            } });
+                    } });
+
+                },
+                fail: function fail() {},
+                complete: function complete() {} });
+
+            }
+
+          } else {
+
+          }
 
         } else {
           console.log(2);
@@ -209,7 +233,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

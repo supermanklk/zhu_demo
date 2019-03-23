@@ -102,7 +102,7 @@
 }
 .package_package_description_detail {
 	margin-top: 15px;
-	margin-left: 74rpx;
+	margin-left: 50rpx;
 	font-size: 14px;
 }
 .leave_time {

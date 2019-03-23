@@ -89,6 +89,9 @@
 
 
 
+
+
+
 /* 弹窗样式 */
 .name_repeat_error_modal {
 	height: 310px;
@@ -149,6 +152,7 @@
 	    -ms-flex-direction: column;
 	        flex-direction: column;
 	margin-left: 19px;
+	margin-right: 19px;
 }
 .name_repeat_error {
 }

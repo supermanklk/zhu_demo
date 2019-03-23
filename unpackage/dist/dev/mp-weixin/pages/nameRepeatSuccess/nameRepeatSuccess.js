@@ -165,8 +165,15 @@ __webpack_require__.r(__webpack_exports__);
       this.industry_description = decodeURIComponent(e.business);
       this.organization_form = e.organization;
     }
+
   },
   methods: {
+    // 重新查重
+    repeatFind: function repeatFind() {
+      uni.redirectTo({
+        url: '../name_repeat/name_repeat' });
+
+    },
     goTorRegistration: function goTorRegistration() {
       // 查重成功,去注册登记页面
       // 点击确定,保留执照name 并切改step
@@ -202,8 +209,7 @@ __webpack_require__.r(__webpack_exports__);
                           current_step: 2 // 2代表注册登记阶段
                         },
                         success: function success(res) {
-                          console.log('选择身份后,进行跳转main之前,修改状态', res);
-                          uni.redirectTo({
+                          uni.reLaunch({
                             url: '../main_index/main_index?from=name_repeat' });
 
                         },
@@ -269,7 +275,7 @@ var render = function() {
   return _c("view", { staticClass: "nameRepeatSuccess" }, [
     _vm._m(0),
     _c("view", {
-      staticStyle: { width: "750rpx", height: "2px", background: "#E5E5E5" }
+      staticStyle: { width: "750rpx", height: "1px", background: "#E5E5E5" }
     }),
     _vm._m(1),
     _vm._m(2),
@@ -300,7 +306,15 @@ var render = function() {
       ],
       1
     ),
-    _vm._m(3)
+    _c(
+      "view",
+      {
+        staticStyle: { height: "30px" },
+        attrs: { eventid: "42e95848-1" },
+        on: { click: _vm.repeatFind }
+      },
+      [_c("text", [_vm._v("重新查询")])]
+    )
   ])
 }
 var staticRenderFns = [
@@ -318,7 +332,7 @@ var staticRenderFns = [
         }
       }),
       _c("text", { staticClass: "nameRepeatSuccess_header_txt" }, [
-        _vm._v("查重通过,名称可用")
+        _vm._v("查重通过")
       ])
     ])
   },
@@ -335,15 +349,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "nameRepeatSuccess_block" }, [
-      _c("text", [_vm._v("1.查重结果仅供参考,须以最后审核结果为准")]),
-      _c("text", [_vm._v("2.点击确认后请在24小时内完成注册登记")])
+      _c("text", [_vm._v("1、查重结果仅供参考，须以最后审核结果为准")]),
+      _c("text", [_vm._v("2、请在24小时内完成注册登记")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", {}, [_c("text", [_vm._v("重新查询")])])
   }
 ]
 render._withStripped = true

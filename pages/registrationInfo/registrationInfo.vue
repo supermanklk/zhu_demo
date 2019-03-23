@@ -53,28 +53,18 @@
 		<view class="registrationInfo_info">
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
-					<text>申请名称</text>
+					<text>姓名</text>
 				</view>
 				<view class="registrationInfo_info_item_right">
-					<text>景宁甄好服装店</text>
+					<text>{{realname}}</text>
 				</view>
 			</view>
-			<!-- 注册资本 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
-					<text>注册资本</text>
+					<text>身份证号</text>
 				</view>
 				<view class="registrationInfo_info_item_right">
-					<text>1 万元</text>
-				</view>
-			</view>
-			<!-- 登记地址 -->
-			<view class="registrationInfo_info_item">
-				<view class="registrationInfo_info_item_left">
-					<text>登记地址</text>
-				</view>
-				<view class="registrationInfo_info_item_right">
-					<text>浙江省丽水市景宁自治县红星街道108号</text>
+					<text>{{idcard}}</text>
 				</view>
 			</view>
 			<!-- 联系方式 -->
@@ -83,16 +73,43 @@
 					<text>联系方式</text>
 				</view>
 				<view class="registrationInfo_info_item_right">
-					<text>17637794541</text>
+					<text>{{user_phone}}</text>
 				</view>
 			</view>
+			<view class="registrationInfo_info_item">
+				<view class="registrationInfo_info_item_left">
+					<text>申请名称</text>
+				</view>
+				<view class="registrationInfo_info_item_right">
+					<text>{{bussiness_name}}</text>
+				</view>
+			</view>
+			<!-- 注册资本 -->
+			<!-- <view class="registrationInfo_info_item">
+				<view class="registrationInfo_info_item_left">
+					<text>注册资本</text>
+				</view>
+				<view class="registrationInfo_info_item_right">
+					<text>1 万元</text>
+				</view>
+			</view> -->
+			<!-- 登记地址 -->
+			<view class="registrationInfo_info_item">
+				<view class="registrationInfo_info_item_left">
+					<text>登记地址</text>
+				</view>
+				<view class="registrationInfo_info_item_right">
+					<text>浙江省丽水市景宁畲族自治县红星街道108号</text>
+				</view>
+			</view>
+			
 			<!-- 登记机关 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>登记机关</text>
 				</view>
 				<view class="registrationInfo_info_item_right">
-					<text>景宁自治县市场监督管理局</text>
+					<text>景宁畲族自治县市场监督管理局</text>
 				</view>
 			</view>
 			<!-- 管辖单位 -->
@@ -101,7 +118,7 @@
 					<text>管辖单位</text>
 				</view>
 				<view class="registrationInfo_info_item_right">
-					<text>景宁自治县市场监督管理局</text>
+					<text>景宁畲族自治县市场监督管理局</text>
 				</view>
 			</view>
 			<!-- 经营范围 -->
@@ -110,7 +127,16 @@
 					<text>经营范围</text>
 				</view>
 				<view class="registrationInfo_info_item_right">
-					<text>服饰,箱包,鞋帽,母婴,没装的互联网零售.(仅限于通过互联网从事经营活动)(依法须批准的醒目,经相关部门批准方可开展经营活动)</text>
+					<text>网上销售：{{business_scope}}(依法须批准的醒目,经相关部门批准方可开展经营活动)</text>
+				</view>
+			</view>
+			<!-- 主营业务 -->
+			<view class="registrationInfo_info_item">
+				<view class="registrationInfo_info_item_left">
+					<text>主营业务</text>
+				</view>
+				<view class="registrationInfo_info_item_right">
+					<text>{{main_scope}}</text>
 				</view>
 			</view>
 			<!-- 执照预览 -->
@@ -124,13 +150,13 @@
 			</view>
 			
 		</view>
-		
+		<!-- 
 		<view class="registrationInfo_header" style="margin-top: 15px;">
 			<text>个人信息</text>
-		</view>
+		</view> -->
 		
 		
-		<view class="registrationInfo_info">
+		<!-- <view class="registrationInfo_info">
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>姓名</text>
@@ -139,7 +165,6 @@
 					<text>这个超人</text>
 				</view>
 			</view>
-			<!-- 性别 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>性别</text>
@@ -148,8 +173,6 @@
 					<text>男</text>
 				</view>
 			</view>
-			<!-- 民族 -->
-			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>民族</text>
 				</view>
@@ -157,7 +180,6 @@
 					<text>汉</text>
 				</view>
 			</view>
-			<!-- 出生 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>出生</text>
@@ -166,7 +188,6 @@
 					<text>19999999</text>
 				</view>
 			</view>
-			<!-- 身份证号 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>身份证号</text>
@@ -175,7 +196,6 @@
 					<text>310000000000000022</text>
 				</view>
 			</view>
-			<!-- 地址 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>地址</text>
@@ -184,7 +204,6 @@
 					<text>地球美国帝国大厦顶楼</text>
 				</view>
 			</view>
-			<!-- 签发机关 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>签发机关</text>
@@ -193,7 +212,6 @@
 					<text>复仇者联盟政审局</text>
 				</view>
 			</view>
-			<!-- 有效期限 -->
 			<view class="registrationInfo_info_item">
 				<view class="registrationInfo_info_item_left">
 					<text>有效期限</text>
@@ -202,7 +220,7 @@
 					<text>2015.02.11-2015.02.29</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
 		<!-- 同意协议 -->
 		<view class="registrationInfo_protocol">
@@ -219,13 +237,80 @@
 </template>
 
 <script>
+	var _self;
 	export default {
 		data() {
 			return {
 				alertImg : false, //预览弹窗是否显示,默认不显示
 				alertProtocol : false, //查看协议
-				radio : false
+				radio : false, 
+				bussiness_name : '', // 企业名称
+				realname : '', // 名字
+				idcard : '', // 首份证号
+				user_phone: '', // 用户手机号
+				business_scope : '', // 经营范围
+				main_scope : '' // 主营业务
+				
 			};
+		},
+		onLoad() {
+			_self = this;
+			uni.request({
+				url: global.host + 'Zhu/getUserInfo',
+				method: 'GET',
+				data: {
+					openid : global.openid
+				},
+				success: res => {
+					console.log('查看该用户信息',res.data[0].user_phone);
+					// 把用户信息存在缓存
+					try {
+						uni.setStorageSync('userinfo', res.data[0]);
+					} catch (e) {
+						console.log('设置用户信息失败');
+						// error
+					}
+					let user_phone = res.data[0].user_phone;
+					_self.user_phone = user_phone;
+				},
+				fail: () => {},
+				complete: () => {}
+			});
+			try {
+				let bussiness_name = uni.getStorageSync('bussiness_name');
+				const infofront = uni.getStorageSync('infofront');
+				const infoback = uni.getStorageSync('infoback');
+				const business_scope = uni.getStorageSync('business_scope');
+				console.log(business_scope);
+				if (bussiness_name && infofront && infoback) {
+					let {realname, idcard} =  infofront.data.result;
+					this.realname = realname;
+					this.idcard = idcard;
+					let txt = '';
+					try {
+						const main_scope = uni.getStorageSync('main_scope');
+						this.main_scope = main_scope;
+						for(let i = 0; i < business_scope.length; i++ ){
+							if(business_scope[i] != main_scope) {
+								txt = business_scope[i] + ',' + txt;
+							}
+						}
+						let text = main_scope + ',' + txt;
+						try {
+							uni.setStorageSync('business_scope_text', text.substr(0,text.length-1));
+						} catch (e) {
+							// error
+						}
+						this.business_scope = text.substr(0,text.length-1);
+						this.bussiness_name = bussiness_name.replace(/名称查重通过/,'');
+					} catch (e) {
+						console.log('errormain_scope');
+					}
+					
+				}
+			} catch (e) {
+				// error
+			}	
 		},
 		methods:{
 			lookPreImg() {
@@ -264,29 +349,12 @@
 								},
 								success: res => {
 									// 在跳转之前,要保留用户的信息
-									uni.request({
-										url: global.host + 'Zhu/changeIdCard',
-										method: 'GET',
-										data: {
-											openid : openid,
-											user_name : '张彬',
-											id_card_number : '411328199408230055',
-											id_card_sex : 1,
-											id_card_nation : 1,
-											id_card_address : '上海宝山新二路55号',
-											id_card_front : 'https://wx.qlogo.cn/mmopen/vi_32/vHvGVjRQ5MUwy7Osj6C1pkaQghVh6vQ4IfCJicPa4NIpax0URult0eyic0T398nAyR73vricMfBAr3IXYbfsPxicAw/132',
-											id_card_back : 'https://wx.qlogo.cn/mmopen/vi_32/vHvGVjRQ5MUwy7Osj6C1pkaQghVh6vQ4IfCJicPa4NIpax0URult0eyic0T398nAyR73vricMfBAr3IXYbfsPxicAw/132'
-										},
-										success: res => {
-											// 保留成功以后去跳转到主页
-											uni.redirectTo({
-												url: '../main_index/main_index?from=registrationInfo'
-											});
-										},
-										fail: () => {},
-										complete: () => {}
+									uni.reLaunch({
+										url: '../main_index/main_index?from=registrationInfo'
 									});
-									
+// 									uni.redirectTo({
+// 										url: '../main_index/main_index?from=registrationInfo'
+// 									});
 								},
 								fail: () => {},
 								complete: () => {}

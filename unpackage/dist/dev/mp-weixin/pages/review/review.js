@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -163,15 +163,34 @@ __webpack_require__.r(__webpack_exports__);
       datainfo: '' };
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {var _this = this;
+    console.log('进度页面');
     try {
       var value = uni.getStorageSync('beian');
-      if (value) {
+      if (value.data) {
         console.log(value);
         this.datainfo = value.data;
+      } else {
+        var openid = uni.getStorageSync('openid');
+        // 如果本地缓存没有则去接口请求
+        uni.request({
+          url: global.host + 'Zhu/getCompanyInfo',
+          method: 'GET',
+          data: {
+            openid: openid },
+
+          success: function success(res) {
+            console.log('res11', res);
+            var notification = JSON.parse(res.data.data["0"].notification).data;
+            _this.datainfo = notification;
+          },
+          fail: function fail() {},
+          complete: function complete() {} });
+
       }
     } catch (e) {
       // error
+      console.log('error,进度页面');
     }
   },
   methods: {
@@ -181,7 +200,7 @@ __webpack_require__.r(__webpack_exports__);
         url: '../main_index/main_index?from=review' });
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"], __webpack_require__(/*! ./../../../../../../Applications/HBuilderX 2.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 

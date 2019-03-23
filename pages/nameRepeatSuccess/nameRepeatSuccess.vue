@@ -4,12 +4,12 @@
 		<!-- icon 与 文字 -->
 		<view class="nameRepeatSuccess_header">
 			<image class="nameRepeatSuccess_header_img" src="http://qniyong.oss-cn-hangzhou.aliyuncs.com/item/web/images/name_repeat_ok.png" mode="" ></image>
-			<text class="nameRepeatSuccess_header_txt">查重通过,名称可用</text>
+			<text class="nameRepeatSuccess_header_txt">查重通过</text>
 			<!-- <text class="nameRepeatSuccess_header_txt">该名称将保留24小时,请尽快完成注册登记</text> -->
 		</view>
 		
 		
-		<view class="" style="width: 750upx; height: 2px; background: #E5E5E5;">
+		<view class="" style="width: 750upx; height: 1px; background: #E5E5E5;">
 		</view>
 		
 		<view class="nameRepeatSuccess_prompt">
@@ -17,8 +17,8 @@
 		</view>
 		
 		<view class="nameRepeatSuccess_block">
-			<text>1.查重结果仅供参考,须以最后审核结果为准</text>
-			<text>2.点击确认后请在24小时内完成注册登记</text>
+			<text>1、查重结果仅供参考，须以最后审核结果为准</text>
+			<text>2、请在24小时内完成注册登记</text>
 		</view>
 		
 		<!-- 确认支付按钮 -->
@@ -28,7 +28,7 @@
 			</button>
 		</view>
 		
-		<view class="">
+		<view class="" @click="repeatFind" style="height: 30px;">
 			<text>重新查询</text>
 		</view>
 	</view>
@@ -50,8 +50,15 @@
 				this.industry_description = decodeURIComponent(e.business);
 				this.organization_form = e.organization;
 			}
+			
 		},
 		methods:{
+			// 重新查重
+			repeatFind() {
+				uni.redirectTo({
+					url: '../name_repeat/name_repeat'
+				});
+			},
 			goTorRegistration() {
 				// 查重成功,去注册登记页面
 				// 点击确定,保留执照name 并切改step
@@ -87,8 +94,7 @@
 															current_step : 2 // 2代表注册登记阶段
 														},
 														success: res => {
-															console.log('选择身份后,进行跳转main之前,修改状态',res);
-															uni.redirectTo({
+															uni.reLaunch({
 																url: '../main_index/main_index?from=name_repeat'
 															});
 														},
@@ -127,6 +133,7 @@
 
 <style>
 .nameRepeatSuccess_prompt {
+	font-family: PingFangSC-Light;
 	font-size: 14px;
 	margin-top: 25px;
 }
@@ -158,12 +165,12 @@
 }
 .nameRepeatSuccess_header_img {
 	margin: 0 auto;
-	width: 80upx;
-	height: 40px;
+	width: 120upx;
+	height: 60px;
 }
 .nameRepeatSuccess_header_txt {
 	margin-top: 34px;
-	font-size: 14px;
+	font-size: 20px;
 	margin-bottom: 25px;
 }
 .choiceIndustry_pre_nex {
@@ -202,7 +209,8 @@
  
  .goTorRegistration {
 	 margin: 0 auto;
-	 margin-top: 200px;
+	 margin-top: 165px;
+	 margin-bottom: 15px;
 	 text-align: center;
  }
 </style>
